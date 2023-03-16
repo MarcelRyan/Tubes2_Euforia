@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\src",
+    "\\src\\Algorithm",
     "\\src\\IO",
     "\\test"
   ],
+  "SelectedNode": "\\src\\IO\\IO.cs",
   "PreviewInSolutionExplorer": false
 }

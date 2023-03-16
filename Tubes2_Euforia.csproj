@@ -80,7 +80,6 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\IO.exe" />
     <Content Include="test\test.txt" />
   </ItemGroup>
   <ItemGroup>

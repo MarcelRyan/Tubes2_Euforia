@@ -21,7 +21,7 @@ class IO
     static string[][] ReadMapFile(string fileName, string path = "../../test/",string extension = ".txt")
     {
         string validChars = "KTRX";
-
+        
         string[] lines = File.ReadAllLines(Path.GetFullPath(path + FixFileExtension(fileName)));
 
         var map = lines.Select(line => line.ToUpper().Split(' ')).ToArray();
@@ -29,23 +29,21 @@ class IO
         if (map.Length == 0) throw new Exception("Map kosong!");
 
         int columns = map[0].Length;
-
+        int startCount = 0;
         foreach(var line in map)
         {
             if (line.Length != columns) throw new Exception("Masukan pada setiap baris harus memiliki jumlah karakter yang sama!");
-
             foreach(var c in line)
             {
                 if (c.Length > 1) new Exception("Setiap karakter harus dipisah spasi!");
+                if (c == "K") startCount++;
                 
                 if (!validChars.Contains(c)) throw new Exception("Masukan map memiliki karakter yang tidak valid! Karakter yang diperbolehkan adalah K, T, R, dan X");
             }
         }
-        return map;
-    }
 
-    static void Main(string[] args) {
-        ReadMapFile("test.3");
+        if (startCount != 1) throw new Exception("Titik awal berupa karakter K harus berjumlah 1 pada map!");
+        return map;
     }
 }    
 
