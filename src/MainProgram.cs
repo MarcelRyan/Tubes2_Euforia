@@ -8,7 +8,7 @@ class MainProgram
     static void Main(string[] args)
     {
         string[][] map = FileIO.ReadMapFile("test");
-        DFSState dfsState = new DFSState(map, false);
+        DFSState dfsState = new DFSState(map, true);
 
         foreach (var line in map)
         {
@@ -25,6 +25,7 @@ class MainProgram
             dfsState.Move();
             Console.WriteLine(dfsState.position);
             Console.WriteLine(dfsState.foundTreasureCount);
+            //Console.WriteLine("stack top:" + (Tuple<Tuple<int, int>, Tuple<int, int>>)dfsState._stack.Peek());
             string temp =  Console.ReadLine();
             
         }

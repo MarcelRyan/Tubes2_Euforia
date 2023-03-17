@@ -22,22 +22,16 @@ class DFSState
 
     private Tuple<bool, Tuple<int, int>>[,] _checkMap;
 
-    private Stack _stack; 
+    public Stack _stack; 
 
     static Tuple<bool, Tuple<int, int>> defaultCheckValue = new Tuple<bool, Tuple<int, int>>(false, new Tuple<int, int>(-1, -1));
 
-    //static Tuple<int, int>[] directions = new Tuple<int, int>[4] { 
-    //    new Tuple<int, int>(0, -1),
-    //    new Tuple<int, int>(1, 0),
-    //    new Tuple<int, int>(0, 1),
-    //    new Tuple<int, int>(-1, 0)
-    //};
-
+    // arah terbawah menunjukkan arah pertama yang dieksekusi pada DFS (prinsip stack)
     static Tuple<int, int>[] directions = new Tuple<int, int>[4] {
-        new Tuple<int, int>(-1, 0),
-        new Tuple<int, int>(0, 1),
+        new Tuple<int, int>(0, -1),
         new Tuple<int, int>(1, 0),
-        new Tuple<int, int>(0, -1)
+        new Tuple<int, int>(0, 1),
+        new Tuple<int, int>(-1, 0),
     };
 
     // konfigurasi default objek
@@ -74,8 +68,8 @@ class DFSState
     private bool isValid(Tuple<int, int> target)
     {
         if (target.Item1 < 0 || target.Item2 < 0 || target.Item1 >= row || target.Item2 >= col
-            || getMapElmt(target) == "X"
-            || getCheckMap(target).Item1
+            || GetMapElmt(target) == "X"
+            || GetCheckMap(target).Item1
            )
         {
             return false;
@@ -91,17 +85,17 @@ class DFSState
         _stack.Clear();
     }
 
-    private string getMapElmt(Tuple<int, int> p)
+    private string GetMapElmt(Tuple<int, int> p)
     {
         return map[p.Item1][p.Item2];
     }
 
-    private Tuple<bool, Tuple<int, int>> getCheckMap(Tuple<int, int> p)
+    private Tuple<bool, Tuple<int, int>> GetCheckMap(Tuple<int, int> p)
     {
         return _checkMap[p.Item1, p.Item2];
     }
 
-    private void setCheckMap(Tuple<int, int> p, Tuple<bool, Tuple<int, int>> val)
+    private void SetCheckMap(Tuple<int, int> p, Tuple<bool, Tuple<int, int>> val)
     {
         _checkMap[p.Item1, p.Item2] = val;
     }
@@ -142,7 +136,7 @@ class DFSState
         {
             path.Add(tempPosition);
 
-            tempPosition = getCheckMap(tempPosition).Item2;
+            tempPosition = GetCheckMap(tempPosition).Item2;
         }
 
         path.Reverse();
@@ -150,6 +144,7 @@ class DFSState
         return path;
     }
 
+    // backtrack hingga ada node yang memiliki tetangga yang belum dikunjungi
     private void BackTrack()
     {
         if (_stack.Count == 0) return;
@@ -158,29 +153,40 @@ class DFSState
 
         while (position != backtrackPoint)
         {
-            if (getMapElmt(position) == "T")
+            if (GetMapElmt(position) == "T")
             {
                 foundTreasureCount--;
 
                 foundAll = false;
+
+                if (tspMode)
+                {
+                    SetCheckMap(initialPosition, new Tuple<bool, Tuple<int, int>>(true, defaultCheckValue.Item2));
+                }
             }
 
             var temp = position;
 
-            position = getCheckMap(position).Item2;
+            position = GetCheckMap(position).Item2;
      
-            setCheckMap(temp, defaultCheckValue);
+            SetCheckMap(temp, defaultCheckValue);
         }
     }
 
     // Berpindah satu langkah dengan pendekatan DFS
     public void Move()
     {
-        if (_stack.Count == 0 || stop) return;
+        if (stop) return;
 
-        while (!isValid(((Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Peek()).Item1))
+        while (_stack.Count > 0 && !isValid(((Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Peek()).Item1))
         {
             _stack.Pop();
+        }
+
+        if (_stack.Count == 0)
+        {
+            stop = true;
+            return;
         }
 
         Tuple<Tuple<int, int>, Tuple<int, int>> top = (Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Peek();
@@ -193,7 +199,7 @@ class DFSState
 
         Tuple<int, int> newPosition = ((Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Pop()).Item1;
 
-        setCheckMap(newPosition, new Tuple<bool, Tuple<int, int>>(true, position));
+        SetCheckMap(newPosition, new Tuple<bool, Tuple<int, int>>(true, position));
 
         position = newPosition;
 
@@ -205,7 +211,7 @@ class DFSState
             stepCount = GetCurrentPath().Count;
         }
 
-        if (getMapElmt(position) == "T")
+        if (GetMapElmt(position) == "T")
         {
             foundTreasureCount++;
 
@@ -215,7 +221,7 @@ class DFSState
                 foundAll = true;
 
                 // tspMode tidak terminate karena harus kembali ke titik awal
-                if (tspMode) setCheckMap(initialPosition, defaultCheckValue);
+                if (tspMode) SetCheckMap(initialPosition, defaultCheckValue);
 
                 // terminate jika bukan tspMode
                 else
@@ -227,7 +233,7 @@ class DFSState
             }
         }
 
-        else if (tspMode && getMapElmt(position) == "K")
+        else if (tspMode && GetMapElmt(position) == "K" && foundAll)
         {
             Terminate();
             return;
@@ -244,6 +250,7 @@ class DFSState
 
     public void AutoComplete()
     {
+        // loop sampai tujuan dicapai
         while (!stop)
         {
             Move();
@@ -252,6 +259,7 @@ class DFSState
 
     public void Reset()
     {
+        // reset ke posisi awal
         defaultConfig();
     }
 
