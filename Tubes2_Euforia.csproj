@@ -83,7 +83,9 @@
     <Content Include="test\test.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\IO\IO.cs" />
+    <Compile Include="src\Algorithm\DFSState.cs" />
+    <Compile Include="src\IO\FileIO.cs" />
+    <Compile Include="src\MainProgram.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\objects\info\" />

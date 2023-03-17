@@ -2,10 +2,10 @@ using System;
 using System.IO;
 using System.Linq;
 
-class IO
+class FileIO
 {
  
-    static string FixFileExtension(string fileName, string extension = ".txt")
+    static public string FixFileExtension(string fileName, string extension = ".txt")
     {
         string result = fileName;
 
@@ -18,7 +18,7 @@ class IO
         return result + ".txt";
 
     }
-    static string[][] ReadMapFile(string fileName, string path = "../../test/",string extension = ".txt")
+    static public string[][] ReadMapFile(string fileName, string path = "../test/",string extension = ".txt")
     {
         string validChars = "KTRX";
         
