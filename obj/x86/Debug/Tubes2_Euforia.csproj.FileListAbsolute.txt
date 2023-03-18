@@ -4,3 +4,5 @@ D:\Arsip Semester 4\Stima\Tubes\Tubes2\Tubes2_Euforia\obj\x86\Debug\Tubes2_Eufor
 D:\Arsip Semester 4\Stima\Tubes\Tubes2\Tubes2_Euforia\obj\x86\Debug\Tubes2_Euforia.csproj.CoreCompileInputs.cache
 D:\Arsip Semester 4\Stima\Tubes\Tubes2\Tubes2_Euforia\obj\x86\Debug\WindowsApplication.exe
 D:\Arsip Semester 4\Stima\Tubes\Tubes2\Tubes2_Euforia\obj\x86\Debug\WindowsApplication.pdb
+C:\Users\hp\Documents\Kuliah sem 4\STIMA\Tubes2\Tubes2_Euforia\obj\x86\Debug\WindowsApplication.exe
+C:\Users\hp\Documents\Kuliah sem 4\STIMA\Tubes2\Tubes2_Euforia\obj\x86\Debug\WindowsApplication.pdb

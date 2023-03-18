@@ -8,7 +8,8 @@ class MainProgram
     static void Main(string[] args)
     {
         string[][] map = FileIO.ReadMapFile("test");
-        DFSState dfsState = new DFSState(map, true);
+        // DFSState dfsState = new DFSState(map, true);
+        BFSState bfsState = new BFSState(map, true);
 
         foreach (var line in map)
         {
@@ -20,11 +21,11 @@ class MainProgram
             Console.WriteLine();
         }
 
-        while (!dfsState.stop)
+        while (!bfsState.stop)
         {
-            dfsState.Move();
-            Console.WriteLine(dfsState.position);
-            Console.WriteLine(dfsState.foundTreasureCount);
+            bfsState.Move();
+            Console.WriteLine(bfsState.position);
+            Console.WriteLine(bfsState.foundTreasureCount);
             //Console.WriteLine("stack top:" + (Tuple<Tuple<int, int>, Tuple<int, int>>)dfsState._stack.Peek());
             string temp =  Console.ReadLine();
             

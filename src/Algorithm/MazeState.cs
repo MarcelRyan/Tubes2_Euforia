@@ -140,6 +140,22 @@ abstract class MazeState
         return path;
     }
 
+    public void GetCurrentPath2(Tuple<Tuple<int, int>, Tuple<int, int>> top)
+    {
+        Tuple<int, int> tempPosition = top.Item1;
+        int nTimes = 0;
+        
+        while (tempPosition.Item1 != -1 && tempPosition.Item2 != -1)
+        {
+            Tuple<int, int> temp = tempPosition;
+            tempPosition = GetCheckMap(tempPosition).Item2;
+            if(nTimes > 0){
+                SetCheckMap(temp, new Tuple<bool, Tuple<int, int>>(false, tempPosition));
+            }
+            nTimes++;
+        }
+    }
+
     // backtrack hingga ada node yang memiliki tetangga yang belum dikunjungi
     abstract protected void BackTrack();
 
