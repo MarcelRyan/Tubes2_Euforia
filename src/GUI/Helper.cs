@@ -11,6 +11,7 @@ namespace GUI
     class Helper
     {
         public static string file;
+        public static string time;
         public static DataTable TableDataFromTextFile(string location, char delimiter = ' ')
         {
             DataTable result;

@@ -18,9 +18,9 @@ class FileIO
         return result + ".txt";
 
     }
-    static public string[][] ReadMapFile(string fileName, string path = "../test/",string extension = ".txt")
+
+    static public string GetTestPath(string fileName, string path = "../test/", string extension = ".txt")
     {
-        string validChars = "KTRX";
         string prefix = "";
 
 #if DEBUG
@@ -29,7 +29,14 @@ class FileIO
         prefix = "";
 #endif
 
-        string[] lines = File.ReadAllLines(Path.GetFullPath(prefix + path + FixFileExtension(fileName)));
+        return Path.GetFullPath(prefix + path + FixFileExtension(fileName));
+
+    }
+    static public string[][] ReadMapFile(string fileName, string path = "../test/",string extension = ".txt")
+    {
+        string validChars = "KTRX";
+
+        string[] lines = File.ReadAllLines(GetTestPath(fileName, path, extension));
 
         var map = lines.Select(line => line.ToUpper().Split(' ')).ToArray();
 

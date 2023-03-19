@@ -45,6 +45,7 @@ namespace GUI
         public Treasure_Hunt_Solver()
         {
             InitializeComponent();
+            this.fileNameBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(CheckEnterKeyPress);
 
             // making round rectangle form
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
@@ -62,6 +63,7 @@ namespace GUI
             progressButton.Dock = DockStyle.Fill;
             timeLabel.Hide();
             timeStampBox.Hide();
+            timeStampBox.Enabled = false;
         }
 
         private void Treasure_Hunt_Solver_Load(object sender, EventArgs e)
@@ -144,7 +146,21 @@ namespace GUI
         // handle filename text box changes
         private void fileNameChange(object sender, EventArgs e)
         {
+            Helper.file = FileIO.GetTestPath(fileNameBox.Text);
+        }
 
+        private void CheckEnterKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return)
+            {
+                exitFocus(sender, e);
+                e.Handled = true;
+            }
+        }
+
+        private void exitFocus(object sender, EventArgs e)
+        {
+            this.ActiveControl = null;
         }
 
         private void bfsButton_Click(object sender, EventArgs e)
@@ -179,6 +195,7 @@ namespace GUI
                 progressButton.Dock = DockStyle.Top;
                 timeLabel.Show();
                 timeStampBox.Show();
+                timeStampBox.Enabled = true;
             }
 
             else
@@ -186,14 +203,12 @@ namespace GUI
                 progressButton.Dock = DockStyle.Fill;
                 timeLabel.Hide();
                 timeStampBox.Hide();
+                timeStampBox.Enabled = false;
             }
         }
 
         private void visualizeButton_Click(object sender, EventArgs e)
         {
-<<<<<<< HEAD
-
-=======
             mazeGridView.DataSource = Helper.TableDataFromTextFile(filename);
 
             mazeGridView.CellFormatting += dataGridView1_CellFormatting;
@@ -208,14 +223,11 @@ namespace GUI
             {
                 row.Height = tinggi;
             }
->>>>>>> 6ef3a87b2dec3a824d0e7de3d372cf3069adb951
         }
 
         private void solveButton_Click(object sender, EventArgs e)
         {
-<<<<<<< HEAD
 
-=======
             string[][] map = FileIO.ReadMapFile(fileNameBox.Text.Replace(".txt", ""));
 
             if (dfsMode)
@@ -251,7 +263,6 @@ namespace GUI
                     mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
                 }
             }
->>>>>>> 6ef3a87b2dec3a824d0e7de3d372cf3069adb951
         }
 
         private void selectButton_Hover(object sender, EventArgs e)
@@ -262,7 +273,24 @@ namespace GUI
         // handle time text changes
         private void timeText_Click(object sender, EventArgs e)
         {
+            Helper.time = timeStampBox.Text;
+        }
 
+        private void myNumericUpDown_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = e.SuppressKeyPress = true;
+            }
+        }
+
+        private void myNumericUpDown_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = e.SuppressKeyPress = true;
+                exitFocus(sender, e);
+            }
         }
     }
 }

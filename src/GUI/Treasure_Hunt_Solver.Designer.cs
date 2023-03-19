@@ -38,8 +38,8 @@ namespace GUI
             tspModePanel = new Panel();
             tspButton = new FontAwesome.Sharp.IconButton();
             visualizeConfigPanel = new Panel();
+            timeStampBox = new NumericUpDown();
             timeLabel = new Label();
-            timeStampBox = new TextBox();
             progressButton = new FontAwesome.Sharp.IconButton();
             algorithmConfigPanel = new Panel();
             dfsButton = new FontAwesome.Sharp.IconButton();
@@ -56,6 +56,7 @@ namespace GUI
             configPanel.SuspendLayout();
             tspModePanel.SuspendLayout();
             visualizeConfigPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)timeStampBox).BeginInit();
             algorithmConfigPanel.SuspendLayout();
             FileConfigPanel.SuspendLayout();
             logoPanel.SuspendLayout();
@@ -142,8 +143,8 @@ namespace GUI
             // 
             // visualizeConfigPanel
             // 
-            visualizeConfigPanel.Controls.Add(timeLabel);
             visualizeConfigPanel.Controls.Add(timeStampBox);
+            visualizeConfigPanel.Controls.Add(timeLabel);
             visualizeConfigPanel.Controls.Add(progressButton);
             visualizeConfigPanel.Dock = DockStyle.Bottom;
             visualizeConfigPanel.Location = new Point(0, 324);
@@ -151,6 +152,20 @@ namespace GUI
             visualizeConfigPanel.Name = "visualizeConfigPanel";
             visualizeConfigPanel.Size = new Size(262, 120);
             visualizeConfigPanel.TabIndex = 24;
+            // 
+            // timeStampBox
+            // 
+            timeStampBox.BackColor = Color.FromArgb(24, 30, 54);
+            timeStampBox.BorderStyle = BorderStyle.FixedSingle;
+            timeStampBox.ForeColor = Color.White;
+            timeStampBox.Location = new Point(67, 67);
+            timeStampBox.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            timeStampBox.Name = "timeStampBox";
+            timeStampBox.Size = new Size(109, 30);
+            timeStampBox.TabIndex = 8;
+            timeStampBox.ValueChanged += timeText_Click;
+            timeStampBox.KeyDown += myNumericUpDown_KeyDown;
+            timeStampBox.KeyUp += myNumericUpDown_KeyUp;
             // 
             // timeLabel
             // 
@@ -162,15 +177,6 @@ namespace GUI
             timeLabel.Size = new Size(34, 30);
             timeLabel.TabIndex = 7;
             timeLabel.Text = "ms";
-            // 
-            // timeStampBox
-            // 
-            timeStampBox.BackColor = Color.FromArgb(24, 30, 54);
-            timeStampBox.Location = new Point(55, 69);
-            timeStampBox.MaxLength = 3;
-            timeStampBox.Name = "timeStampBox";
-            timeStampBox.Size = new Size(121, 30);
-            timeStampBox.TabIndex = 6;
             // 
             // progressButton
             // 
@@ -389,7 +395,7 @@ namespace GUI
             configPanel.ResumeLayout(false);
             tspModePanel.ResumeLayout(false);
             visualizeConfigPanel.ResumeLayout(false);
-            visualizeConfigPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)timeStampBox).EndInit();
             algorithmConfigPanel.ResumeLayout(false);
             FileConfigPanel.ResumeLayout(false);
             FileConfigPanel.PerformLayout();
@@ -413,13 +419,13 @@ namespace GUI
         private Panel visualizeConfigPanel;
         private FontAwesome.Sharp.IconButton progressButton;
         private Label timeLabel;
-        private TextBox timeStampBox;
         private Panel algorithmConfigPanel;
         private Panel tspModePanel;
         private FontAwesome.Sharp.IconButton tspButton;
         private FontAwesome.Sharp.IconButton bfsButton;
         private FontAwesome.Sharp.IconButton dfsButton;
         private PictureBox logoPictureBox;
+        private NumericUpDown timeStampBox;
     }
 }
 
