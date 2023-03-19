@@ -122,17 +122,29 @@ abstract class MazeState
     }
 
     // mengembalikan path dari Krusty Crab ke posisi saat ini
-    public ArrayList GetCurrentPath()
+    virtual public ArrayList GetCurrentPath()
     {
         ArrayList path = new ArrayList();
 
         Tuple<int, int> tempPosition = position;
 
+        bool visitedInitialPosition = false;
+
         while (tempPosition.Item1 != -1 && tempPosition.Item2 != -1)
         {
             path.Add(tempPosition);
 
-            tempPosition = GetCheckMap(tempPosition).Item2;
+            if (tempPosition == initialPosition)
+            {
+                if (visitedInitialPosition) tempPosition = defaultCheckValue.Item2;
+
+                else visitedInitialPosition = true;
+            }
+
+            else
+            {
+                tempPosition = GetCheckMap(tempPosition).Item2;
+            }
         }
 
         path.Reverse();
