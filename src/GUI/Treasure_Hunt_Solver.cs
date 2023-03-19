@@ -21,7 +21,7 @@ namespace GUI
         private void Treasure_Hunt_Solver_Load(object sender, EventArgs e)
         {
             timeStampBox.Enabled = false;
-            //timeStampLabel.Enabled = false;
+
         }
 
 
@@ -80,6 +80,11 @@ namespace GUI
 
         // handle visual changes when button is clicked
         private void selectButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void selectButton_Hover(object sender, EventArgs e)
         {
 
         }

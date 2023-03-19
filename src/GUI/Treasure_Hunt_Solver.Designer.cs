@@ -35,21 +35,15 @@ namespace GUI
             mazeGridView = new DataGridView();
             openFileDialog1 = new OpenFileDialog();
             configPanel = new Panel();
-            panel1 = new Panel();
+            tspModePanel = new Panel();
             tspButton = new FontAwesome.Sharp.IconButton();
-            iconButton5 = new FontAwesome.Sharp.IconButton();
-            textBox3 = new TextBox();
             visualizeConfigPanel = new Panel();
             timeLabel = new Label();
             timeStampBox = new TextBox();
             progressButton = new FontAwesome.Sharp.IconButton();
-            iconButton1 = new FontAwesome.Sharp.IconButton();
-            textBox2 = new TextBox();
             algorithmConfigPanel = new Panel();
             dfsButton = new FontAwesome.Sharp.IconButton();
             bfsButton = new FontAwesome.Sharp.IconButton();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
-            textBox1 = new TextBox();
             FileConfigPanel = new Panel();
             browseFileButton = new FontAwesome.Sharp.IconButton();
             fileNameBox = new TextBox();
@@ -57,16 +51,15 @@ namespace GUI
             visualizeButton = new FontAwesome.Sharp.IconButton();
             solveButton = new FontAwesome.Sharp.IconButton();
             logoPanel = new Panel();
-            pictureBox1 = new PictureBox();
-            iconSplitButton1 = new FontAwesome.Sharp.IconSplitButton();
+            logoPictureBox = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)mazeGridView).BeginInit();
             configPanel.SuspendLayout();
-            panel1.SuspendLayout();
+            tspModePanel.SuspendLayout();
             visualizeConfigPanel.SuspendLayout();
             algorithmConfigPanel.SuspendLayout();
             FileConfigPanel.SuspendLayout();
             logoPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
             SuspendLayout();
             // 
             // mazeGridView
@@ -102,7 +95,7 @@ namespace GUI
             // configPanel
             // 
             configPanel.BackColor = Color.FromArgb(24, 30, 54);
-            configPanel.Controls.Add(panel1);
+            configPanel.Controls.Add(tspModePanel);
             configPanel.Controls.Add(visualizeConfigPanel);
             configPanel.Controls.Add(algorithmConfigPanel);
             configPanel.Controls.Add(FileConfigPanel);
@@ -115,15 +108,14 @@ namespace GUI
             configPanel.Size = new Size(262, 594);
             configPanel.TabIndex = 24;
             // 
-            // panel1
+            // tspModePanel
             // 
-            panel1.Controls.Add(tspButton);
-            panel1.Controls.Add(iconButton5);
-            panel1.Controls.Add(textBox3);
-            panel1.Location = new Point(0, 248);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(262, 69);
-            panel1.TabIndex = 24;
+            tspModePanel.Controls.Add(tspButton);
+            tspModePanel.Location = new Point(0, 248);
+            tspModePanel.Margin = new Padding(0);
+            tspModePanel.Name = "tspModePanel";
+            tspModePanel.Size = new Size(262, 70);
+            tspModePanel.TabIndex = 24;
             // 
             // tspButton
             // 
@@ -140,7 +132,7 @@ namespace GUI
             tspButton.Margin = new Padding(3, 3, 0, 0);
             tspButton.Name = "tspButton";
             tspButton.Padding = new Padding(25, 0, 0, 0);
-            tspButton.Size = new Size(262, 69);
+            tspButton.Size = new Size(262, 70);
             tspButton.TabIndex = 3;
             tspButton.Text = "TSP Mode";
             tspButton.TextAlign = ContentAlignment.MiddleLeft;
@@ -148,44 +140,16 @@ namespace GUI
             tspButton.UseVisualStyleBackColor = true;
             tspButton.Click += selectButton_Click;
             // 
-            // iconButton5
-            // 
-            iconButton5.Anchor = AnchorStyles.Right;
-            iconButton5.FlatAppearance.BorderSize = 0;
-            iconButton5.FlatStyle = FlatStyle.Flat;
-            iconButton5.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            iconButton5.ForeColor = Color.White;
-            iconButton5.IconChar = FontAwesome.Sharp.IconChar.File;
-            iconButton5.IconColor = Color.White;
-            iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton5.IconSize = 28;
-            iconButton5.Location = new Point(329, -146);
-            iconButton5.Name = "iconButton5";
-            iconButton5.Size = new Size(48, 31);
-            iconButton5.TabIndex = 2;
-            iconButton5.UseVisualStyleBackColor = true;
-            // 
-            // textBox3
-            // 
-            textBox3.Anchor = AnchorStyles.Left;
-            textBox3.BackColor = Color.FromArgb(31, 30, 68);
-            textBox3.ForeColor = Color.White;
-            textBox3.Location = new Point(3, -146);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(199, 30);
-            textBox3.TabIndex = 1;
-            // 
             // visualizeConfigPanel
             // 
             visualizeConfigPanel.Controls.Add(timeLabel);
             visualizeConfigPanel.Controls.Add(timeStampBox);
             visualizeConfigPanel.Controls.Add(progressButton);
-            visualizeConfigPanel.Controls.Add(iconButton1);
-            visualizeConfigPanel.Controls.Add(textBox2);
             visualizeConfigPanel.Dock = DockStyle.Bottom;
-            visualizeConfigPanel.Location = new Point(0, 323);
+            visualizeConfigPanel.Location = new Point(0, 324);
+            visualizeConfigPanel.Margin = new Padding(0);
             visualizeConfigPanel.Name = "visualizeConfigPanel";
-            visualizeConfigPanel.Size = new Size(262, 117);
+            visualizeConfigPanel.Size = new Size(262, 120);
             visualizeConfigPanel.TabIndex = 24;
             // 
             // timeLabel
@@ -193,16 +157,16 @@ namespace GUI
             timeLabel.FlatStyle = FlatStyle.Flat;
             timeLabel.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
             timeLabel.ForeColor = Color.White;
-            timeLabel.Location = new Point(182, 56);
+            timeLabel.Location = new Point(182, 69);
             timeLabel.Name = "timeLabel";
-            timeLabel.Size = new Size(34, 31);
+            timeLabel.Size = new Size(34, 30);
             timeLabel.TabIndex = 7;
             timeLabel.Text = "ms";
             // 
             // timeStampBox
             // 
             timeStampBox.BackColor = Color.FromArgb(24, 30, 54);
-            timeStampBox.Location = new Point(55, 56);
+            timeStampBox.Location = new Point(55, 69);
             timeStampBox.MaxLength = 3;
             timeStampBox.Name = "timeStampBox";
             timeStampBox.Size = new Size(121, 30);
@@ -220,10 +184,10 @@ namespace GUI
             progressButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             progressButton.IconSize = 32;
             progressButton.Location = new Point(0, 0);
-            progressButton.Margin = new Padding(3, 3, 0, 0);
+            progressButton.Margin = new Padding(0);
             progressButton.Name = "progressButton";
             progressButton.Padding = new Padding(35, 0, 0, 0);
-            progressButton.Size = new Size(262, 50);
+            progressButton.Size = new Size(262, 66);
             progressButton.TabIndex = 5;
             progressButton.Text = "Show Progress";
             progressButton.TextAlign = ContentAlignment.MiddleLeft;
@@ -231,42 +195,13 @@ namespace GUI
             progressButton.UseVisualStyleBackColor = true;
             progressButton.Click += selectButton_Click;
             // 
-            // iconButton1
-            // 
-            iconButton1.Anchor = AnchorStyles.Right;
-            iconButton1.FlatAppearance.BorderSize = 0;
-            iconButton1.FlatStyle = FlatStyle.Flat;
-            iconButton1.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            iconButton1.ForeColor = Color.White;
-            iconButton1.IconChar = FontAwesome.Sharp.IconChar.File;
-            iconButton1.IconColor = Color.White;
-            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.IconSize = 28;
-            iconButton1.Location = new Point(326, -82);
-            iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(48, 31);
-            iconButton1.TabIndex = 2;
-            iconButton1.UseVisualStyleBackColor = true;
-            // 
-            // textBox2
-            // 
-            textBox2.Anchor = AnchorStyles.Left;
-            textBox2.BackColor = Color.FromArgb(31, 30, 68);
-            textBox2.ForeColor = Color.White;
-            textBox2.Location = new Point(3, -82);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(199, 30);
-            textBox2.TabIndex = 1;
-            // 
             // algorithmConfigPanel
             // 
             algorithmConfigPanel.Controls.Add(dfsButton);
             algorithmConfigPanel.Controls.Add(bfsButton);
-            algorithmConfigPanel.Controls.Add(iconButton2);
-            algorithmConfigPanel.Controls.Add(textBox1);
             algorithmConfigPanel.Location = new Point(0, 180);
             algorithmConfigPanel.Name = "algorithmConfigPanel";
-            algorithmConfigPanel.Size = new Size(262, 66);
+            algorithmConfigPanel.Size = new Size(262, 70);
             algorithmConfigPanel.TabIndex = 23;
             // 
             // dfsButton
@@ -283,7 +218,7 @@ namespace GUI
             dfsButton.Location = new Point(127, 0);
             dfsButton.Margin = new Padding(3, 3, 0, 0);
             dfsButton.Name = "dfsButton";
-            dfsButton.Size = new Size(135, 66);
+            dfsButton.Size = new Size(135, 70);
             dfsButton.TabIndex = 4;
             dfsButton.Text = "DFS";
             dfsButton.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -303,39 +238,12 @@ namespace GUI
             bfsButton.Location = new Point(0, 0);
             bfsButton.Margin = new Padding(3, 3, 0, 0);
             bfsButton.Name = "bfsButton";
-            bfsButton.Size = new Size(135, 66);
+            bfsButton.Size = new Size(135, 70);
             bfsButton.TabIndex = 3;
             bfsButton.Text = "BFS";
             bfsButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             bfsButton.UseVisualStyleBackColor = true;
             bfsButton.Click += selectButton_Click;
-            // 
-            // iconButton2
-            // 
-            iconButton2.Anchor = AnchorStyles.Right;
-            iconButton2.FlatAppearance.BorderSize = 0;
-            iconButton2.FlatStyle = FlatStyle.Flat;
-            iconButton2.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            iconButton2.ForeColor = Color.White;
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.File;
-            iconButton2.IconColor = Color.White;
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.IconSize = 28;
-            iconButton2.Location = new Point(267, -125);
-            iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(48, 31);
-            iconButton2.TabIndex = 2;
-            iconButton2.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            textBox1.Anchor = AnchorStyles.Left;
-            textBox1.BackColor = Color.FromArgb(31, 30, 68);
-            textBox1.ForeColor = Color.White;
-            textBox1.Location = new Point(3, -125);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(199, 30);
-            textBox1.TabIndex = 1;
             // 
             // FileConfigPanel
             // 
@@ -345,7 +253,7 @@ namespace GUI
             FileConfigPanel.Controls.Add(fileConfigLabel);
             FileConfigPanel.Location = new Point(3, 98);
             FileConfigPanel.Name = "FileConfigPanel";
-            FileConfigPanel.Size = new Size(259, 76);
+            FileConfigPanel.Size = new Size(259, 80);
             FileConfigPanel.TabIndex = 22;
             // 
             // browseFileButton
@@ -359,7 +267,7 @@ namespace GUI
             browseFileButton.IconColor = Color.White;
             browseFileButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             browseFileButton.IconSize = 28;
-            browseFileButton.Location = new Point(208, 28);
+            browseFileButton.Location = new Point(208, 30);
             browseFileButton.Name = "browseFileButton";
             browseFileButton.Size = new Size(48, 31);
             browseFileButton.TabIndex = 2;
@@ -371,7 +279,7 @@ namespace GUI
             fileNameBox.Anchor = AnchorStyles.Left;
             fileNameBox.BackColor = Color.FromArgb(24, 30, 54);
             fileNameBox.ForeColor = Color.FromArgb(163, 55, 245);
-            fileNameBox.Location = new Point(3, 28);
+            fileNameBox.Location = new Point(3, 30);
             fileNameBox.Name = "fileNameBox";
             fileNameBox.Size = new Size(199, 30);
             fileNameBox.TabIndex = 1;
@@ -402,7 +310,7 @@ namespace GUI
             visualizeButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             visualizeButton.IconSize = 32;
             visualizeButton.ImageAlign = ContentAlignment.MiddleLeft;
-            visualizeButton.Location = new Point(0, 440);
+            visualizeButton.Location = new Point(0, 444);
             visualizeButton.Name = "visualizeButton";
             visualizeButton.Padding = new Padding(60, 0, 0, 0);
             visualizeButton.Size = new Size(262, 75);
@@ -426,10 +334,10 @@ namespace GUI
             solveButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             solveButton.IconSize = 32;
             solveButton.ImageAlign = ContentAlignment.MiddleLeft;
-            solveButton.Location = new Point(0, 515);
+            solveButton.Location = new Point(0, 519);
             solveButton.Name = "solveButton";
             solveButton.Padding = new Padding(60, 0, 0, 0);
-            solveButton.Size = new Size(262, 79);
+            solveButton.Size = new Size(262, 75);
             solveButton.TabIndex = 20;
             solveButton.Text = "Solve";
             solveButton.TextAlign = ContentAlignment.MiddleLeft;
@@ -439,35 +347,23 @@ namespace GUI
             // 
             // logoPanel
             // 
-            logoPanel.Controls.Add(pictureBox1);
+            logoPanel.Controls.Add(logoPictureBox);
             logoPanel.Dock = DockStyle.Top;
             logoPanel.Location = new Point(0, 0);
             logoPanel.Name = "logoPanel";
-            logoPanel.Size = new Size(262, 92);
+            logoPanel.Size = new Size(262, 90);
             logoPanel.TabIndex = 19;
             // 
-            // pictureBox1
+            // logoPictureBox
             // 
-            pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Image = Tubes2_Euforia.Properties.Resources.euforia_logo1;
-            pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(262, 92);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            // 
-            // iconSplitButton1
-            // 
-            iconSplitButton1.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            iconSplitButton1.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconSplitButton1.IconColor = Color.Black;
-            iconSplitButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconSplitButton1.IconSize = 48;
-            iconSplitButton1.Name = "iconSplitButton1";
-            iconSplitButton1.Rotation = 0D;
-            iconSplitButton1.Size = new Size(23, 23);
-            iconSplitButton1.Text = "iconSplitButton1";
+            logoPictureBox.Dock = DockStyle.Fill;
+            logoPictureBox.Image = Tubes2_Euforia.Properties.Resources.euforia_logo1;
+            logoPictureBox.Location = new Point(0, 0);
+            logoPictureBox.Name = "logoPictureBox";
+            logoPictureBox.Size = new Size(262, 90);
+            logoPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            logoPictureBox.TabIndex = 0;
+            logoPictureBox.TabStop = false;
             // 
             // Treasure_Hunt_Solver
             // 
@@ -490,16 +386,14 @@ namespace GUI
             Load += Treasure_Hunt_Solver_Load;
             ((System.ComponentModel.ISupportInitialize)mazeGridView).EndInit();
             configPanel.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            tspModePanel.ResumeLayout(false);
             visualizeConfigPanel.ResumeLayout(false);
             visualizeConfigPanel.PerformLayout();
             algorithmConfigPanel.ResumeLayout(false);
-            algorithmConfigPanel.PerformLayout();
             FileConfigPanel.ResumeLayout(false);
             FileConfigPanel.PerformLayout();
             logoPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)logoPictureBox).EndInit();
             ResumeLayout(false);
         }
 
@@ -515,23 +409,16 @@ namespace GUI
         private FontAwesome.Sharp.IconButton visualizeButton;
         private Panel FileConfigPanel;
         private Label fileConfigLabel;
-        private FontAwesome.Sharp.IconButton iconButton1;
         private Panel visualizeConfigPanel;
-        private TextBox textBox2;
         private FontAwesome.Sharp.IconButton progressButton;
         private Label timeLabel;
         private TextBox timeStampBox;
         private Panel algorithmConfigPanel;
-        private FontAwesome.Sharp.IconButton iconButton2;
-        private TextBox textBox1;
-        private Panel panel1;
+        private Panel tspModePanel;
         private FontAwesome.Sharp.IconButton tspButton;
-        private FontAwesome.Sharp.IconButton iconButton5;
-        private TextBox textBox3;
         private FontAwesome.Sharp.IconButton bfsButton;
         private FontAwesome.Sharp.IconButton dfsButton;
-        private FontAwesome.Sharp.IconSplitButton iconSplitButton1;
-        private PictureBox pictureBox1;
+        private PictureBox logoPictureBox;
     }
 }
 
