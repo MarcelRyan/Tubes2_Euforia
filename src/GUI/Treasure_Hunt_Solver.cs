@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Collections;
+
 namespace GUI
 {
     public partial class Treasure_Hunt_Solver : Form
@@ -22,13 +24,23 @@ namespace GUI
             int nHeightEllipse);
 
         private bool bfsMode; // true jika pilih bfs
+
         private bool dfsMode; // true jika pilih dfs
+
         private bool tspMode;
+
         private bool showProgress;
 
+        private string filename;
+
+        private ArrayList path;
+
         private Color selectedButtonForeColor = Color.FromArgb(99, 55, 245);
+
         private Color defaultButtonForeColor = Color.FromArgb(163, 55, 245);
+
         private Color selectedButtonBackColor = Color.FromArgb(37, 47, 92);
+
         private Color defaultButtonBackColor = Color.FromArgb(24, 30, 54);
         public Treasure_Hunt_Solver()
         {
@@ -64,30 +76,31 @@ namespace GUI
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
                 Title = "Browse Text File",
+
                 CheckFileExists = true,
+
                 CheckPathExists = true,
+
                 DefaultExt = "txt",
+
                 Filter = "txt files (*.txt)|*.txt",
+
                 FilterIndex = 2,
+
                 RestoreDirectory = true,
+
                 ReadOnlyChecked = true,
+
                 ShowReadOnly = true,
             };
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                fileNameBox.Text = openFileDialog1.FileName;
-                Helper.file = fileNameBox.Text;
-                mazeGridView.DataSource = Helper.TableDataFromTextFile(fileNameBox.Text);
                 fileNameBox.Text = openFileDialog1.SafeFileName;
-                mazeGridView.CellFormatting += dataGridView1_CellFormatting;
-                mazeGridView.ScrollBars = ScrollBars.None;
-                mazeGridView.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                int tinggi = mazeGridView.Height / mazeGridView.Rows.Count;
-                foreach (DataGridViewRow row in mazeGridView.Rows)
-                {
-                    row.Height = tinggi;
-                }
+
+                filename = openFileDialog1.FileName;
+
+                Helper.file = filename;
             }
         }
 
@@ -100,6 +113,7 @@ namespace GUI
                     if (e.RowIndex == i & e.ColumnIndex == j & e.Value.ToString() == "0")
                     {
                         e.CellStyle.BackColor = Color.Black;
+                        e.Value = "";
                     }
 
                 }
@@ -176,12 +190,59 @@ namespace GUI
 
         private void visualizeButton_Click(object sender, EventArgs e)
         {
-            
+            mazeGridView.DataSource = Helper.TableDataFromTextFile(filename);
+
+            mazeGridView.CellFormatting += dataGridView1_CellFormatting;
+
+            mazeGridView.ScrollBars = ScrollBars.None;
+
+            mazeGridView.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            int tinggi = mazeGridView.Height / mazeGridView.Rows.Count;
+
+            foreach (DataGridViewRow row in mazeGridView.Rows)
+            {
+                row.Height = tinggi;
+            }
         }
 
         private void solveButton_Click(object sender, EventArgs e)
         {
-      
+            string[][] map = FileIO.ReadMapFile(fileNameBox.Text.Replace(".txt", ""));
+
+            if (dfsMode)
+            {
+                DFSState dfs = new DFSState(map, tspMode);
+
+                while (!dfs.stop)
+                {
+                    dfs.Move();
+                }
+
+                path = dfs.GetCurrentPath();
+
+                foreach (Tuple<int, int> tuple in path)
+                {
+                    mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
+                }
+            }
+
+            else if (bfsMode)
+            {
+                BFSState bfs = new BFSState(map, tspMode);
+
+                while (!bfs.stop)
+                {
+                    bfs.Move();
+                }
+
+                path = bfs.GetCurrentPath();
+
+                foreach (Tuple<int, int> tuple in path)
+                {
+                    mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
+                }
+            }
         }
 
         private void selectButton_Hover(object sender, EventArgs e)

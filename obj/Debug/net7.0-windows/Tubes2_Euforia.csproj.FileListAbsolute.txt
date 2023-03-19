@@ -35,3 +35,23 @@ D:\Arsip Semester 4\Stima\Tubes\Tubes2\Tubes2_Euforia\obj\Debug\net7.0-windows\T
 D:\Arsip Semester 4\Stima\Tubes\Tubes2\Tubes2_Euforia\obj\Debug\net7.0-windows\Tubes2_Euforia.Properties.Resources.resources
 D:\Arsip Semester 4\Stima\Tubes\Tubes2\Tubes2_Euforia\bin\Debug\net7.0-windows\FontAwesome.Sharp.dll
 D:\Arsip Semester 4\Stima\Tubes\Tubes2\Tubes2_Euforia\obj\Debug\net7.0-windows\Tubes2_Euforia.csproj.CopyComplete
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\bin\Debug\net7.0-windows\Tubes2_Euforia.exe
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\bin\Debug\net7.0-windows\Tubes2_Euforia.deps.json
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\bin\Debug\net7.0-windows\Tubes2_Euforia.runtimeconfig.json
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\bin\Debug\net7.0-windows\Tubes2_Euforia.dll
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\bin\Debug\net7.0-windows\Tubes2_Euforia.pdb
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\bin\Debug\net7.0-windows\FontAwesome.Sharp.dll
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\obj\Debug\net7.0-windows\Tubes2_Euforia.csproj.AssemblyReference.cache
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\obj\Debug\net7.0-windows\Tubes2_Euforia.Properties.Resources.resources
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\obj\Debug\net7.0-windows\GUI.Treasure_Hunt_Solver.resources
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\obj\Debug\net7.0-windows\Tubes2_Euforia.csproj.GenerateResource.cache
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\obj\Debug\net7.0-windows\Tubes2_Euforia.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\obj\Debug\net7.0-windows\Tubes2_Euforia.AssemblyInfoInputs.cache
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\obj\Debug\net7.0-windows\Tubes2_Euforia.AssemblyInfo.cs
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\obj\Debug\net7.0-windows\Tubes2_Euforia.csproj.CoreCompileInputs.cache
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\obj\Debug\net7.0-windows\Tubes2_Euforia.csproj.CopyComplete
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\obj\Debug\net7.0-windows\Tubes2_Euforia.dll
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\obj\Debug\net7.0-windows\refint\Tubes2_Euforia.dll
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\obj\Debug\net7.0-windows\Tubes2_Euforia.pdb
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\obj\Debug\net7.0-windows\Tubes2_Euforia.genruntimeconfig.cache
+C:\Users\marce\Documents\Semester 4\Stima\Tubes2_Euforia\obj\Debug\net7.0-windows\ref\Tubes2_Euforia.dll
