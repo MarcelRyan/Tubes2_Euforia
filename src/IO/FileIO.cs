@@ -27,7 +27,7 @@ class FileIO
         prefix = "../../";
 #endif
 
-        string[] lines = File.ReadAllLines(prefix + Path.GetFullPath(path + FixFileExtension(fileName)));
+        string[] lines = File.ReadAllLines(Path.GetFullPath(prefix + path + FixFileExtension(fileName)));
 
         var map = lines.Select(line => line.ToUpper().Split(' ')).ToArray();
 

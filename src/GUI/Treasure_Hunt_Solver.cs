@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Collections;
+
 namespace GUI
 {
     public partial class Treasure_Hunt_Solver : Form
@@ -20,6 +22,16 @@ namespace GUI
             int nBottomRect,
             int nWidthEllipse,
             int nHeightEllipse);
+
+        private bool tspButtonIsClicked = false;
+
+        private bool dfsButtonIsClicked = false;
+
+        private bool bfsButtonIsClicked = false;
+
+        private string filename;
+
+        private ArrayList path;
         public Treasure_Hunt_Solver()
         {
             InitializeComponent();
@@ -36,7 +48,7 @@ namespace GUI
         private void Treasure_Hunt_Solver_Load(object sender, EventArgs e)
         {
             timeStampBox.Enabled = false;
-
+            mazeGridView.Enabled = false;
         }
 
 
@@ -45,30 +57,32 @@ namespace GUI
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
                 Title = "Browse Text File",
+
                 CheckFileExists = true,
+
                 CheckPathExists = true,
+
                 DefaultExt = "txt",
+
                 Filter = "txt files (*.txt)|*.txt",
+
                 FilterIndex = 2,
+
                 RestoreDirectory = true,
+
                 ReadOnlyChecked = true,
+
                 ShowReadOnly = true,
             };
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                fileNameBox.Text = openFileDialog1.FileName;
-                Helper.file = fileNameBox.Text;
-                mazeGridView.DataSource = Helper.TableDataFromTextFile(fileNameBox.Text);
                 fileNameBox.Text = openFileDialog1.SafeFileName;
-                mazeGridView.CellFormatting += dataGridView1_CellFormatting;
-                mazeGridView.ScrollBars = ScrollBars.None;
-                mazeGridView.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                int tinggi = mazeGridView.Height / mazeGridView.Rows.Count;
-                foreach (DataGridViewRow row in mazeGridView.Rows)
-                {
-                    row.Height = tinggi;
-                }
+
+                filename = openFileDialog1.FileName;
+
+                Helper.file = filename;
+
             }
         }
 
@@ -81,10 +95,13 @@ namespace GUI
                     if (e.RowIndex == i & e.ColumnIndex == j & e.Value.ToString() == "0")
                     {
                         e.CellStyle.BackColor = Color.Black;
+                        e.Value = "";
                     }
 
                 }
             }
+            
+
         }
 
         // handle filename text box changes
@@ -101,28 +118,92 @@ namespace GUI
         private void bfsButton_Click(object sender, EventArgs e)
         {
             bfsButton.BackColor = Color.FromArgb(46, 51, 73);
+
+            bfsButtonIsClicked = true;
         }
         private void dfsButton_Click(object sender, EventArgs e)
         {
             dfsButton.BackColor = Color.FromArgb(46, 51, 73);
+
+            dfsButtonIsClicked = true;
         }
         private void tspButton_Click(object sender, EventArgs e)
         {
-            bfsButton.BackColor = Color.FromArgb(46, 51, 73);
+            tspButton.BackColor = Color.FromArgb(46, 51, 73);
+            tspButtonIsClicked = true;
         }
         private void progressButton_Click(object sender, EventArgs e)
         {
-            bfsButton.BackColor = Color.FromArgb(46, 51, 73);
+            progressButton.BackColor = Color.FromArgb(46, 51, 73);
         }
 
         private void visualizeButton_Click(object sender, EventArgs e)
         {
-            bfsButton.BackColor = Color.FromArgb(46, 51, 73);
+            visualizeButton.BackColor = Color.FromArgb(46, 51, 73);
+
+            mazeGridView.DataSource = Helper.TableDataFromTextFile(filename);
+
+            mazeGridView.ScrollBars = ScrollBars.None;
+
+            mazeGridView.CellFormatting += dataGridView1_CellFormatting;
+
+            mazeGridView.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            int tinggi = mazeGridView.Height / mazeGridView.Rows.Count;
+
+            foreach (DataGridViewRow row in mazeGridView.Rows)
+            {
+                row.Height = tinggi;
+            }
         }
 
         private void solveButton_Click(object sender, EventArgs e)
         {
-            bfsButton.BackColor = Color.FromArgb(46, 51, 73);
+            solveButton.BackColor = Color.FromArgb(46, 51, 73);
+
+            string[][] map = FileIO.ReadMapFile(fileNameBox.Text.Replace(".txt", ""));
+
+            if (dfsButtonIsClicked)
+            {
+                DFSState dfs = new DFSState(map, tspButtonIsClicked);
+
+                tspButtonIsClicked = false;
+
+                while (!dfs.stop)
+                {
+                    dfs.Move();
+                }
+
+                path = dfs.GetCurrentPath();
+
+                foreach (Tuple<int, int> tuple in path)
+                {
+                    mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
+                }
+
+                dfsButtonIsClicked = false;
+            }
+
+            else if (bfsButtonIsClicked)
+            {
+                BFSState bfs = new BFSState(map, tspButtonIsClicked);
+
+                tspButtonIsClicked = false;
+
+                while (!bfs.stop)
+                {
+                    bfs.Move();
+                }
+
+                path = bfs.GetCurrentPath();
+
+                foreach (Tuple<int, int> tuple in path)
+                {
+                    mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
+                }
+
+                bfsButtonIsClicked = false;
+            }
         }
 
         private void selectButton_Hover(object sender, EventArgs e)
@@ -138,7 +219,7 @@ namespace GUI
 
         private void visualize_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void solve_Click(object sender, EventArgs e)
