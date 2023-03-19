@@ -33,8 +33,8 @@ namespace GUI
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             label4 = new Label();
-            textBox1 = new TextBox();
-            button1 = new Button();
+            fileNameBox = new TextBox();
+            browseFileButton = new Button();
             label5 = new Label();
             radioButton1 = new RadioButton();
             radioButton2 = new RadioButton();
@@ -42,20 +42,17 @@ namespace GUI
             radioButton3 = new RadioButton();
             radioButton4 = new RadioButton();
             checkBox1 = new CheckBox();
-            label7 = new Label();
-            textBox2 = new TextBox();
-            dataGridView1 = new DataGridView();
-            button2 = new Button();
-            button3 = new Button();
-            label10 = new Label();
-            label11 = new Label();
-            label12 = new Label();
-            label13 = new Label();
+            timeStampLabel = new Label();
+            timeStampBox = new TextBox();
+            mazeGridView = new DataGridView();
             openFileDialog1 = new OpenFileDialog();
             panel1 = new Panel();
+            visualizeButton = new FontAwesome.Sharp.IconButton();
+            solveButton = new FontAwesome.Sharp.IconButton();
             panel2 = new Panel();
             pictureBox1 = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panel3 = new Panel();
+            ((System.ComponentModel.ISupportInitialize)mazeGridView).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -66,56 +63,60 @@ namespace GUI
             label4.AutoSize = true;
             label4.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label4.ForeColor = Color.White;
-            label4.Location = new Point(10, 129);
+            label4.Location = new Point(408, 469);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(99, 23);
             label4.TabIndex = 3;
             label4.Text = "Filename";
             // 
-            // textBox1
+            // fileNameBox
             // 
-            textBox1.BackColor = Color.FromArgb(206, 160, 242);
-            textBox1.BorderStyle = BorderStyle.FixedSingle;
-            textBox1.Location = new Point(126, 132);
-            textBox1.Margin = new Padding(4, 5, 4, 5);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(124, 31);
-            textBox1.TabIndex = 4;
-            textBox1.TextChanged += textBox1_TextChanged;
+            fileNameBox.BackColor = Color.FromArgb(31, 30, 68);
+            fileNameBox.BorderStyle = BorderStyle.FixedSingle;
+            fileNameBox.ForeColor = SystemColors.InactiveBorder;
+            fileNameBox.Location = new Point(417, 502);
+            fileNameBox.Margin = new Padding(6, 5, 4, 5);
+            fileNameBox.Name = "fileNameBox";
+            fileNameBox.Size = new Size(124, 31);
+            fileNameBox.TabIndex = 4;
+            fileNameBox.TextChanged += textBox1_TextChanged;
             // 
-            // button1
+            // browseFileButton
             // 
-            button1.Location = new Point(270, 132);
-            button1.Margin = new Padding(4, 5, 4, 5);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 36);
-            button1.TabIndex = 5;
-            button1.Text = "Browse";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            browseFileButton.FlatStyle = FlatStyle.Flat;
+            browseFileButton.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            browseFileButton.ForeColor = Color.White;
+            browseFileButton.Location = new Point(549, 497);
+            browseFileButton.Margin = new Padding(4, 5, 4, 5);
+            browseFileButton.Name = "browseFileButton";
+            browseFileButton.Size = new Size(94, 36);
+            browseFileButton.TabIndex = 5;
+            browseFileButton.Text = "Browse";
+            browseFileButton.UseVisualStyleBackColor = true;
+            browseFileButton.Click += button1_Click;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new Font("Cascadia Mono", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label5.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label5.ForeColor = Color.White;
-            label5.Location = new Point(3, 191);
+            label5.Location = new Point(398, 556);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new Size(120, 27);
+            label5.Size = new Size(105, 23);
             label5.TabIndex = 6;
             label5.Text = "Algoritma";
             // 
             // radioButton1
             // 
             radioButton1.AutoSize = true;
-            radioButton1.Font = new Font("Cascadia Mono", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            radioButton1.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             radioButton1.ForeColor = Color.White;
-            radioButton1.Location = new Point(126, 191);
+            radioButton1.Location = new Point(521, 556);
             radioButton1.Margin = new Padding(4, 5, 4, 5);
             radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(68, 28);
+            radioButton1.Size = new Size(70, 27);
             radioButton1.TabIndex = 7;
             radioButton1.TabStop = true;
             radioButton1.Text = "DFS";
@@ -124,12 +125,12 @@ namespace GUI
             // radioButton2
             // 
             radioButton2.AutoSize = true;
-            radioButton2.Font = new Font("Cascadia Mono", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            radioButton2.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             radioButton2.ForeColor = Color.White;
-            radioButton2.Location = new Point(192, 191);
+            radioButton2.Location = new Point(587, 556);
             radioButton2.Margin = new Padding(4, 5, 4, 5);
             radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(68, 28);
+            radioButton2.Size = new Size(66, 27);
             radioButton2.TabIndex = 8;
             radioButton2.TabStop = true;
             radioButton2.Text = "BFS";
@@ -140,7 +141,7 @@ namespace GUI
             label6.AutoSize = true;
             label6.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label6.ForeColor = Color.White;
-            label6.Location = new Point(10, 255);
+            label6.Location = new Point(405, 620);
             label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
             label6.Size = new Size(40, 23);
@@ -150,12 +151,12 @@ namespace GUI
             // radioButton3
             // 
             radioButton3.AutoSize = true;
-            radioButton3.Font = new Font("Cascadia Mono", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            radioButton3.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             radioButton3.ForeColor = Color.White;
-            radioButton3.Location = new Point(67, 252);
+            radioButton3.Location = new Point(462, 617);
             radioButton3.Margin = new Padding(4, 5, 4, 5);
             radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(79, 28);
+            radioButton3.Size = new Size(74, 27);
             radioButton3.TabIndex = 10;
             radioButton3.TabStop = true;
             radioButton3.Text = "True";
@@ -164,12 +165,12 @@ namespace GUI
             // radioButton4
             // 
             radioButton4.AutoSize = true;
-            radioButton4.Font = new Font("Cascadia Mono", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            radioButton4.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             radioButton4.ForeColor = Color.White;
-            radioButton4.Location = new Point(146, 252);
+            radioButton4.Location = new Point(541, 617);
             radioButton4.Margin = new Padding(4, 5, 4, 5);
             radioButton4.Name = "radioButton4";
-            radioButton4.Size = new Size(90, 28);
+            radioButton4.Size = new Size(85, 27);
             radioButton4.TabIndex = 11;
             radioButton4.TabStop = true;
             radioButton4.Text = "False";
@@ -180,7 +181,7 @@ namespace GUI
             checkBox1.AutoSize = true;
             checkBox1.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             checkBox1.ForeColor = Color.White;
-            checkBox1.Location = new Point(31, 304);
+            checkBox1.Location = new Point(426, 669);
             checkBox1.Margin = new Padding(4, 5, 4, 5);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(176, 27);
@@ -189,125 +190,52 @@ namespace GUI
             checkBox1.UseVisualStyleBackColor = true;
             checkBox1.CheckedChanged += checkBox1_CheckedChanged;
             // 
-            // label7
+            // timeStampLabel
             // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.Location = new Point(0, 346);
-            label7.Margin = new Padding(4, 0, 4, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(163, 23);
-            label7.TabIndex = 13;
-            label7.Text = "input dalam ms";
-            label7.Click += label7_Click;
+            timeStampLabel.AutoSize = true;
+            timeStampLabel.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            timeStampLabel.ForeColor = Color.White;
+            timeStampLabel.Location = new Point(704, 560);
+            timeStampLabel.Margin = new Padding(4, 0, 4, 0);
+            timeStampLabel.Name = "timeStampLabel";
+            timeStampLabel.Size = new Size(163, 23);
+            timeStampLabel.TabIndex = 13;
+            timeStampLabel.Text = "input dalam ms";
+            timeStampLabel.Click += label7_Click;
             // 
-            // textBox2
+            // timeStampBox
             // 
-            textBox2.Location = new Point(70, 434);
-            textBox2.Margin = new Padding(4, 5, 4, 5);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(124, 31);
-            textBox2.TabIndex = 14;
-            textBox2.TextChanged += textBox2_TextChanged;
+            timeStampBox.BackColor = Color.FromArgb(31, 30, 68);
+            timeStampBox.Location = new Point(919, 552);
+            timeStampBox.Margin = new Padding(4, 5, 4, 5);
+            timeStampBox.Name = "timeStampBox";
+            timeStampBox.Size = new Size(124, 31);
+            timeStampBox.TabIndex = 14;
+            timeStampBox.TextChanged += textBox2_TextChanged;
             // 
-            // dataGridView1
+            // mazeGridView
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.AllowUserToResizeColumns = false;
-            dataGridView1.AllowUserToResizeRows = false;
+            mazeGridView.AllowUserToAddRows = false;
+            mazeGridView.AllowUserToDeleteRows = false;
+            mazeGridView.AllowUserToResizeColumns = false;
+            mazeGridView.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.BackgroundColor = Color.White;
-            dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
-            dataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.ColumnHeadersVisible = false;
-            dataGridView1.Location = new Point(563, 12);
-            dataGridView1.Margin = new Padding(4, 5, 4, 5);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            dataGridView1.RowTemplate.Height = 24;
-            dataGridView1.RowTemplate.Resizable = DataGridViewTriState.False;
-            dataGridView1.Size = new Size(540, 313);
-            dataGridView1.TabIndex = 17;
-            // 
-            // button2
-            // 
-            button2.BackColor = Color.SlateBlue;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Cascadia Mono", 7.8F, FontStyle.Bold, GraphicsUnit.Point);
-            button2.ForeColor = Color.Transparent;
-            button2.Location = new Point(56, 548);
-            button2.Margin = new Padding(4, 5, 4, 5);
-            button2.Name = "button2";
-            button2.Size = new Size(125, 41);
-            button2.TabIndex = 18;
-            button2.Text = "Visualize";
-            button2.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            button3.BackColor = Color.SlateBlue;
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("Cascadia Mono", 7.8F, FontStyle.Bold, GraphicsUnit.Point);
-            button3.ForeColor = Color.Transparent;
-            button3.Location = new Point(583, 389);
-            button3.Margin = new Padding(4, 5, 4, 5);
-            button3.Name = "button3";
-            button3.Size = new Size(125, 41);
-            button3.TabIndex = 19;
-            button3.Text = "Search!";
-            button3.UseVisualStyleBackColor = false;
-            button3.Click += button3_Click;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Cascadia Mono", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label10.Location = new Point(375, 438);
-            label10.Margin = new Padding(4, 0, 4, 0);
-            label10.Name = "label10";
-            label10.Size = new Size(84, 27);
-            label10.TabIndex = 20;
-            label10.Text = "Route:";
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Cascadia Mono", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label11.Location = new Point(375, 488);
-            label11.Margin = new Padding(4, 0, 4, 0);
-            label11.Name = "label11";
-            label11.Size = new Size(84, 27);
-            label11.TabIndex = 21;
-            label11.Text = "Nodes:";
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Font = new Font("Cascadia Mono", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label12.Location = new Point(769, 438);
-            label12.Margin = new Padding(4, 0, 4, 0);
-            label12.Name = "label12";
-            label12.Size = new Size(84, 27);
-            label12.TabIndex = 22;
-            label12.Text = "Steps:";
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.Font = new Font("Cascadia Mono", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label13.Location = new Point(657, 488);
-            label13.Margin = new Padding(4, 0, 4, 0);
-            label13.Name = "label13";
-            label13.Size = new Size(192, 27);
-            label13.TabIndex = 23;
-            label13.Text = "Execution Time:";
+            mazeGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            mazeGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            mazeGridView.BackgroundColor = Color.FromArgb(31, 30, 68);
+            mazeGridView.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            mazeGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            mazeGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            mazeGridView.ColumnHeadersVisible = false;
+            mazeGridView.Location = new Point(309, 18);
+            mazeGridView.Margin = new Padding(4, 5, 4, 5);
+            mazeGridView.Name = "mazeGridView";
+            mazeGridView.RowHeadersVisible = false;
+            mazeGridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            mazeGridView.RowTemplate.Height = 24;
+            mazeGridView.RowTemplate.Resizable = DataGridViewTriState.False;
+            mazeGridView.Size = new Size(832, 401);
+            mazeGridView.TabIndex = 17;
             // 
             // openFileDialog1
             // 
@@ -316,64 +244,120 @@ namespace GUI
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(31, 30, 68);
+            panel1.Controls.Add(panel3);
+            panel1.Controls.Add(visualizeButton);
+            panel1.Controls.Add(solveButton);
             panel1.Controls.Add(panel2);
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(textBox1);
-            panel1.Controls.Add(button1);
-            panel1.Controls.Add(label4);
-            panel1.Controls.Add(label5);
-            panel1.Controls.Add(radioButton1);
-            panel1.Controls.Add(radioButton2);
-            panel1.Controls.Add(label6);
-            panel1.Controls.Add(textBox2);
-            panel1.Controls.Add(radioButton3);
-            panel1.Controls.Add(label7);
-            panel1.Controls.Add(radioButton4);
-            panel1.Controls.Add(checkBox1);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(385, 616);
+            panel1.Size = new Size(262, 744);
             panel1.TabIndex = 24;
+            // 
+            // visualizeButton
+            // 
+            visualizeButton.AccessibleName = "visualizeButton";
+            visualizeButton.Dock = DockStyle.Bottom;
+            visualizeButton.FlatAppearance.BorderSize = 0;
+            visualizeButton.FlatStyle = FlatStyle.Flat;
+            visualizeButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            visualizeButton.ForeColor = Color.White;
+            visualizeButton.IconChar = FontAwesome.Sharp.IconChar.Television;
+            visualizeButton.IconColor = Color.White;
+            visualizeButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            visualizeButton.IconSize = 32;
+            visualizeButton.ImageAlign = ContentAlignment.MiddleLeft;
+            visualizeButton.Location = new Point(0, 590);
+            visualizeButton.Name = "visualizeButton";
+            visualizeButton.Padding = new Padding(60, 0, 0, 0);
+            visualizeButton.Size = new Size(262, 75);
+            visualizeButton.TabIndex = 21;
+            visualizeButton.Text = "Visualize";
+            visualizeButton.TextAlign = ContentAlignment.MiddleLeft;
+            visualizeButton.TextImageRelation = TextImageRelation.ImageBeforeText;
+            visualizeButton.UseVisualStyleBackColor = true;
+            visualizeButton.Click += iconButton2_Click;
+            // 
+            // solveButton
+            // 
+            solveButton.AccessibleName = "solveButton";
+            solveButton.Dock = DockStyle.Bottom;
+            solveButton.FlatAppearance.BorderSize = 0;
+            solveButton.FlatStyle = FlatStyle.Flat;
+            solveButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            solveButton.ForeColor = Color.White;
+            solveButton.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            solveButton.IconColor = Color.White;
+            solveButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            solveButton.IconSize = 32;
+            solveButton.ImageAlign = ContentAlignment.MiddleLeft;
+            solveButton.Location = new Point(0, 665);
+            solveButton.Name = "solveButton";
+            solveButton.Padding = new Padding(60, 0, 0, 0);
+            solveButton.Size = new Size(262, 79);
+            solveButton.TabIndex = 20;
+            solveButton.Text = "Solve";
+            solveButton.TextAlign = ContentAlignment.MiddleLeft;
+            solveButton.TextImageRelation = TextImageRelation.ImageBeforeText;
+            solveButton.UseVisualStyleBackColor = true;
+            solveButton.Click += button3_Click;
             // 
             // panel2
             // 
             panel2.Controls.Add(pictureBox1);
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(385, 124);
+            panel2.Size = new Size(262, 92);
             panel2.TabIndex = 19;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = Tubes2_Euforia.Properties.Resources.euforia_logo;
-            pictureBox1.Location = new Point(21, 7);
+            pictureBox1.Location = new Point(3, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(343, 114);
+            pictureBox1.Size = new Size(250, 82);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
+            // 
+            // panel3
+            // 
+            panel3.Location = new Point(3, 98);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(259, 76);
+            panel3.TabIndex = 22;
             // 
             // Treasure_Hunt_Solver
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.White;
-            ClientSize = new Size(1171, 616);
-            Controls.Add(label13);
-            Controls.Add(label12);
-            Controls.Add(label11);
-            Controls.Add(label10);
-            Controls.Add(button3);
-            Controls.Add(dataGridView1);
+            BackColor = SystemColors.ActiveCaption;
+            ClientSize = new Size(1178, 744);
+            Controls.Add(mazeGridView);
             Controls.Add(panel1);
+            Controls.Add(fileNameBox);
+            Controls.Add(timeStampBox);
+            Controls.Add(browseFileButton);
+            Controls.Add(timeStampLabel);
+            Controls.Add(label4);
+            Controls.Add(label5);
+            Controls.Add(checkBox1);
+            Controls.Add(radioButton1);
+            Controls.Add(radioButton4);
+            Controls.Add(radioButton2);
+            Controls.Add(radioButton3);
+            Controls.Add(label6);
             Margin = new Padding(4, 5, 4, 5);
+            MaximumSize = new Size(1200, 800);
+            MinimumSize = new Size(1200, 800);
             Name = "Treasure_Hunt_Solver";
-            Text = "Form1";
+            RightToLeft = RightToLeft.No;
+            RightToLeftLayout = true;
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Euforia";
             Load += Treasure_Hunt_Solver_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)mazeGridView).EndInit();
             panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
@@ -382,8 +366,8 @@ namespace GUI
 
         #endregion
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox fileNameBox;
+        private System.Windows.Forms.Button browseFileButton;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
@@ -391,19 +375,16 @@ namespace GUI
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label timeStampLabel;
+        private System.Windows.Forms.TextBox timeStampBox;
+        private System.Windows.Forms.DataGridView mazeGridView;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private Panel panel1;
         private Panel panel2;
         private PictureBox pictureBox1;
+        private FontAwesome.Sharp.IconButton solveButton;
+        private FontAwesome.Sharp.IconButton visualizeButton;
+        private Panel panel3;
     }
 }
 

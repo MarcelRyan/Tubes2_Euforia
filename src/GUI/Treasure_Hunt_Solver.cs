@@ -20,8 +20,8 @@ namespace GUI
 
         private void Treasure_Hunt_Solver_Load(object sender, EventArgs e)
         {
-            textBox2.Enabled = false;
-            label7.Enabled = false;
+            timeStampBox.Enabled = false;
+            timeStampLabel.Enabled = false;
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -38,13 +38,13 @@ namespace GUI
         {
             if (checkBox1.Checked == false)
             {
-                textBox2.Enabled = false;
-                label7.Enabled = false;
+                timeStampBox.Enabled = false;
+                timeStampLabel.Enabled = false;
             }
             else
             {
-                textBox2.Enabled = true;
-                label7.Enabled = true;
+                timeStampBox.Enabled = true;
+                timeStampLabel.Enabled = true;
             }
         }
 
@@ -65,15 +65,15 @@ namespace GUI
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                textBox1.Text = openFileDialog1.FileName;
-                Helper.file = textBox1.Text;
-                dataGridView1.DataSource = Helper.TableDataFromTextFile(textBox1.Text);
-                textBox1.Text = openFileDialog1.SafeFileName;
-                dataGridView1.CellFormatting += dataGridView1_CellFormatting;
-                dataGridView1.ScrollBars = ScrollBars.None;
-                dataGridView1.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                int tinggi = dataGridView1.Height / dataGridView1.Rows.Count;
-                foreach (DataGridViewRow row in dataGridView1.Rows)
+                fileNameBox.Text = openFileDialog1.FileName;
+                Helper.file = fileNameBox.Text;
+                mazeGridView.DataSource = Helper.TableDataFromTextFile(fileNameBox.Text);
+                fileNameBox.Text = openFileDialog1.SafeFileName;
+                mazeGridView.CellFormatting += dataGridView1_CellFormatting;
+                mazeGridView.ScrollBars = ScrollBars.None;
+                mazeGridView.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                int tinggi = mazeGridView.Height / mazeGridView.Rows.Count;
+                foreach (DataGridViewRow row in mazeGridView.Rows)
                 {
                     row.Height = tinggi;
                 }
@@ -82,9 +82,9 @@ namespace GUI
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            for (int i = 0; i < dataGridView1.RowCount; i++)
+            for (int i = 0; i < mazeGridView.RowCount; i++)
             {
-                for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                for (int j = 0; j < mazeGridView.ColumnCount; j++)
                 {
                     if (e.RowIndex == i & e.ColumnIndex == j & e.Value.ToString() == "0")
                     {
@@ -105,6 +105,21 @@ namespace GUI
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void iconButton2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
         {
 
         }
