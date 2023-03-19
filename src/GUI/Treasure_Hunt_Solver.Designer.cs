@@ -87,7 +87,7 @@ namespace GUI
             mazeGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             mazeGridView.ColumnHeadersVisible = false;
             mazeGridView.GridColor = Color.White;
-            mazeGridView.Location = new Point(269, 14);
+            mazeGridView.Location = new Point(291, 14);
             mazeGridView.Margin = new Padding(4, 5, 4, 5);
             mazeGridView.Name = "mazeGridView";
             mazeGridView.RowHeadersVisible = false;
@@ -139,6 +139,7 @@ namespace GUI
             tspButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             tspButton.IconSize = 32;
             tspButton.Location = new Point(0, 0);
+            tspButton.Margin = new Padding(3, 3, 0, 0);
             tspButton.Name = "tspButton";
             tspButton.Padding = new Padding(25, 0, 0, 0);
             tspButton.Size = new Size(262, 69);
@@ -172,7 +173,7 @@ namespace GUI
             textBox3.ForeColor = Color.White;
             textBox3.Location = new Point(3, -146);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(199, 31);
+            textBox3.Size = new Size(199, 30);
             textBox3.TabIndex = 1;
             // 
             // visualizeConfigPanel
@@ -182,9 +183,10 @@ namespace GUI
             visualizeConfigPanel.Controls.Add(progressButton);
             visualizeConfigPanel.Controls.Add(iconButton1);
             visualizeConfigPanel.Controls.Add(textBox2);
+            visualizeConfigPanel.Dock = DockStyle.Bottom;
             visualizeConfigPanel.Location = new Point(0, 323);
             visualizeConfigPanel.Name = "visualizeConfigPanel";
-            visualizeConfigPanel.Size = new Size(262, 111);
+            visualizeConfigPanel.Size = new Size(262, 117);
             visualizeConfigPanel.TabIndex = 24;
             // 
             // timeLabel
@@ -204,7 +206,7 @@ namespace GUI
             timeStampBox.Location = new Point(55, 56);
             timeStampBox.MaxLength = 3;
             timeStampBox.Name = "timeStampBox";
-            timeStampBox.Size = new Size(121, 31);
+            timeStampBox.Size = new Size(121, 30);
             timeStampBox.TabIndex = 6;
             // 
             // progressButton
@@ -219,6 +221,7 @@ namespace GUI
             progressButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             progressButton.IconSize = 32;
             progressButton.Location = new Point(0, 0);
+            progressButton.Margin = new Padding(3, 3, 0, 0);
             progressButton.Name = "progressButton";
             progressButton.Padding = new Padding(35, 0, 0, 0);
             progressButton.Size = new Size(262, 50);
@@ -227,6 +230,7 @@ namespace GUI
             progressButton.TextAlign = ContentAlignment.MiddleLeft;
             progressButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             progressButton.UseVisualStyleBackColor = true;
+            progressButton.Click += progressButton_Click;
             // 
             // iconButton1
             // 
@@ -239,7 +243,7 @@ namespace GUI
             iconButton1.IconColor = Color.White;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 28;
-            iconButton1.Location = new Point(326, -85);
+            iconButton1.Location = new Point(326, -82);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(48, 31);
             iconButton1.TabIndex = 2;
@@ -250,9 +254,9 @@ namespace GUI
             textBox2.Anchor = AnchorStyles.Left;
             textBox2.BackColor = Color.FromArgb(31, 30, 68);
             textBox2.ForeColor = Color.White;
-            textBox2.Location = new Point(3, -85);
+            textBox2.Location = new Point(3, -82);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(199, 31);
+            textBox2.Size = new Size(199, 30);
             textBox2.TabIndex = 1;
             // 
             // algorithmConfigPanel
@@ -278,6 +282,7 @@ namespace GUI
             dfsButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             dfsButton.IconSize = 32;
             dfsButton.Location = new Point(127, 0);
+            dfsButton.Margin = new Padding(3, 3, 0, 0);
             dfsButton.Name = "dfsButton";
             dfsButton.Size = new Size(135, 66);
             dfsButton.TabIndex = 4;
@@ -296,6 +301,7 @@ namespace GUI
             bfsButton.IconColor = Color.White;
             bfsButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             bfsButton.Location = new Point(0, 0);
+            bfsButton.Margin = new Padding(3, 3, 0, 0);
             bfsButton.Name = "bfsButton";
             bfsButton.Size = new Size(135, 66);
             bfsButton.TabIndex = 3;
@@ -327,7 +333,7 @@ namespace GUI
             textBox1.ForeColor = Color.White;
             textBox1.Location = new Point(3, -125);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(199, 31);
+            textBox1.Size = new Size(199, 30);
             textBox1.TabIndex = 1;
             // 
             // FileConfigPanel
@@ -366,7 +372,7 @@ namespace GUI
             fileNameBox.ForeColor = Color.White;
             fileNameBox.Location = new Point(3, 28);
             fileNameBox.Name = "fileNameBox";
-            fileNameBox.Size = new Size(199, 31);
+            fileNameBox.Size = new Size(199, 30);
             fileNameBox.TabIndex = 1;
             fileNameBox.TextChanged += textBox1_TextChanged;
             // 
@@ -469,14 +475,16 @@ namespace GUI
             ClientSize = new Size(1178, 594);
             Controls.Add(mazeGridView);
             Controls.Add(configPanel);
+            Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(4, 5, 4, 5);
+            MaximizeBox = false;
             MaximumSize = new Size(1200, 650);
+            MinimizeBox = false;
             MinimumSize = new Size(1200, 650);
             Name = "Treasure_Hunt_Solver";
             RightToLeft = RightToLeft.No;
             RightToLeftLayout = true;
-            StartPosition = FormStartPosition.CenterScreen;
             Text = "Euforia";
             Load += Treasure_Hunt_Solver_Load;
             ((System.ComponentModel.ISupportInitialize)mazeGridView).EndInit();
