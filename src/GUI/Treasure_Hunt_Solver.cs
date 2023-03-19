@@ -20,6 +20,16 @@ namespace GUI
             int nBottomRect,
             int nWidthEllipse,
             int nHeightEllipse);
+
+        private bool bfsMode; // true jika pilih bfs
+        private bool dfsMode; // true jika pilih dfs
+        private bool tspMode;
+        private bool showProgress;
+
+        private Color selectedButtonForeColor = Color.FromArgb(99, 55, 245);
+        private Color defaultButtonForeColor = Color.FromArgb(163, 55, 245);
+        private Color selectedButtonBackColor = Color.FromArgb(37, 47, 92);
+        private Color defaultButtonBackColor = Color.FromArgb(24, 30, 54);
         public Treasure_Hunt_Solver()
         {
             InitializeComponent();
@@ -31,6 +41,11 @@ namespace GUI
             this.Width = 1200;
 
             CenterToScreen();
+
+            bfsMode = false;
+            dfsMode = false;
+            tspMode = false;
+            showProgress = false;
         }
 
         private void Treasure_Hunt_Solver_Load(object sender, EventArgs e)
@@ -87,42 +102,68 @@ namespace GUI
             }
         }
 
+        private void changeButtonVisual(FontAwesome.Sharp.IconButton btn, ref bool status) {
+            status = !status;
+
+            if (status)
+            {
+                btn.ForeColor = selectedButtonForeColor;
+                btn.IconColor = selectedButtonForeColor;
+                btn.BackColor = selectedButtonBackColor;
+                btn.Font = new Font(progressButton.Font, FontStyle.Bold);
+            }
+
+            else
+            {
+                btn.ForeColor = defaultButtonForeColor;
+                btn.IconColor = defaultButtonForeColor;
+                btn.BackColor = defaultButtonBackColor;
+                btn.Font = new Font(progressButton.Font, FontStyle.Regular);
+            }
+        }
+
         // handle filename text box changes
         private void fileNameChange(object sender, EventArgs e)
         {
 
         }
 
-        private void selectButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void bfsButton_Click(object sender, EventArgs e)
         {
-            bfsButton.BackColor = Color.FromArgb(46, 51, 73);
+            changeButtonVisual(bfsButton, ref bfsMode);
+
+            if (dfsMode && bfsMode)
+            {
+                changeButtonVisual(dfsButton, ref dfsMode);
+            }
         }
         private void dfsButton_Click(object sender, EventArgs e)
         {
-            dfsButton.BackColor = Color.FromArgb(46, 51, 73);
+            changeButtonVisual(dfsButton, ref dfsMode);
+
+            if (dfsMode && bfsMode)
+            {
+                changeButtonVisual(bfsButton, ref bfsMode);
+            }
         }
         private void tspButton_Click(object sender, EventArgs e)
         {
-            bfsButton.BackColor = Color.FromArgb(46, 51, 73);
+            changeButtonVisual(tspButton, ref tspMode);
+
         }
         private void progressButton_Click(object sender, EventArgs e)
         {
-            bfsButton.BackColor = Color.FromArgb(46, 51, 73);
+            changeButtonVisual(progressButton, ref showProgress);
         }
 
         private void visualizeButton_Click(object sender, EventArgs e)
         {
-            bfsButton.BackColor = Color.FromArgb(46, 51, 73);
+            
         }
 
         private void solveButton_Click(object sender, EventArgs e)
         {
-            bfsButton.BackColor = Color.FromArgb(46, 51, 73);
+      
         }
 
         private void selectButton_Hover(object sender, EventArgs e)
@@ -132,16 +173,6 @@ namespace GUI
 
         // handle time text changes
         private void timeText_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void visualize_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void solve_Click(object sender, EventArgs e)
         {
 
         }

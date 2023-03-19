@@ -31,7 +31,7 @@ namespace GUI
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             mazeGridView = new DataGridView();
             openFileDialog1 = new OpenFileDialog();
             configPanel = new Panel();
@@ -68,8 +68,8 @@ namespace GUI
             mazeGridView.AllowUserToDeleteRows = false;
             mazeGridView.AllowUserToResizeColumns = false;
             mazeGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            mazeGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            mazeGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             mazeGridView.Anchor = AnchorStyles.Top;
             mazeGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             mazeGridView.BackgroundColor = Color.FromArgb(37, 42, 64);
@@ -235,6 +235,7 @@ namespace GUI
             bfsButton.IconChar = FontAwesome.Sharp.IconChar.RulerHorizontal;
             bfsButton.IconColor = Color.FromArgb(163, 55, 245);
             bfsButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            bfsButton.ImageAlign = ContentAlignment.MiddleLeft;
             bfsButton.Location = new Point(0, 0);
             bfsButton.Margin = new Padding(3, 3, 0, 0);
             bfsButton.Name = "bfsButton";
