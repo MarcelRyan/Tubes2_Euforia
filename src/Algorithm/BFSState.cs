@@ -43,6 +43,12 @@ class BFSState: MazeState{
             _queue.Dequeue();
         }
 
+        if (_queue.Count == 0)
+        {
+            stop = true;
+            return;
+        }
+
         Tuple<Tuple<int, int>, Tuple<int, int>> top = (Tuple<Tuple<int, int>, Tuple<int, int>>)_queue.Peek();
 
         Tuple<int, int> newPosition = ((Tuple<Tuple<int, int>, Tuple<int, int>>)_queue.Dequeue()).Item1;
