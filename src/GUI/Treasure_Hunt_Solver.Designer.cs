@@ -57,8 +57,8 @@ namespace GUI
             visualizeButton = new FontAwesome.Sharp.IconButton();
             solveButton = new FontAwesome.Sharp.IconButton();
             logoPanel = new Panel();
-            pictureBox1 = new PictureBox();
             iconSplitButton1 = new FontAwesome.Sharp.IconSplitButton();
+            pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)mazeGridView).BeginInit();
             configPanel.SuspendLayout();
             panel1.SuspendLayout();
@@ -79,20 +79,20 @@ namespace GUI
             mazeGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             mazeGridView.Anchor = AnchorStyles.Top;
             mazeGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            mazeGridView.BackgroundColor = Color.FromArgb(31, 30, 68);
+            mazeGridView.BackgroundColor = Color.FromArgb(37, 42, 64);
             mazeGridView.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             mazeGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             mazeGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             mazeGridView.ColumnHeadersVisible = false;
             mazeGridView.GridColor = Color.White;
-            mazeGridView.Location = new Point(291, 14);
+            mazeGridView.Location = new Point(269, 14);
             mazeGridView.Margin = new Padding(4, 5, 4, 5);
             mazeGridView.Name = "mazeGridView";
             mazeGridView.RowHeadersVisible = false;
             mazeGridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             mazeGridView.RowTemplate.Height = 24;
             mazeGridView.RowTemplate.Resizable = DataGridViewTriState.False;
-            mazeGridView.Size = new Size(874, 420);
+            mazeGridView.Size = new Size(713, 443);
             mazeGridView.TabIndex = 17;
             // 
             // openFileDialog1
@@ -101,7 +101,7 @@ namespace GUI
             // 
             // configPanel
             // 
-            configPanel.BackColor = Color.FromArgb(31, 30, 68);
+            configPanel.BackColor = Color.FromArgb(24, 30, 54);
             configPanel.Controls.Add(panel1);
             configPanel.Controls.Add(visualizeConfigPanel);
             configPanel.Controls.Add(algorithmConfigPanel);
@@ -131,9 +131,9 @@ namespace GUI
             tspButton.FlatAppearance.BorderSize = 0;
             tspButton.FlatStyle = FlatStyle.Flat;
             tspButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            tspButton.ForeColor = Color.White;
+            tspButton.ForeColor = Color.FromArgb(163, 55, 245);
             tspButton.IconChar = FontAwesome.Sharp.IconChar.PlaneArrival;
-            tspButton.IconColor = Color.White;
+            tspButton.IconColor = Color.FromArgb(163, 55, 245);
             tspButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             tspButton.IconSize = 32;
             tspButton.Location = new Point(0, 0);
@@ -200,7 +200,7 @@ namespace GUI
             // 
             // timeStampBox
             // 
-            timeStampBox.BackColor = Color.FromArgb(31, 30, 68);
+            timeStampBox.BackColor = Color.FromArgb(24, 30, 54);
             timeStampBox.Location = new Point(55, 56);
             timeStampBox.MaxLength = 3;
             timeStampBox.Name = "timeStampBox";
@@ -213,9 +213,9 @@ namespace GUI
             progressButton.FlatAppearance.BorderSize = 0;
             progressButton.FlatStyle = FlatStyle.Flat;
             progressButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            progressButton.ForeColor = Color.White;
+            progressButton.ForeColor = Color.FromArgb(163, 55, 245);
             progressButton.IconChar = FontAwesome.Sharp.IconChar.TasksAlt;
-            progressButton.IconColor = Color.White;
+            progressButton.IconColor = Color.FromArgb(163, 55, 245);
             progressButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             progressButton.IconSize = 32;
             progressButton.Location = new Point(0, 0);
@@ -274,9 +274,9 @@ namespace GUI
             dfsButton.FlatAppearance.BorderSize = 0;
             dfsButton.FlatStyle = FlatStyle.Flat;
             dfsButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dfsButton.ForeColor = Color.White;
+            dfsButton.ForeColor = Color.FromArgb(163, 55, 245);
             dfsButton.IconChar = FontAwesome.Sharp.IconChar.RulerVertical;
-            dfsButton.IconColor = Color.White;
+            dfsButton.IconColor = Color.FromArgb(163, 55, 245);
             dfsButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             dfsButton.IconSize = 32;
             dfsButton.Location = new Point(127, 0);
@@ -294,9 +294,9 @@ namespace GUI
             bfsButton.FlatAppearance.BorderSize = 0;
             bfsButton.FlatStyle = FlatStyle.Flat;
             bfsButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            bfsButton.ForeColor = Color.White;
+            bfsButton.ForeColor = Color.FromArgb(163, 55, 245);
             bfsButton.IconChar = FontAwesome.Sharp.IconChar.RulerHorizontal;
-            bfsButton.IconColor = Color.White;
+            bfsButton.IconColor = Color.FromArgb(163, 55, 245);
             bfsButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             bfsButton.Location = new Point(0, 0);
             bfsButton.Margin = new Padding(3, 3, 0, 0);
@@ -336,7 +336,7 @@ namespace GUI
             // 
             // FileConfigPanel
             // 
-            FileConfigPanel.BackColor = Color.FromArgb(31, 30, 68);
+            FileConfigPanel.BackColor = Color.Transparent;
             FileConfigPanel.Controls.Add(browseFileButton);
             FileConfigPanel.Controls.Add(fileNameBox);
             FileConfigPanel.Controls.Add(fileConfigLabel);
@@ -366,8 +366,8 @@ namespace GUI
             // fileNameBox
             // 
             fileNameBox.Anchor = AnchorStyles.Left;
-            fileNameBox.BackColor = Color.FromArgb(31, 30, 68);
-            fileNameBox.ForeColor = Color.White;
+            fileNameBox.BackColor = Color.FromArgb(24, 30, 54);
+            fileNameBox.ForeColor = Color.FromArgb(163, 55, 245);
             fileNameBox.Location = new Point(3, 28);
             fileNameBox.Name = "fileNameBox";
             fileNameBox.Size = new Size(199, 30);
@@ -379,7 +379,7 @@ namespace GUI
             fileConfigLabel.Dock = DockStyle.Top;
             fileConfigLabel.FlatStyle = FlatStyle.Flat;
             fileConfigLabel.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            fileConfigLabel.ForeColor = Color.White;
+            fileConfigLabel.ForeColor = Color.FromArgb(163, 55, 245);
             fileConfigLabel.Location = new Point(0, 0);
             fileConfigLabel.Name = "fileConfigLabel";
             fileConfigLabel.Size = new Size(259, 25);
@@ -394,9 +394,9 @@ namespace GUI
             visualizeButton.FlatAppearance.BorderSize = 0;
             visualizeButton.FlatStyle = FlatStyle.Flat;
             visualizeButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            visualizeButton.ForeColor = Color.White;
+            visualizeButton.ForeColor = Color.FromArgb(163, 55, 245);
             visualizeButton.IconChar = FontAwesome.Sharp.IconChar.Television;
-            visualizeButton.IconColor = Color.White;
+            visualizeButton.IconColor = Color.FromArgb(163, 55, 245);
             visualizeButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             visualizeButton.IconSize = 32;
             visualizeButton.ImageAlign = ContentAlignment.MiddleLeft;
@@ -418,9 +418,9 @@ namespace GUI
             solveButton.FlatAppearance.BorderSize = 0;
             solveButton.FlatStyle = FlatStyle.Flat;
             solveButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            solveButton.ForeColor = Color.White;
+            solveButton.ForeColor = Color.FromArgb(163, 55, 245);
             solveButton.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
-            solveButton.IconColor = Color.White;
+            solveButton.IconColor = Color.FromArgb(163, 55, 245);
             solveButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             solveButton.IconSize = 32;
             solveButton.ImageAlign = ContentAlignment.MiddleLeft;
@@ -444,16 +444,6 @@ namespace GUI
             logoPanel.Size = new Size(262, 92);
             logoPanel.TabIndex = 19;
             // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Tubes2_Euforia.Properties.Resources.euforia_logo;
-            pictureBox1.Location = new Point(3, 3);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(250, 82);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            // 
             // iconSplitButton1
             // 
             iconSplitButton1.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
@@ -466,10 +456,21 @@ namespace GUI
             iconSplitButton1.Size = new Size(23, 23);
             iconSplitButton1.Text = "iconSplitButton1";
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Image = Tubes2_Euforia.Properties.Resources.euforia_logo1;
+            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(262, 92);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
+            // 
             // Treasure_Hunt_Solver
             // 
             AutoScaleMode = AutoScaleMode.None;
-            BackColor = Color.FromArgb(34, 33, 74);
+            BackColor = Color.FromArgb(46, 51, 73);
             ClientSize = new Size(1178, 594);
             Controls.Add(mazeGridView);
             Controls.Add(configPanel);
@@ -508,7 +509,6 @@ namespace GUI
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private Panel configPanel;
         private Panel logoPanel;
-        private PictureBox pictureBox1;
         private FontAwesome.Sharp.IconButton solveButton;
         private FontAwesome.Sharp.IconButton visualizeButton;
         private Panel FileConfigPanel;
@@ -529,6 +529,7 @@ namespace GUI
         private FontAwesome.Sharp.IconButton bfsButton;
         private FontAwesome.Sharp.IconButton dfsButton;
         private FontAwesome.Sharp.IconSplitButton iconSplitButton1;
+        private PictureBox pictureBox1;
     }
 }
 
