@@ -80,10 +80,8 @@ namespace GUI
             mazeGridView.Anchor = AnchorStyles.Top;
             mazeGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             mazeGridView.BackgroundColor = Color.FromArgb(31, 30, 68);
-            mazeGridView.BorderStyle = BorderStyle.None;
-            mazeGridView.CellBorderStyle = DataGridViewCellBorderStyle.None;
             mazeGridView.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
-            mazeGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            mazeGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             mazeGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             mazeGridView.ColumnHeadersVisible = false;
             mazeGridView.GridColor = Color.White;
@@ -94,7 +92,7 @@ namespace GUI
             mazeGridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             mazeGridView.RowTemplate.Height = 24;
             mazeGridView.RowTemplate.Resizable = DataGridViewTriState.False;
-            mazeGridView.Size = new Size(904, 420);
+            mazeGridView.Size = new Size(874, 420);
             mazeGridView.TabIndex = 17;
             // 
             // openFileDialog1
