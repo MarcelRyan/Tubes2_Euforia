@@ -7,15 +7,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Runtime.InteropServices;
 namespace GUI
 {
     public partial class Treasure_Hunt_Solver : Form
     {
+        [DllImport("gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn(
+            int nLeftRect,
+            int nTopRect,
+            int nRightRect,
+            int nBottomRect,
+            int nWidthEllipse,
+            int nHeightEllipse);
         public Treasure_Hunt_Solver()
         {
             InitializeComponent();
 
+            // making round rectangle form
+            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
+
+            this.Height = 650;
+            this.Width = 1200;
+
+            CenterToScreen();
         }
 
         private void Treasure_Hunt_Solver_Load(object sender, EventArgs e)
@@ -78,10 +93,36 @@ namespace GUI
 
         }
 
-        // handle visual changes when button is clicked
         private void selectButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void bfsButton_Click(object sender, EventArgs e)
+        {
+            bfsButton.BackColor = Color.FromArgb(46, 51, 73);
+        }
+        private void dfsButton_Click(object sender, EventArgs e)
+        {
+            dfsButton.BackColor = Color.FromArgb(46, 51, 73);
+        }
+        private void tspButton_Click(object sender, EventArgs e)
+        {
+            bfsButton.BackColor = Color.FromArgb(46, 51, 73);
+        }
+        private void progressButton_Click(object sender, EventArgs e)
+        {
+            bfsButton.BackColor = Color.FromArgb(46, 51, 73);
+        }
+
+        private void visualizeButton_Click(object sender, EventArgs e)
+        {
+            bfsButton.BackColor = Color.FromArgb(46, 51, 73);
+        }
+
+        private void solveButton_Click(object sender, EventArgs e)
+        {
+            bfsButton.BackColor = Color.FromArgb(46, 51, 73);
         }
 
         private void selectButton_Hover(object sender, EventArgs e)

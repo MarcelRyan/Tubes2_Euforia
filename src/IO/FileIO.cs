@@ -21,8 +21,13 @@ class FileIO
     static public string[][] ReadMapFile(string fileName, string path = "../test/",string extension = ".txt")
     {
         string validChars = "KTRX";
-        
-        string[] lines = File.ReadAllLines(Path.GetFullPath(path + FixFileExtension(fileName)));
+        string prefix = "";
+
+#if DEBUG
+        prefix = "../../";
+#endif
+
+        string[] lines = File.ReadAllLines(prefix + Path.GetFullPath(path + FixFileExtension(fileName)));
 
         var map = lines.Select(line => line.ToUpper().Split(' ')).ToArray();
 

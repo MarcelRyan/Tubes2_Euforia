@@ -31,7 +31,7 @@ namespace GUI
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             mazeGridView = new DataGridView();
             openFileDialog1 = new OpenFileDialog();
             configPanel = new Panel();
@@ -68,8 +68,8 @@ namespace GUI
             mazeGridView.AllowUserToDeleteRows = false;
             mazeGridView.AllowUserToResizeColumns = false;
             mazeGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            mazeGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            mazeGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             mazeGridView.Anchor = AnchorStyles.Top;
             mazeGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             mazeGridView.BackgroundColor = Color.FromArgb(37, 42, 64);
@@ -77,7 +77,7 @@ namespace GUI
             mazeGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             mazeGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             mazeGridView.ColumnHeadersVisible = false;
-            mazeGridView.GridColor = Color.White;
+            mazeGridView.GridColor = Color.FromArgb(46, 51, 73);
             mazeGridView.Location = new Point(269, 14);
             mazeGridView.Margin = new Padding(4, 5, 4, 5);
             mazeGridView.Name = "mazeGridView";
@@ -138,7 +138,7 @@ namespace GUI
             tspButton.TextAlign = ContentAlignment.MiddleLeft;
             tspButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             tspButton.UseVisualStyleBackColor = true;
-            tspButton.Click += selectButton_Click;
+            tspButton.Click += tspButton_Click;
             // 
             // visualizeConfigPanel
             // 
@@ -193,7 +193,7 @@ namespace GUI
             progressButton.TextAlign = ContentAlignment.MiddleLeft;
             progressButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             progressButton.UseVisualStyleBackColor = true;
-            progressButton.Click += selectButton_Click;
+            progressButton.Click += progressButton_Click;
             // 
             // algorithmConfigPanel
             // 
@@ -223,7 +223,7 @@ namespace GUI
             dfsButton.Text = "DFS";
             dfsButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             dfsButton.UseVisualStyleBackColor = true;
-            dfsButton.Click += selectButton_Click;
+            dfsButton.Click += dfsButton_Click;
             // 
             // bfsButton
             // 
@@ -243,7 +243,7 @@ namespace GUI
             bfsButton.Text = "BFS";
             bfsButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             bfsButton.UseVisualStyleBackColor = true;
-            bfsButton.Click += selectButton_Click;
+            bfsButton.Click += bfsButton_Click;
             // 
             // FileConfigPanel
             // 
@@ -319,7 +319,7 @@ namespace GUI
             visualizeButton.TextAlign = ContentAlignment.MiddleLeft;
             visualizeButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             visualizeButton.UseVisualStyleBackColor = true;
-            visualizeButton.Click += visualize_Click;
+            visualizeButton.Click += visualizeButton_Click;
             // 
             // solveButton
             // 
@@ -343,7 +343,7 @@ namespace GUI
             solveButton.TextAlign = ContentAlignment.MiddleLeft;
             solveButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             solveButton.UseVisualStyleBackColor = true;
-            solveButton.Click += solve_Click;
+            solveButton.Click += solveButton_Click;
             // 
             // logoPanel
             // 
