@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Collections;
+using System.Windows.Controls;
 
 namespace GUI
 {
@@ -45,21 +46,26 @@ namespace GUI
         public Treasure_Hunt_Solver()
         {
             InitializeComponent();
+
+            // handle enter key
             this.fileNameBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(CheckEnterKeyPress);
 
             // making round rectangle form
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
 
+            // set window size
             this.Height = 650;
             this.Width = 1200;
 
             CenterToScreen();
 
+            // initialize attributes
             bfsMode = false;
             dfsMode = false;
             tspMode = false;
             showProgress = false;
 
+            // styling
             progressButton.Dock = DockStyle.Fill;
             timeLabel.Hide();
             timeStampBox.Hide();
@@ -106,7 +112,7 @@ namespace GUI
             }
         }
 
-        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void mazeGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             for (int i = 0; i < mazeGridView.RowCount; i++)
             {
@@ -211,7 +217,7 @@ namespace GUI
         {
             mazeGridView.DataSource = Helper.TableDataFromTextFile(filename);
 
-            mazeGridView.CellFormatting += dataGridView1_CellFormatting;
+            mazeGridView.CellFormatting += mazeGrid_CellFormatting;
 
             mazeGridView.ScrollBars = ScrollBars.None;
 
@@ -291,6 +297,16 @@ namespace GUI
                 e.Handled = e.SuppressKeyPress = true;
                 exitFocus(sender, e);
             }
+        }
+
+        private void logoPictureBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void executionGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

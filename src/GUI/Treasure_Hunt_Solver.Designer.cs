@@ -52,6 +52,20 @@ namespace GUI
             solveButton = new FontAwesome.Sharp.IconButton();
             logoPanel = new Panel();
             logoPictureBox = new PictureBox();
+            executionPanel = new Panel();
+            stepsCountPanel = new Panel();
+            stepsCountValue = new Label();
+            stepsCountLabel = new Label();
+            nodesCountPanel = new Panel();
+            nodesCountValue = new Label();
+            stepCountLabel = new Label();
+            executionTimePanel = new Panel();
+            executionTimeValue = new Label();
+            executionTimeLabel = new Label();
+            executionButton = new FontAwesome.Sharp.IconButton();
+            routePanel = new Panel();
+            routeLabel = new Label();
+            routeLabelButton = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)mazeGridView).BeginInit();
             configPanel.SuspendLayout();
             tspModePanel.SuspendLayout();
@@ -61,6 +75,11 @@ namespace GUI
             FileConfigPanel.SuspendLayout();
             logoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
+            executionPanel.SuspendLayout();
+            stepsCountPanel.SuspendLayout();
+            nodesCountPanel.SuspendLayout();
+            executionTimePanel.SuspendLayout();
+            routePanel.SuspendLayout();
             SuspendLayout();
             // 
             // mazeGridView
@@ -74,14 +93,17 @@ namespace GUI
             mazeGridView.Anchor = AnchorStyles.Top;
             mazeGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             mazeGridView.BackgroundColor = Color.FromArgb(37, 42, 64);
+            mazeGridView.BorderStyle = BorderStyle.None;
             mazeGridView.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             mazeGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             mazeGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             mazeGridView.ColumnHeadersVisible = false;
+            mazeGridView.Enabled = false;
             mazeGridView.GridColor = Color.FromArgb(46, 51, 73);
             mazeGridView.Location = new Point(269, 14);
             mazeGridView.Margin = new Padding(4, 5, 4, 5);
             mazeGridView.Name = "mazeGridView";
+            mazeGridView.ReadOnly = true;
             mazeGridView.RowHeadersVisible = false;
             mazeGridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             mazeGridView.RowTemplate.Height = 24;
@@ -371,12 +393,186 @@ namespace GUI
             logoPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             logoPictureBox.TabIndex = 0;
             logoPictureBox.TabStop = false;
+            logoPictureBox.Click += logoPictureBox_Click;
+            // 
+            // executionPanel
+            // 
+            executionPanel.BackColor = Color.FromArgb(24, 30, 54);
+            executionPanel.Controls.Add(stepsCountPanel);
+            executionPanel.Controls.Add(nodesCountPanel);
+            executionPanel.Controls.Add(executionTimePanel);
+            executionPanel.Controls.Add(executionButton);
+            executionPanel.Location = new Point(989, 14);
+            executionPanel.Name = "executionPanel";
+            executionPanel.Size = new Size(184, 443);
+            executionPanel.TabIndex = 25;
+            // 
+            // stepsCountPanel
+            // 
+            stepsCountPanel.BackColor = Color.FromArgb(46, 51, 73);
+            stepsCountPanel.Controls.Add(stepsCountValue);
+            stepsCountPanel.Controls.Add(stepsCountLabel);
+            stepsCountPanel.Location = new Point(5, 342);
+            stepsCountPanel.Name = "stepsCountPanel";
+            stepsCountPanel.Size = new Size(174, 88);
+            stepsCountPanel.TabIndex = 2;
+            // 
+            // stepsCountValue
+            // 
+            stepsCountValue.BackColor = Color.FromArgb(163, 55, 245);
+            stepsCountValue.Dock = DockStyle.Bottom;
+            stepsCountValue.ForeColor = Color.White;
+            stepsCountValue.Location = new Point(0, 37);
+            stepsCountValue.Name = "stepsCountValue";
+            stepsCountValue.Size = new Size(174, 51);
+            stepsCountValue.TabIndex = 3;
+            stepsCountValue.Text = "[STEPS]";
+            stepsCountValue.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // stepsCountLabel
+            // 
+            stepsCountLabel.Dock = DockStyle.Top;
+            stepsCountLabel.ForeColor = Color.FromArgb(163, 55, 245);
+            stepsCountLabel.Location = new Point(0, 0);
+            stepsCountLabel.Name = "stepsCountLabel";
+            stepsCountLabel.Size = new Size(174, 38);
+            stepsCountLabel.TabIndex = 1;
+            stepsCountLabel.Text = "Steps Count";
+            stepsCountLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // nodesCountPanel
+            // 
+            nodesCountPanel.BackColor = Color.FromArgb(46, 51, 73);
+            nodesCountPanel.Controls.Add(nodesCountValue);
+            nodesCountPanel.Controls.Add(stepCountLabel);
+            nodesCountPanel.Location = new Point(5, 234);
+            nodesCountPanel.Name = "nodesCountPanel";
+            nodesCountPanel.Size = new Size(174, 88);
+            nodesCountPanel.TabIndex = 2;
+            // 
+            // nodesCountValue
+            // 
+            nodesCountValue.BackColor = Color.FromArgb(163, 55, 245);
+            nodesCountValue.Dock = DockStyle.Bottom;
+            nodesCountValue.ForeColor = Color.White;
+            nodesCountValue.Location = new Point(0, 37);
+            nodesCountValue.Name = "nodesCountValue";
+            nodesCountValue.Size = new Size(174, 51);
+            nodesCountValue.TabIndex = 2;
+            nodesCountValue.Text = "[NODES]";
+            nodesCountValue.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // stepCountLabel
+            // 
+            stepCountLabel.Dock = DockStyle.Top;
+            stepCountLabel.ForeColor = Color.FromArgb(163, 55, 245);
+            stepCountLabel.Location = new Point(0, 0);
+            stepCountLabel.Name = "stepCountLabel";
+            stepCountLabel.Size = new Size(174, 38);
+            stepCountLabel.TabIndex = 0;
+            stepCountLabel.Text = "Nodes Count";
+            stepCountLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // executionTimePanel
+            // 
+            executionTimePanel.BackColor = Color.FromArgb(46, 51, 73);
+            executionTimePanel.Controls.Add(executionTimeValue);
+            executionTimePanel.Controls.Add(executionTimeLabel);
+            executionTimePanel.Location = new Point(5, 129);
+            executionTimePanel.Name = "executionTimePanel";
+            executionTimePanel.Size = new Size(174, 88);
+            executionTimePanel.TabIndex = 1;
+            // 
+            // executionTimeValue
+            // 
+            executionTimeValue.BackColor = Color.FromArgb(163, 55, 245);
+            executionTimeValue.Dock = DockStyle.Bottom;
+            executionTimeValue.ForeColor = Color.White;
+            executionTimeValue.Location = new Point(0, 37);
+            executionTimeValue.Name = "executionTimeValue";
+            executionTimeValue.Size = new Size(174, 51);
+            executionTimeValue.TabIndex = 1;
+            executionTimeValue.Text = "[TIME]";
+            executionTimeValue.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // executionTimeLabel
+            // 
+            executionTimeLabel.Dock = DockStyle.Top;
+            executionTimeLabel.ForeColor = Color.FromArgb(163, 55, 245);
+            executionTimeLabel.ImageAlign = ContentAlignment.MiddleRight;
+            executionTimeLabel.Location = new Point(0, 0);
+            executionTimeLabel.Name = "executionTimeLabel";
+            executionTimeLabel.Size = new Size(174, 38);
+            executionTimeLabel.TabIndex = 0;
+            executionTimeLabel.Text = "Execution Time";
+            executionTimeLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // executionButton
+            // 
+            executionButton.Dock = DockStyle.Top;
+            executionButton.FlatAppearance.BorderColor = Color.FromArgb(163, 55, 245);
+            executionButton.FlatStyle = FlatStyle.Flat;
+            executionButton.Font = new Font("Century Gothic", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            executionButton.ForeColor = Color.FromArgb(163, 55, 245);
+            executionButton.IconChar = FontAwesome.Sharp.IconChar.Microchip;
+            executionButton.IconColor = Color.FromArgb(163, 55, 245);
+            executionButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            executionButton.IconSize = 50;
+            executionButton.Location = new Point(0, 0);
+            executionButton.Name = "executionButton";
+            executionButton.Size = new Size(184, 109);
+            executionButton.TabIndex = 0;
+            executionButton.Text = "Execution";
+            executionButton.TextImageRelation = TextImageRelation.ImageBeforeText;
+            executionButton.UseVisualStyleBackColor = true;
+            // 
+            // routePanel
+            // 
+            routePanel.BackColor = Color.FromArgb(24, 30, 54);
+            routePanel.Controls.Add(routeLabel);
+            routePanel.Controls.Add(routeLabelButton);
+            routePanel.Location = new Point(269, 465);
+            routePanel.Name = "routePanel";
+            routePanel.Size = new Size(904, 129);
+            routePanel.TabIndex = 26;
+            // 
+            // routeLabel
+            // 
+            routeLabel.Dock = DockStyle.Right;
+            routeLabel.FlatStyle = FlatStyle.Flat;
+            routeLabel.ForeColor = SystemColors.ControlLight;
+            routeLabel.Location = new Point(142, 0);
+            routeLabel.Name = "routeLabel";
+            routeLabel.Size = new Size(762, 129);
+            routeLabel.TabIndex = 1;
+            routeLabel.Text = "[ROUTE]";
+            routeLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // routeLabelButton
+            // 
+            routeLabelButton.Dock = DockStyle.Left;
+            routeLabelButton.FlatStyle = FlatStyle.Flat;
+            routeLabelButton.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            routeLabelButton.ForeColor = Color.FromArgb(163, 55, 245);
+            routeLabelButton.IconChar = FontAwesome.Sharp.IconChar.Route;
+            routeLabelButton.IconColor = Color.FromArgb(163, 55, 245);
+            routeLabelButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            routeLabelButton.IconSize = 70;
+            routeLabelButton.Location = new Point(0, 0);
+            routeLabelButton.Name = "routeLabelButton";
+            routeLabelButton.Size = new Size(136, 129);
+            routeLabelButton.TabIndex = 0;
+            routeLabelButton.Text = "Route";
+            routeLabelButton.TextImageRelation = TextImageRelation.TextAboveImage;
+            routeLabelButton.UseVisualStyleBackColor = true;
             // 
             // Treasure_Hunt_Solver
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(46, 51, 73);
             ClientSize = new Size(1178, 594);
+            Controls.Add(routePanel);
+            Controls.Add(executionPanel);
             Controls.Add(mazeGridView);
             Controls.Add(configPanel);
             Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -401,6 +597,11 @@ namespace GUI
             FileConfigPanel.PerformLayout();
             logoPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)logoPictureBox).EndInit();
+            executionPanel.ResumeLayout(false);
+            stepsCountPanel.ResumeLayout(false);
+            nodesCountPanel.ResumeLayout(false);
+            executionTimePanel.ResumeLayout(false);
+            routePanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -426,6 +627,20 @@ namespace GUI
         private FontAwesome.Sharp.IconButton dfsButton;
         private PictureBox logoPictureBox;
         private NumericUpDown timeStampBox;
+        private Panel executionPanel;
+        private FontAwesome.Sharp.IconButton executionButton;
+        private Panel stepsCountPanel;
+        private Panel nodesCountPanel;
+        private Panel executionTimePanel;
+        private Label stepsCountValue;
+        private Label stepsCountLabel;
+        private Label nodesCountValue;
+        private Label stepCountLabel;
+        private Label executionTimeValue;
+        private Label executionTimeLabel;
+        private Panel routePanel;
+        private FontAwesome.Sharp.IconButton routeLabelButton;
+        private Label routeLabel;
     }
 }
 
