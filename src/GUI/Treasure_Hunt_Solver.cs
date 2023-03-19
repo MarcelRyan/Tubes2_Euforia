@@ -106,7 +106,8 @@ namespace GUI
             }
         }
 
-        private void changeButtonVisual(FontAwesome.Sharp.IconButton btn, ref bool status) {
+        private void changeButtonVisual(FontAwesome.Sharp.IconButton btn, ref bool status)
+        {
             status = !status;
 
             if (status)
@@ -176,12 +177,12 @@ namespace GUI
 
         private void visualizeButton_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void solveButton_Click(object sender, EventArgs e)
         {
-      
+
         }
 
         private void selectButton_Hover(object sender, EventArgs e)

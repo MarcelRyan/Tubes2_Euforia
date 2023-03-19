@@ -114,12 +114,12 @@ namespace GUI
             tspModePanel.Location = new Point(0, 248);
             tspModePanel.Margin = new Padding(0);
             tspModePanel.Name = "tspModePanel";
-            tspModePanel.Size = new Size(262, 70);
+            tspModePanel.Size = new Size(262, 93);
             tspModePanel.TabIndex = 24;
             // 
             // tspButton
             // 
-            tspButton.Dock = DockStyle.Fill;
+            tspButton.Dock = DockStyle.Top;
             tspButton.FlatAppearance.BorderSize = 0;
             tspButton.FlatStyle = FlatStyle.Flat;
             tspButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -132,7 +132,7 @@ namespace GUI
             tspButton.Margin = new Padding(3, 3, 0, 0);
             tspButton.Name = "tspButton";
             tspButton.Padding = new Padding(25, 0, 0, 0);
-            tspButton.Size = new Size(262, 70);
+            tspButton.Size = new Size(262, 97);
             tspButton.TabIndex = 3;
             tspButton.Text = "TSP Mode";
             tspButton.TextAlign = ContentAlignment.MiddleLeft;
