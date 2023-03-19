@@ -57,8 +57,8 @@ namespace GUI
             visualizeButton = new FontAwesome.Sharp.IconButton();
             solveButton = new FontAwesome.Sharp.IconButton();
             logoPanel = new Panel();
-            iconSplitButton1 = new FontAwesome.Sharp.IconSplitButton();
             pictureBox1 = new PictureBox();
+            iconSplitButton1 = new FontAwesome.Sharp.IconSplitButton();
             ((System.ComponentModel.ISupportInitialize)mazeGridView).BeginInit();
             configPanel.SuspendLayout();
             panel1.SuspendLayout();
@@ -146,6 +146,7 @@ namespace GUI
             tspButton.TextAlign = ContentAlignment.MiddleLeft;
             tspButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             tspButton.UseVisualStyleBackColor = true;
+            tspButton.Click += selectButton_Click;
             // 
             // iconButton5
             // 
@@ -228,7 +229,7 @@ namespace GUI
             progressButton.TextAlign = ContentAlignment.MiddleLeft;
             progressButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             progressButton.UseVisualStyleBackColor = true;
-            progressButton.Click += progressButton_Click;
+            progressButton.Click += selectButton_Click;
             // 
             // iconButton1
             // 
@@ -287,6 +288,7 @@ namespace GUI
             dfsButton.Text = "DFS";
             dfsButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             dfsButton.UseVisualStyleBackColor = true;
+            dfsButton.Click += selectButton_Click;
             // 
             // bfsButton
             // 
@@ -306,6 +308,7 @@ namespace GUI
             bfsButton.Text = "BFS";
             bfsButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             bfsButton.UseVisualStyleBackColor = true;
+            bfsButton.Click += selectButton_Click;
             // 
             // iconButton2
             // 
@@ -361,7 +364,7 @@ namespace GUI
             browseFileButton.Size = new Size(48, 31);
             browseFileButton.TabIndex = 2;
             browseFileButton.UseVisualStyleBackColor = true;
-            browseFileButton.Click += button1_Click;
+            browseFileButton.Click += browseFile_Click;
             // 
             // fileNameBox
             // 
@@ -372,7 +375,7 @@ namespace GUI
             fileNameBox.Name = "fileNameBox";
             fileNameBox.Size = new Size(199, 30);
             fileNameBox.TabIndex = 1;
-            fileNameBox.TextChanged += textBox1_TextChanged;
+            fileNameBox.TextChanged += fileNameChange;
             // 
             // fileConfigLabel
             // 
@@ -385,7 +388,6 @@ namespace GUI
             fileConfigLabel.Size = new Size(259, 25);
             fileConfigLabel.TabIndex = 0;
             fileConfigLabel.Text = "File Configuration";
-            fileConfigLabel.Click += label1_Click;
             // 
             // visualizeButton
             // 
@@ -409,7 +411,7 @@ namespace GUI
             visualizeButton.TextAlign = ContentAlignment.MiddleLeft;
             visualizeButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             visualizeButton.UseVisualStyleBackColor = true;
-            visualizeButton.Click += iconButton2_Click;
+            visualizeButton.Click += visualize_Click;
             // 
             // solveButton
             // 
@@ -433,7 +435,7 @@ namespace GUI
             solveButton.TextAlign = ContentAlignment.MiddleLeft;
             solveButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             solveButton.UseVisualStyleBackColor = true;
-            solveButton.Click += button3_Click;
+            solveButton.Click += solve_Click;
             // 
             // logoPanel
             // 
@@ -443,6 +445,17 @@ namespace GUI
             logoPanel.Name = "logoPanel";
             logoPanel.Size = new Size(262, 92);
             logoPanel.TabIndex = 19;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Image = Tubes2_Euforia.Properties.Resources.euforia_logo1;
+            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(262, 92);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
             // 
             // iconSplitButton1
             // 
@@ -455,17 +468,6 @@ namespace GUI
             iconSplitButton1.Rotation = 0D;
             iconSplitButton1.Size = new Size(23, 23);
             iconSplitButton1.Text = "iconSplitButton1";
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Image = Tubes2_Euforia.Properties.Resources.euforia_logo1;
-            pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(262, 92);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
             // 
             // Treasure_Hunt_Solver
             // 

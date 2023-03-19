@@ -24,18 +24,8 @@ namespace GUI
             //timeStampLabel.Enabled = false;
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void button1_Click(object sender, EventArgs e)
+        private void browseFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
@@ -81,62 +71,31 @@ namespace GUI
                 }
             }
         }
-        private void textBox1_TextChanged(object sender, EventArgs e)
+
+        // handle filename text box changes
+        private void fileNameChange(object sender, EventArgs e)
         {
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        // handle visual changes when button is clicked
+        private void selectButton_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        // handle time text changes
+        private void timeText_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void label10_Click(object sender, EventArgs e)
+        private void visualize_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void iconButton2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint_1(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_2(object sender, EventArgs e)
-        {
-
-        }
-
-        private void progressButton_Click(object sender, EventArgs e)
+        private void solve_Click(object sender, EventArgs e)
         {
 
         }
