@@ -32,9 +32,6 @@ namespace GUI
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            label4 = new Label();
-            fileNameBox = new TextBox();
-            browseFileButton = new Button();
             label5 = new Label();
             radioButton1 = new RadioButton();
             radioButton2 = new RadioButton();
@@ -46,62 +43,28 @@ namespace GUI
             timeStampBox = new TextBox();
             mazeGridView = new DataGridView();
             openFileDialog1 = new OpenFileDialog();
-            panel1 = new Panel();
+            configPanel = new Panel();
+            FileConfigPanel = new Panel();
+            browseFileButton = new FontAwesome.Sharp.IconButton();
+            fileNameBox = new TextBox();
+            fileConfigLabel = new Label();
             visualizeButton = new FontAwesome.Sharp.IconButton();
             solveButton = new FontAwesome.Sharp.IconButton();
-            panel2 = new Panel();
+            logoPanel = new Panel();
             pictureBox1 = new PictureBox();
-            panel3 = new Panel();
             ((System.ComponentModel.ISupportInitialize)mazeGridView).BeginInit();
-            panel1.SuspendLayout();
-            panel2.SuspendLayout();
+            configPanel.SuspendLayout();
+            FileConfigPanel.SuspendLayout();
+            logoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.ForeColor = Color.White;
-            label4.Location = new Point(408, 469);
-            label4.Margin = new Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(99, 23);
-            label4.TabIndex = 3;
-            label4.Text = "Filename";
-            // 
-            // fileNameBox
-            // 
-            fileNameBox.BackColor = Color.FromArgb(31, 30, 68);
-            fileNameBox.BorderStyle = BorderStyle.FixedSingle;
-            fileNameBox.ForeColor = SystemColors.InactiveBorder;
-            fileNameBox.Location = new Point(417, 502);
-            fileNameBox.Margin = new Padding(6, 5, 4, 5);
-            fileNameBox.Name = "fileNameBox";
-            fileNameBox.Size = new Size(124, 31);
-            fileNameBox.TabIndex = 4;
-            fileNameBox.TextChanged += textBox1_TextChanged;
-            // 
-            // browseFileButton
-            // 
-            browseFileButton.FlatStyle = FlatStyle.Flat;
-            browseFileButton.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            browseFileButton.ForeColor = Color.White;
-            browseFileButton.Location = new Point(549, 497);
-            browseFileButton.Margin = new Padding(4, 5, 4, 5);
-            browseFileButton.Name = "browseFileButton";
-            browseFileButton.Size = new Size(94, 36);
-            browseFileButton.TabIndex = 5;
-            browseFileButton.Text = "Browse";
-            browseFileButton.UseVisualStyleBackColor = true;
-            browseFileButton.Click += button1_Click;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label5.ForeColor = Color.White;
-            label5.Location = new Point(398, 556);
+            label5.Location = new Point(447, 250);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new Size(105, 23);
@@ -113,7 +76,7 @@ namespace GUI
             radioButton1.AutoSize = true;
             radioButton1.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             radioButton1.ForeColor = Color.White;
-            radioButton1.Location = new Point(521, 556);
+            radioButton1.Location = new Point(570, 250);
             radioButton1.Margin = new Padding(4, 5, 4, 5);
             radioButton1.Name = "radioButton1";
             radioButton1.Size = new Size(70, 27);
@@ -127,7 +90,7 @@ namespace GUI
             radioButton2.AutoSize = true;
             radioButton2.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             radioButton2.ForeColor = Color.White;
-            radioButton2.Location = new Point(587, 556);
+            radioButton2.Location = new Point(636, 250);
             radioButton2.Margin = new Padding(4, 5, 4, 5);
             radioButton2.Name = "radioButton2";
             radioButton2.Size = new Size(66, 27);
@@ -141,7 +104,7 @@ namespace GUI
             label6.AutoSize = true;
             label6.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label6.ForeColor = Color.White;
-            label6.Location = new Point(405, 620);
+            label6.Location = new Point(454, 314);
             label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
             label6.Size = new Size(40, 23);
@@ -153,7 +116,7 @@ namespace GUI
             radioButton3.AutoSize = true;
             radioButton3.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             radioButton3.ForeColor = Color.White;
-            radioButton3.Location = new Point(462, 617);
+            radioButton3.Location = new Point(511, 311);
             radioButton3.Margin = new Padding(4, 5, 4, 5);
             radioButton3.Name = "radioButton3";
             radioButton3.Size = new Size(74, 27);
@@ -167,7 +130,7 @@ namespace GUI
             radioButton4.AutoSize = true;
             radioButton4.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             radioButton4.ForeColor = Color.White;
-            radioButton4.Location = new Point(541, 617);
+            radioButton4.Location = new Point(590, 311);
             radioButton4.Margin = new Padding(4, 5, 4, 5);
             radioButton4.Name = "radioButton4";
             radioButton4.Size = new Size(85, 27);
@@ -181,7 +144,7 @@ namespace GUI
             checkBox1.AutoSize = true;
             checkBox1.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             checkBox1.ForeColor = Color.White;
-            checkBox1.Location = new Point(426, 669);
+            checkBox1.Location = new Point(475, 363);
             checkBox1.Margin = new Padding(4, 5, 4, 5);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(176, 27);
@@ -195,7 +158,7 @@ namespace GUI
             timeStampLabel.AutoSize = true;
             timeStampLabel.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             timeStampLabel.ForeColor = Color.White;
-            timeStampLabel.Location = new Point(704, 560);
+            timeStampLabel.Location = new Point(753, 254);
             timeStampLabel.Margin = new Padding(4, 0, 4, 0);
             timeStampLabel.Name = "timeStampLabel";
             timeStampLabel.Size = new Size(163, 23);
@@ -206,7 +169,7 @@ namespace GUI
             // timeStampBox
             // 
             timeStampBox.BackColor = Color.FromArgb(31, 30, 68);
-            timeStampBox.Location = new Point(919, 552);
+            timeStampBox.Location = new Point(968, 246);
             timeStampBox.Margin = new Padding(4, 5, 4, 5);
             timeStampBox.Name = "timeStampBox";
             timeStampBox.Size = new Size(124, 31);
@@ -234,25 +197,74 @@ namespace GUI
             mazeGridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             mazeGridView.RowTemplate.Height = 24;
             mazeGridView.RowTemplate.Resizable = DataGridViewTriState.False;
-            mazeGridView.Size = new Size(832, 401);
+            mazeGridView.Size = new Size(832, 218);
             mazeGridView.TabIndex = 17;
             // 
             // openFileDialog1
             // 
             openFileDialog1.FileName = "openFileDialog1";
             // 
-            // panel1
+            // configPanel
             // 
-            panel1.BackColor = Color.FromArgb(31, 30, 68);
-            panel1.Controls.Add(panel3);
-            panel1.Controls.Add(visualizeButton);
-            panel1.Controls.Add(solveButton);
-            panel1.Controls.Add(panel2);
-            panel1.Dock = DockStyle.Left;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(262, 744);
-            panel1.TabIndex = 24;
+            configPanel.BackColor = Color.FromArgb(31, 30, 68);
+            configPanel.Controls.Add(FileConfigPanel);
+            configPanel.Controls.Add(visualizeButton);
+            configPanel.Controls.Add(solveButton);
+            configPanel.Controls.Add(logoPanel);
+            configPanel.Dock = DockStyle.Left;
+            configPanel.Location = new Point(0, 0);
+            configPanel.Name = "configPanel";
+            configPanel.Size = new Size(262, 594);
+            configPanel.TabIndex = 24;
+            // 
+            // FileConfigPanel
+            // 
+            FileConfigPanel.Controls.Add(browseFileButton);
+            FileConfigPanel.Controls.Add(fileNameBox);
+            FileConfigPanel.Controls.Add(fileConfigLabel);
+            FileConfigPanel.Location = new Point(3, 98);
+            FileConfigPanel.Name = "FileConfigPanel";
+            FileConfigPanel.Size = new Size(259, 76);
+            FileConfigPanel.TabIndex = 22;
+            // 
+            // browseFileButton
+            // 
+            browseFileButton.Anchor = AnchorStyles.Right;
+            browseFileButton.FlatStyle = FlatStyle.Flat;
+            browseFileButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            browseFileButton.ForeColor = Color.White;
+            browseFileButton.IconChar = FontAwesome.Sharp.IconChar.File;
+            browseFileButton.IconColor = Color.White;
+            browseFileButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            browseFileButton.IconSize = 28;
+            browseFileButton.Location = new Point(208, 28);
+            browseFileButton.Name = "browseFileButton";
+            browseFileButton.Size = new Size(48, 31);
+            browseFileButton.TabIndex = 2;
+            browseFileButton.UseVisualStyleBackColor = true;
+            browseFileButton.Click += button1_Click;
+            // 
+            // fileNameBox
+            // 
+            fileNameBox.Anchor = AnchorStyles.Left;
+            fileNameBox.BackColor = Color.FromArgb(31, 30, 68);
+            fileNameBox.Location = new Point(3, 28);
+            fileNameBox.Name = "fileNameBox";
+            fileNameBox.Size = new Size(199, 31);
+            fileNameBox.TabIndex = 1;
+            fileNameBox.TextChanged += textBox1_TextChanged;
+            // 
+            // fileConfigLabel
+            // 
+            fileConfigLabel.Dock = DockStyle.Top;
+            fileConfigLabel.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            fileConfigLabel.ForeColor = Color.White;
+            fileConfigLabel.Location = new Point(0, 0);
+            fileConfigLabel.Name = "fileConfigLabel";
+            fileConfigLabel.Size = new Size(259, 25);
+            fileConfigLabel.TabIndex = 0;
+            fileConfigLabel.Text = "File Configuration";
+            fileConfigLabel.Click += label1_Click;
             // 
             // visualizeButton
             // 
@@ -267,7 +279,7 @@ namespace GUI
             visualizeButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             visualizeButton.IconSize = 32;
             visualizeButton.ImageAlign = ContentAlignment.MiddleLeft;
-            visualizeButton.Location = new Point(0, 590);
+            visualizeButton.Location = new Point(0, 440);
             visualizeButton.Name = "visualizeButton";
             visualizeButton.Padding = new Padding(60, 0, 0, 0);
             visualizeButton.Size = new Size(262, 75);
@@ -291,7 +303,7 @@ namespace GUI
             solveButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             solveButton.IconSize = 32;
             solveButton.ImageAlign = ContentAlignment.MiddleLeft;
-            solveButton.Location = new Point(0, 665);
+            solveButton.Location = new Point(0, 515);
             solveButton.Name = "solveButton";
             solveButton.Padding = new Padding(60, 0, 0, 0);
             solveButton.Size = new Size(262, 79);
@@ -302,13 +314,14 @@ namespace GUI
             solveButton.UseVisualStyleBackColor = true;
             solveButton.Click += button3_Click;
             // 
-            // panel2
+            // logoPanel
             // 
-            panel2.Controls.Add(pictureBox1);
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(262, 92);
-            panel2.TabIndex = 19;
+            logoPanel.Controls.Add(pictureBox1);
+            logoPanel.Dock = DockStyle.Top;
+            logoPanel.Location = new Point(0, 0);
+            logoPanel.Name = "logoPanel";
+            logoPanel.Size = new Size(262, 92);
+            logoPanel.TabIndex = 19;
             // 
             // pictureBox1
             // 
@@ -320,26 +333,15 @@ namespace GUI
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // panel3
-            // 
-            panel3.Location = new Point(3, 98);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(259, 76);
-            panel3.TabIndex = 22;
-            // 
             // Treasure_Hunt_Solver
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = SystemColors.ActiveCaption;
-            ClientSize = new Size(1178, 744);
+            ClientSize = new Size(1178, 594);
             Controls.Add(mazeGridView);
-            Controls.Add(panel1);
-            Controls.Add(fileNameBox);
+            Controls.Add(configPanel);
             Controls.Add(timeStampBox);
-            Controls.Add(browseFileButton);
             Controls.Add(timeStampLabel);
-            Controls.Add(label4);
             Controls.Add(label5);
             Controls.Add(checkBox1);
             Controls.Add(radioButton1);
@@ -347,9 +349,10 @@ namespace GUI
             Controls.Add(radioButton2);
             Controls.Add(radioButton3);
             Controls.Add(label6);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(4, 5, 4, 5);
-            MaximumSize = new Size(1200, 800);
-            MinimumSize = new Size(1200, 800);
+            MaximumSize = new Size(1200, 650);
+            MinimumSize = new Size(1200, 650);
             Name = "Treasure_Hunt_Solver";
             RightToLeft = RightToLeft.No;
             RightToLeftLayout = true;
@@ -357,8 +360,10 @@ namespace GUI
             Text = "Euforia";
             Load += Treasure_Hunt_Solver_Load;
             ((System.ComponentModel.ISupportInitialize)mazeGridView).EndInit();
-            panel1.ResumeLayout(false);
-            panel2.ResumeLayout(false);
+            configPanel.ResumeLayout(false);
+            FileConfigPanel.ResumeLayout(false);
+            FileConfigPanel.PerformLayout();
+            logoPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -367,7 +372,7 @@ namespace GUI
         #endregion
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox fileNameBox;
-        private System.Windows.Forms.Button browseFileButton;
+        private FontAwesome.Sharp.IconButton browseFileButton;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
@@ -379,12 +384,14 @@ namespace GUI
         private System.Windows.Forms.TextBox timeStampBox;
         private System.Windows.Forms.DataGridView mazeGridView;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private Panel panel1;
-        private Panel panel2;
+        private Panel configPanel;
+        private Panel logoPanel;
         private PictureBox pictureBox1;
         private FontAwesome.Sharp.IconButton solveButton;
         private FontAwesome.Sharp.IconButton visualizeButton;
-        private Panel panel3;
+        private Panel FileConfigPanel;
+        private Label fileConfigLabel;
+        private FontAwesome.Sharp.IconButton iconButton1;
     }
 }
 
