@@ -46,6 +46,10 @@ namespace GUI
             dfsMode = false;
             tspMode = false;
             showProgress = false;
+
+            progressButton.Dock = DockStyle.Fill;
+            timeLabel.Hide();
+            timeStampBox.Hide();
         }
 
         private void Treasure_Hunt_Solver_Load(object sender, EventArgs e)
@@ -154,6 +158,20 @@ namespace GUI
         private void progressButton_Click(object sender, EventArgs e)
         {
             changeButtonVisual(progressButton, ref showProgress);
+
+            if (showProgress)
+            {
+                progressButton.Dock = DockStyle.Top;
+                timeLabel.Show();
+                timeStampBox.Show();
+            }
+
+            else
+            {
+                progressButton.Dock = DockStyle.Fill;
+                timeLabel.Hide();
+                timeStampBox.Hide();
+            }
         }
 
         private void visualizeButton_Click(object sender, EventArgs e)
