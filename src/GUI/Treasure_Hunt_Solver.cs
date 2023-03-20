@@ -54,6 +54,7 @@ namespace GUI
         public Treasure_Hunt_Solver()
         {
             InitializeComponent();
+            logPanel.Hide();
 
             // handle enter key
             this.fileNameBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(CheckEnterKeyPress);
@@ -126,7 +127,7 @@ namespace GUI
                 executionTimeValue.Refresh();
 
                 nodesCountValue.Refresh();
-                
+
                 stepsCountValue.Refresh();
             }
         }
@@ -171,7 +172,7 @@ namespace GUI
         // handle filename text box changes
         private void fileNameChange(object sender, EventArgs e)
         {
-            Helper.file = FileIO.GetTestPath(fileNameBox.Text);
+            Helper.file = fileNameBox.Text;
         }
 
         private void CheckEnterKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
@@ -234,176 +235,206 @@ namespace GUI
 
         private void visualizeButton_Click(object sender, EventArgs e)
         {
-            mazeGridView.DataSource = Helper.TableDataFromTextFile(fileNameBox.Text);
-
-            mazeGridView.CellFormatting += mazeGrid_CellFormatting;
-
-            mazeGridView.ScrollBars = ScrollBars.None;
-
-            mazeGridView.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            int tinggi = mazeGridView.Height / mazeGridView.Rows.Count;
-
-            foreach (DataGridViewRow row in mazeGridView.Rows)
+            try
             {
-                row.Height = tinggi;
+
+                mazeGridView.DataSource = Helper.TableDataFromTextFile(fileNameBox.Text);
+
+                mazeGridView.CellFormatting += mazeGrid_CellFormatting;
+
+                mazeGridView.ScrollBars = ScrollBars.None;
+
+                mazeGridView.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                int tinggi = mazeGridView.Height / mazeGridView.Rows.Count;
+
+                foreach (DataGridViewRow row in mazeGridView.Rows)
+                {
+                    row.Height = tinggi;
+                }
+
+                routeLabel.Text = "[ROUTE]";
+
+                executionTimeValue.Text = "[TIME]";
+
+                nodesCountValue.Text = "[NODES]";
+
+                stepsCountValue.Text = "[STEPS]";
+
+                routeLabel.Refresh();
+
+                executionTimeValue.Refresh();
+
+                nodesCountValue.Refresh();
+
+                stepsCountValue.Refresh();
+
+                logPanel.Hide();
             }
+            catch (Exception ex)
+            {
+                showError(ex.Message);
+            }
+        }
 
-            routeLabel.Text = "[ROUTE]";
+        private void showError(string msg)
+        {
 
-            executionTimeValue.Text = "[TIME]";
+            errorLog.Text = msg;
+            logPanel.Show();
 
-            nodesCountValue.Text = "[NODES]";
-
-            stepsCountValue.Text = "[STEPS]";
-
-            routeLabel.Refresh();
-
-            executionTimeValue.Refresh();
-
-            nodesCountValue.Refresh();
-
-            stepsCountValue.Refresh();
         }
 
         private async void solveButton_Click(object sender, EventArgs e)
         {
-
-            string[][] map = FileIO.ReadMapFile(fileNameBox.Text.Replace(".txt", ""));
-
-            var watch = new Stopwatch();
-
-            watch.Start();
-
-            if (dfsMode)
+            try
             {
-                DFSState dfs = new DFSState(map, tspMode);
 
-                if (showProgress)
+                string[][] map = FileIO.ReadMapFile(fileNameBox.Text);
+
+                var watch = new Stopwatch();
+
+                watch.Start();
+
+                if (dfsMode)
                 {
-                    while (!dfs.stop)
+                    DFSState dfs = new DFSState(map, tspMode);
+
+                    if (showProgress)
                     {
-                        await Task.Delay(time);
-                        dfs.Move();
-                        _stack = dfs.GetStack();
-                        Tuple<int, int> pathTuple = new Tuple<int, int>(0, 0);
-                        if (_stack.Count > 0)
+                        while (!dfs.stop)
                         {
-                            pathTuple = (Tuple<int, int>)_stack.Pop();
-                        }
-                        if (pathTuple != null)
-                        {
-                            if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                            await Task.Delay(time);
+                            dfs.Move();
+                            _stack = dfs.GetStack();
+                            Tuple<int, int> pathTuple = new Tuple<int, int>(0, 0);
+                            if (_stack.Count > 0)
                             {
-                                this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
-                                this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
-                                mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                                pathTuple = (Tuple<int, int>)_stack.Pop();
+                            }
+                            if (pathTuple != null)
+                            {
+                                if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                                {
+                                    this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
+                                    this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
+                                    mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                                }
                             }
                         }
                     }
-                }
-                else
-                {
-                    while (!dfs.stop)
+                    else
                     {
-                        dfs.Move();
+                        while (!dfs.stop)
+                        {
+                            dfs.Move();
+                        }
+                    }
+
+                    path = dfs.GetCurrentPath();
+
+                    watch.Stop();
+
+                    foreach (Tuple<int, int> tuple in path)
+                    {
+                        mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
+                    }
+
+                    if (dfs.foundAll)
+                    {
+                        nodesCountValue.Text = dfs.nodeCount.ToString();
+
+                        stepsCountValue.Text = dfs.stepCount.ToString();
+                    }
+
+                    else
+                    {
+                        nodesCountValue.Text = "No Solution";
+
+                        stepsCountValue.Text = "No Solution";
+
+                        routeLabel.Text = "No Solution";
+                        throw new Exception("Solution is not found!");
                     }
                 }
 
-                path = dfs.GetCurrentPath();
-
-                watch.Stop();
-
-                foreach (Tuple<int, int> tuple in path)
+                else if (bfsMode)
                 {
-                    mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
-                }
+                    BFSState bfs = new BFSState(map, tspMode);
 
-                if (dfs.foundAll)
-                {
-                    nodesCountValue.Text = dfs.nodeCount.ToString();
-
-                    stepsCountValue.Text = dfs.stepCount.ToString();
-                }
-
-                else
-                {
-                    nodesCountValue.Text = "No Solution";
-
-                    stepsCountValue.Text = "No Solution";
-
-                    routeLabel.Text = "No Solution";
-                }
-            }
-
-            else if (bfsMode)
-            {
-                BFSState bfs = new BFSState(map, tspMode);
-
-                if (showProgress)
-                {
-                    while (!bfs.stop)
+                    if (showProgress)
                     {
-                        await Task.Delay(time);
-                        bfs.Move();
-                        _queue = bfs.GetQueue();
-                        Tuple<int, int> pathTuple = new Tuple<int, int>(0, 0);
-                        if (_queue.Count > 0)
+                        while (!bfs.stop)
                         {
-                            pathTuple = (Tuple<int, int>)_queue.Dequeue();
-                        }
-                        if (pathTuple != null)
-                        {
-                            if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                            await Task.Delay(time);
+                            bfs.Move();
+                            _queue = bfs.GetQueue();
+                            Tuple<int, int> pathTuple = new Tuple<int, int>(0, 0);
+                            if (_queue.Count > 0)
                             {
-                                this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
-                                this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
-                                mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                                pathTuple = (Tuple<int, int>)_queue.Dequeue();
+                            }
+                            if (pathTuple != null)
+                            {
+                                if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                                {
+                                    this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
+                                    this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
+                                    mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                                }
                             }
                         }
                     }
-                }
-                else
-                {
-                    while (!bfs.stop)
+                    else
                     {
-                        bfs.Move();
+                        while (!bfs.stop)
+                        {
+                            bfs.Move();
+                        }
+                    }
+
+                    path = bfs.GetCurrentPath();
+
+                    watch.Stop();
+
+                    foreach (Tuple<int, int> tuple in path)
+                    {
+                        mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
+                    }
+
+                    if (bfs.foundAll)
+                    {
+                        nodesCountValue.Text = bfs.nodeCount.ToString();
+
+                        stepsCountValue.Text = bfs.stepCount.ToString();
+                    }
+
+                    else
+                    {
+                        nodesCountValue.Text = "No Solution";
+
+                        stepsCountValue.Text = "No Solution";
+                        throw new Exception("Path solution is not found!");
                     }
                 }
 
-                path = bfs.GetCurrentPath();
+                execTime = watch.ElapsedMilliseconds;
 
-                watch.Stop();
+                executionTimeValue.Text = execTime.ToString() + " ms";
 
-                foreach (Tuple<int, int> tuple in path)
-                {
-                    mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
-                }
+                executionTimeValue.Refresh();
 
-                if (bfs.foundAll)
-                {
-                    nodesCountValue.Text = bfs.nodeCount.ToString();
+                nodesCountValue.Refresh();
 
-                    stepsCountValue.Text = bfs.stepCount.ToString();
-                }
+                stepsCountValue.Refresh();
 
-                else
-                {
-                    nodesCountValue.Text = "No Solution";
-
-                    stepsCountValue.Text = "No Solution";
-                }
+                logPanel.Hide();
             }
 
-            execTime = watch.ElapsedMilliseconds;
-
-            executionTimeValue.Text = execTime.ToString() + " ms";
-
-            executionTimeValue.Refresh();
-
-            nodesCountValue.Refresh();
-
-            stepsCountValue.Refresh();
+            catch (Exception ex)
+            {
+                showError(ex.Message);
+            }
         }
 
         private void selectButton_Hover(object sender, EventArgs e)
@@ -414,8 +445,7 @@ namespace GUI
         // handle time text changes
         private void timeText_Click(object sender, EventArgs e)
         {
-            Helper.time = timeStampBox.Text;
-            time = Convert.ToInt32(Helper.time);
+
         }
 
         private void myNumericUpDown_KeyDown(object sender, KeyEventArgs e)
@@ -458,6 +488,11 @@ namespace GUI
         private void routeLabelButton_Click(object sender, EventArgs e)
         {
             routeLabel.Refresh();
+        }
+
+        private void errorLog_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

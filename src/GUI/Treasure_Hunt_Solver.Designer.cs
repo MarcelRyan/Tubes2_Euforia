@@ -67,6 +67,8 @@ namespace GUI
             routePanel = new Panel();
             routeLabel = new Label();
             routeLabelButton = new FontAwesome.Sharp.IconButton();
+            logPanel = new Panel();
+            errorLog = new Label();
             ((System.ComponentModel.ISupportInitialize)mazeGridView).BeginInit();
             configPanel.SuspendLayout();
             tspModePanel.SuspendLayout();
@@ -81,6 +83,7 @@ namespace GUI
             nodesCountPanel.SuspendLayout();
             executionTimePanel.SuspendLayout();
             routePanel.SuspendLayout();
+            logPanel.SuspendLayout();
             SuspendLayout();
             // 
             // mazeGridView
@@ -129,7 +132,7 @@ namespace GUI
             configPanel.Dock = DockStyle.Left;
             configPanel.Location = new Point(0, 0);
             configPanel.Name = "configPanel";
-            configPanel.Size = new Size(262, 603);
+            configPanel.Size = new Size(262, 594);
             configPanel.TabIndex = 24;
             // 
             // tspModePanel
@@ -170,7 +173,7 @@ namespace GUI
             visualizeConfigPanel.Controls.Add(timeLabel);
             visualizeConfigPanel.Controls.Add(progressButton);
             visualizeConfigPanel.Dock = DockStyle.Bottom;
-            visualizeConfigPanel.Location = new Point(0, 333);
+            visualizeConfigPanel.Location = new Point(0, 324);
             visualizeConfigPanel.Margin = new Padding(0);
             visualizeConfigPanel.Name = "visualizeConfigPanel";
             visualizeConfigPanel.Size = new Size(262, 120);
@@ -184,7 +187,7 @@ namespace GUI
             timeStampBox.Location = new Point(67, 67);
             timeStampBox.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             timeStampBox.Name = "timeStampBox";
-            timeStampBox.Size = new Size(109, 26);
+            timeStampBox.Size = new Size(109, 30);
             timeStampBox.TabIndex = 8;
             timeStampBox.ValueChanged += timeText_Click;
             timeStampBox.KeyDown += myNumericUpDown_KeyDown;
@@ -311,7 +314,7 @@ namespace GUI
             fileNameBox.ForeColor = Color.White;
             fileNameBox.Location = new Point(3, 30);
             fileNameBox.Name = "fileNameBox";
-            fileNameBox.Size = new Size(199, 26);
+            fileNameBox.Size = new Size(199, 30);
             fileNameBox.TabIndex = 1;
             fileNameBox.TextChanged += fileNameChange;
             // 
@@ -341,7 +344,7 @@ namespace GUI
             visualizeButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             visualizeButton.IconSize = 32;
             visualizeButton.ImageAlign = ContentAlignment.MiddleLeft;
-            visualizeButton.Location = new Point(0, 453);
+            visualizeButton.Location = new Point(0, 444);
             visualizeButton.Name = "visualizeButton";
             visualizeButton.Padding = new Padding(60, 0, 0, 0);
             visualizeButton.Size = new Size(262, 75);
@@ -365,7 +368,7 @@ namespace GUI
             solveButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             solveButton.IconSize = 32;
             solveButton.ImageAlign = ContentAlignment.MiddleLeft;
-            solveButton.Location = new Point(0, 528);
+            solveButton.Location = new Point(0, 519);
             solveButton.Name = "solveButton";
             solveButton.Padding = new Padding(60, 0, 0, 0);
             solveButton.Size = new Size(262, 75);
@@ -571,11 +574,34 @@ namespace GUI
             routeLabelButton.UseVisualStyleBackColor = false;
             routeLabelButton.Click += routeLabelButton_Click;
             // 
+            // logPanel
+            // 
+            logPanel.BackColor = Color.FromArgb(0, 0, 0, 0);
+            logPanel.Controls.Add(errorLog);
+            logPanel.ForeColor = Color.Transparent;
+            logPanel.Location = new Point(281, 28);
+            logPanel.Name = "logPanel";
+            logPanel.Size = new Size(687, 62);
+            logPanel.TabIndex = 27;
+            // 
+            // errorLog
+            // 
+            errorLog.BackColor = Color.FromArgb(0, 0, 0, 0);
+            errorLog.Dock = DockStyle.Right;
+            errorLog.FlatStyle = FlatStyle.Flat;
+            errorLog.ForeColor = Color.Red;
+            errorLog.Location = new Point(3, 0);
+            errorLog.Name = "errorLog";
+            errorLog.Size = new Size(684, 62);
+            errorLog.TabIndex = 0;
+            errorLog.Click += errorLog_Click;
+            // 
             // Treasure_Hunt_Solver
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(46, 51, 73);
-            ClientSize = new Size(1182, 603);
+            ClientSize = new Size(1178, 594);
+            Controls.Add(logPanel);
             Controls.Add(routePanel);
             Controls.Add(executionPanel);
             Controls.Add(mazeGridView);
@@ -607,6 +633,7 @@ namespace GUI
             nodesCountPanel.ResumeLayout(false);
             executionTimePanel.ResumeLayout(false);
             routePanel.ResumeLayout(false);
+            logPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -646,6 +673,8 @@ namespace GUI
         private Panel routePanel;
         private FontAwesome.Sharp.IconButton routeLabelButton;
         private Label routeLabel;
+        private Panel logPanel;
+        private Label errorLog;
     }
 }
 

@@ -22,6 +22,7 @@ class DFSState: MazeState
     // solusi ditemukan
     protected override void Terminate()
     {
+        stepCount = GetCurrentPath().Count - 1;
         base.Terminate();
         _stack.Clear();
     }
@@ -100,7 +101,7 @@ class DFSState: MazeState
         // sequential mode akan memastikan setiap atribute diperbarui tiap langkah
         if (sequentialMode)
         {
-            stepCount = GetCurrentPath().Count;
+            stepCount = GetCurrentPath().Count-1;
         }
 
         if (GetMapElmt(position) == "T")
@@ -118,7 +119,6 @@ class DFSState: MazeState
                 // terminate jika bukan tspMode
                 else
                 {
-                    stepCount = GetCurrentPath().Count;
                     Terminate();
                     return;
                 }

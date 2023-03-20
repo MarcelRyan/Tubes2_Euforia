@@ -33,6 +33,15 @@ abstract class MazeState
         new Tuple<int, int>(-1, 0),
     };
 
+    static protected Dictionary<Tuple<int, int>, string> directionMap = new Dictionary<Tuple<int, int>, string>
+    {
+        {directions[0], "L"},
+        {directions[1], "D"},
+        {directions[2], "R"},
+        {directions[3], "U"},
+    };
+
+
     // konfigurasi default objek
     virtual protected void DefaultConfig()
     {
@@ -119,6 +128,23 @@ abstract class MazeState
         }
 
         return visited;
+    }
+
+    // mengembalikan urutan arah berdasarkan current path
+    virtual public ArrayList GetCurrentRoute()
+    {
+        ArrayList currentPath = GetCurrentPath();
+        ArrayList result = new ArrayList();
+
+        for (int i = 0; i <  currentPath.Count - 1; i++)
+        {
+            Tuple<int, int> current = (Tuple<int, int>)currentPath[i];
+            Tuple<int, int> next = (Tuple<int, int>)currentPath[i+1];
+
+            result.Add(directionMap[new Tuple<int, int>(next.Item1 - current.Item1, next.Item2 - current.Item2)]);
+        }
+
+        return result;
     }
 
     // mengembalikan path dari Krusty Crab ke posisi saat ini
