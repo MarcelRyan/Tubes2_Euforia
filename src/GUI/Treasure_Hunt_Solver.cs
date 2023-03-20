@@ -215,6 +215,22 @@ namespace GUI
             {
                 changeButtonVisual(dfsButton, ref dfsMode);
             }
+
+            if (bfsMode)
+            {
+                unclickDfsButton(sender, e);
+            }
+        }
+
+        private void unclickDfsButton(object sender, EventArgs e)
+        {
+            dfsButton.Dock = DockStyle.Right;
+
+            multipleVisitsButton.Hide();
+
+            // SET MULTIPLEVISITS MENJADI TRUE UNTUK KEMUDIAN DISET LAGI MENJADI FALSE DI DALAM FUNGSI CHANGEBUTTONVISUAL
+            multipleVisits = true;
+            changeButtonVisual(multipleVisitsButton, ref multipleVisits);
         }
         private void dfsButton_Click(object sender, EventArgs e)
         {
@@ -234,13 +250,7 @@ namespace GUI
 
             else
             {
-                dfsButton.Dock = DockStyle.Right;
-
-                multipleVisitsButton.Hide();
-
-                // SET MULTIPLEVISITS MENJADI TRUE UNTUK KEMUDIAN DISET LAGI MENJADI FALSE DI DALAM FUNGSI CHANGEBUTTONVISUAL
-                multipleVisits = true;
-                changeButtonVisual(multipleVisitsButton, ref multipleVisits);
+                unclickDfsButton(sender, e);
             }
         }
         private void tspButton_Click(object sender, EventArgs e)
