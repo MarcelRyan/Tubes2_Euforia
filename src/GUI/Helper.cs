@@ -10,7 +10,7 @@ namespace GUI
 {
     class Helper
     {
-        public static string file;
+        public static string file = "";
         public static bool isAbsolute;
         public static DataTable TableDataFromTextFile()
         {

@@ -5,11 +5,11 @@ using System.Linq;
 class Testing
 {
 
-    static void MainTestingFunc(string[] args)
+    static void Main(string[] args)
     {
-        string[][] map = FileIO.ReadMapFile("test");
+        string[][] map = FileIO.ReadMapFile("test", false);
         // DFSState dfsState = new DFSState(map, true);
-        BFSState bfsState = new BFSState(map, true);
+        DFSState dfsState = new DFSState(map, true, true, false);
 
         foreach (var line in map)
         {
@@ -21,11 +21,11 @@ class Testing
             Console.WriteLine();
         }
 
-        while (!bfsState.stop)
+        while (!dfsState.stop)
         {
-            bfsState.Move();
-            Console.WriteLine(bfsState.position);
-            Console.WriteLine(bfsState.foundTreasureCount);
+            dfsState.Move();
+            Console.WriteLine(dfsState.position);
+            Console.WriteLine(dfsState.foundTreasureCount);
             //Console.WriteLine("stack top:" + (Tuple<Tuple<int, int>, Tuple<int, int>>)dfsState._stack.Peek());
             string temp =  Console.ReadLine();
             

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 abstract class MazeState
@@ -12,6 +13,7 @@ abstract class MazeState
     public int col { get; protected set; }
     public bool foundAll { get; protected set; }
     public bool tspMode { get; protected set; }
+    public bool allowMultipleVisits { get; protected set; }
     public bool stop { get; protected set; }
     public int treasureCount { get; protected set; }
     public int foundTreasureCount { get; protected set; }
@@ -21,6 +23,8 @@ abstract class MazeState
     protected Tuple<int, int> initialPosition;
 
     protected Tuple<bool, Tuple<int, int>>[,] _checkMap;
+
+    protected ArrayList pathWithoutBacktrack = new ArrayList();
 
     static protected Tuple<bool, Tuple<int, int>> defaultCheckValue = new Tuple<bool, Tuple<int, int>>(false, new Tuple<int, int>(-1, -1));
 
@@ -41,6 +45,15 @@ abstract class MazeState
         {directions[3], "U"},
     };
 
+    // ctor
+    public MazeState(string[][] map, bool tspMode, bool sequentialMode = false, bool allowMultipleVisits = false)
+    {
+        this.map = map;
+        this.tspMode = tspMode;
+        this.sequentialMode = sequentialMode;
+        this.allowMultipleVisits = allowMultipleVisits;
+        DefaultConfig();
+    }
 
     // konfigurasi default objek
     virtual protected void DefaultConfig()
@@ -84,9 +97,15 @@ abstract class MazeState
         return true;
     }
 
+    virtual protected void updateStepCount()
+    {
+        stepCount = GetCurrentPath().Count - 1;
+    }
+
     // solusi ditemukan
     virtual protected void Terminate()
     {
+        updateStepCount();
         stop = true;
     }
 
@@ -103,15 +122,6 @@ abstract class MazeState
     protected void SetCheckMap(Tuple<int, int> p, Tuple<bool, Tuple<int, int>> val)
     {
         _checkMap[p.Item1, p.Item2] = val;
-    }
-
-    // ctor
-    public MazeState(string[][] map, bool tspMode, bool sequentialMode = false)
-    {
-        this.map = map;
-        this.tspMode = tspMode;
-        this.sequentialMode = sequentialMode;
-        DefaultConfig();
     }
 
     // mengembalikan matriks visited
@@ -150,6 +160,8 @@ abstract class MazeState
     // mengembalikan path dari Krusty Crab ke posisi saat ini
     virtual public ArrayList GetCurrentPath()
     {
+        if (allowMultipleVisits) return pathWithoutBacktrack;
+
         ArrayList path = new ArrayList();
 
         Tuple<int, int> tempPosition = position;

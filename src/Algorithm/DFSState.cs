@@ -6,7 +6,6 @@ class DFSState: MazeState
 {
 
     private Stack _stack;
-
     private Stack _stack2;
 
     // konfigurasi default objek
@@ -19,16 +18,22 @@ class DFSState: MazeState
         _stack.Push(new Tuple<Tuple<int, int>, Tuple<int, int>>(initialPosition, position));
     }
 
+    protected override void updateStepCount()
+    {
+        if (allowMultipleVisits) stepCount = pathWithoutBacktrack.Count - 1;
+        else stepCount = GetCurrentPath().Count - 1;
+    }
+
     // solusi ditemukan
     protected override void Terminate()
     {
-        stepCount = GetCurrentPath().Count - 1;
         base.Terminate();
         _stack.Clear();
     }
 
     // ctor
-    public DFSState(string[][] map, bool tspMode, bool sequentialMode = false) : base(map, tspMode, sequentialMode)
+    public DFSState(string[][] map, bool tspMode, bool sequentialMode = false, bool allowMultipleVisits = false) 
+        : base(map, tspMode, sequentialMode, allowMultipleVisits)
     {
     }
 
@@ -38,72 +43,102 @@ class DFSState: MazeState
     {
         if (_stack.Count == 0) return;
 
-        Tuple<int, int> backtrackPoint = ((Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Peek()).Item2;
-
-        _stack2.Push(backtrackPoint);
-
-        while (position != backtrackPoint)
+        if (allowMultipleVisits)
         {
-            if (GetMapElmt(position) == "T")
-            {
-                foundTreasureCount--;
-
-                foundAll = false;
-
-                if (tspMode)
-                {
-                    SetCheckMap(initialPosition, new Tuple<bool, Tuple<int, int>>(true, defaultCheckValue.Item2));
-                }
-            }
-
-            var temp = position;
-
             position = GetCheckMap(position).Item2;
-     
-            SetCheckMap(temp, defaultCheckValue);
+
+            pathWithoutBacktrack.Add(position);
+        }
+
+        else
+        {
+            Tuple<int, int> backtrackPoint = ((Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Peek()).Item2;
+
+            _stack2.Push(backtrackPoint);
+
+            while (position != backtrackPoint)
+            {
+                if (GetMapElmt(position) == "T")
+                {
+                    foundTreasureCount--;
+
+                    foundAll = false;
+
+                    if (tspMode)
+                    {
+                        SetCheckMap(initialPosition, new Tuple<bool, Tuple<int, int>>(true, defaultCheckValue.Item2));
+                    }
+                }
+
+                var temp = position;
+
+                position = GetCheckMap(position).Item2;
+
+                SetCheckMap(temp, defaultCheckValue);
+            }
         }
     }
 
     // Berpindah satu langkah dengan pendekatan DFS
     public override void Move()
     {
+        // sudah ditemukan solusi atau dapat dipastikan solusi tidak ada
         if (stop) return;
 
+        // buang posisi tidak valid di stack
         while (_stack.Count > 0 && !IsValid(((Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Peek()).Item1))
         {
             _stack.Pop();
         }
 
+        // jika stack kosong
         if (_stack.Count == 0)
         {
-            stop = true;
+            // jika belum kembali dititik awal dan boleh visit kotak lebih dari sekali
+            if (allowMultipleVisits && tspMode && foundAll && GetMapElmt(position) != "K")
+            {
+                position = GetCheckMap(position).Item2;
+                pathWithoutBacktrack.Add(position);
+            }
+
+            // tidak ditemukan solusi
+            else
+            {
+                stop = true;
+                
+            }
+
             return;
+
         }
 
         Tuple<Tuple<int, int>, Tuple<int, int>> top = (Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Peek();
        
+        // jika tujuan bukan tetangga posisi saat ini
         if (top.Item2 != position)
         {
             BackTrack();
-            return;
+
+            if (allowMultipleVisits) return;
         }
 
         Tuple<int, int> newPosition = ((Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Pop()).Item1;
-
         _stack2.Push(newPosition);
-
         SetCheckMap(newPosition, new Tuple<bool, Tuple<int, int>>(true, position));
-
         position = newPosition;
+
+        // path for normal dfs (without backtrack)
+        if (allowMultipleVisits) pathWithoutBacktrack.Add(newPosition);
 
         nodeCount++;
 
         // sequential mode akan memastikan setiap atribute diperbarui tiap langkah
         if (sequentialMode)
         {
-            stepCount = GetCurrentPath().Count-1;
+            updateStepCount();
         }
 
+        // jika menemukan treasure
         if (GetMapElmt(position) == "T")
         {
             foundTreasureCount++;
@@ -125,12 +160,14 @@ class DFSState: MazeState
             }
         }
 
+        // titik berhenti tsp
         else if (tspMode && GetMapElmt(position) == "K" && foundAll)
         {
             Terminate();
             return;
         }
 
+        // push tetangga ke stack
         for (int i = 0; i < 4; i++)
         {
             _stack.Push(
