@@ -36,10 +36,6 @@ namespace GUI
 
         private ArrayList path;
 
-        private Stack _stack;
-
-        private Queue _queue;
-
         private int time;
 
         private long execTime;
@@ -305,19 +301,16 @@ namespace GUI
                         {
                             await Task.Delay(time);
                             dfs.Move();
-                            _stack = dfs.GetStack();
-                            Tuple<int, int> pathTuple = new Tuple<int, int>(0, 0);
-                            if (_stack.Count > 0)
-                            {
-                                pathTuple = (Tuple<int, int>)_stack.Pop();
-                            }
-                            if (pathTuple != null)
-                            {
-                                if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                            path = dfs.GetCurrentPath();
+                            foreach(Tuple<int, int> pathTuple in path){
+                                if (pathTuple != null)
                                 {
-                                    this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
-                                    this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
-                                    mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                                    if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                                    {
+                                        this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
+                                        this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
+                                        mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                                    }
                                 }
                             }
                         }
@@ -357,19 +350,16 @@ namespace GUI
                         {
                             await Task.Delay(time);
                             bfs.Move();
-                            _queue = bfs.GetQueue();
-                            Tuple<int, int> pathTuple = new Tuple<int, int>(0, 0);
-                            if (_queue.Count > 0)
-                            {
-                                pathTuple = (Tuple<int, int>)_queue.Dequeue();
-                            }
-                            if (pathTuple != null)
-                            {
-                                if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                            path = bfs.GetCurrentPath();
+                            foreach(Tuple<int, int> pathTuple in path){
+                                if (pathTuple != null)
                                 {
-                                    this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
-                                    this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
-                                    mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                                    if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                                    {
+                                        this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
+                                        this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
+                                        mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                                    }
                                 }
                             }
                         }
