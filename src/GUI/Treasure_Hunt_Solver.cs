@@ -318,8 +318,25 @@ namespace GUI
 
         }
 
-        // update grid display based on progress
-        private void updateGridDisplay()
+        // update grid display based on progress for ArrayList
+        private void updateGridDisplay(ArrayList path)
+        {
+            foreach (Tuple<int, int> pathTuple in path)
+            {
+                if (pathTuple != null)
+                {
+                    if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                    {
+                        this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
+                        this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
+                        mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                    }
+                }
+            }
+        }
+
+        // update grid display based on progress for Queue
+        private void updateGridDisplay(Queue path)
         {
             foreach (Tuple<int, int> pathTuple in path)
             {
@@ -398,6 +415,7 @@ namespace GUI
 
                     var watch = new Stopwatch();
                     MazeState mazeState;
+                    Queue tempQueueProgressBFS;
 
                     if (!dfsMode && !bfsMode) throw new Exception("Pick one algorithm to go (BFS/DFS)!");
 
@@ -416,12 +434,12 @@ namespace GUI
                             mazeState.Move();
                             if(dfsMode){
                                 path = mazeState.GetCurrentPath();
+                                updateGridDisplay(path);
                             }
                             else {
-                                path = mazeState.getPathBFS();
+                                tempQueueProgressBFS = mazeState.getQueueProgressBFS();
+                                updateGridDisplay(tempQueueProgressBFS);
                             }
-
-                            updateGridDisplay();
                         }
                     }
 

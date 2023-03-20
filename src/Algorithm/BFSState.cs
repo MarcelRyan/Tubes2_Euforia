@@ -18,6 +18,7 @@ class BFSState: MazeState{
     {
         base.DefaultConfig();
         _queue = new Queue();
+        _queueProgress = new Queue();
         TPosition = new ArrayList();
         _queue.Enqueue(new Tuple<Tuple<int, int>, Tuple<int, int>>(initialPosition, position));
     }
@@ -59,6 +60,8 @@ class BFSState: MazeState{
         Tuple<Tuple<int, int>, Tuple<int, int>> top = (Tuple<Tuple<int, int>, Tuple<int, int>>)_queue.Peek();
 
         Tuple<int, int> newPosition = ((Tuple<Tuple<int, int>, Tuple<int, int>>)_queue.Dequeue()).Item1;
+
+        _queueProgress.Enqueue(newPosition);
 
 
         SetCheckMap(top.Item1, new Tuple<bool, Tuple<int, int>>(true, top.Item2));

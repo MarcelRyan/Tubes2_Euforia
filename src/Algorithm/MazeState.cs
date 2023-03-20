@@ -24,6 +24,8 @@ abstract class MazeState
 
     public ArrayList pathBFS { get; protected set; }
 
+    public Queue _queueProgress {get; protected set;}
+
     protected Tuple<bool, Tuple<int, int>>[,] _checkMap;
 
     protected ArrayList pathWithoutBacktrack = new ArrayList();
@@ -218,6 +220,10 @@ abstract class MazeState
 
     public ArrayList getPathBFS(){
         return pathBFS;
+    }
+
+    public Queue getQueueProgressBFS(){
+        return _queueProgress;
     }
 
     // backtrack hingga ada node yang memiliki tetangga yang belum dikunjungi
