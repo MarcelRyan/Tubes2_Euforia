@@ -53,8 +53,6 @@ class DFSState: MazeState
         {
             Tuple<int, int> backtrackPoint = ((Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Peek()).Item2;
 
-            _stack2.Push(backtrackPoint);
-
             while (position != backtrackPoint)
             {
                 if (GetMapElmt(position) == "T")

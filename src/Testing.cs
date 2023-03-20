@@ -5,7 +5,7 @@ using System.Linq;
 class Testing
 {
 
-    static void Main(string[] args)
+    static void Main2(string[] args)
     {
         string[][] map = FileIO.ReadMapFile("test", false);
         // DFSState dfsState = new DFSState(map, true);

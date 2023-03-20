@@ -32,6 +32,8 @@ namespace GUI
 
         private bool tspMode; // true jika pilih tsp
 
+        private bool multipleVisits; // true jika dfs diperbolehkan melakukan visit kotak lebih dari 2 kali
+
         private bool showProgress; // true jika pilih progress
 
         private ArrayList path;
@@ -69,12 +71,15 @@ namespace GUI
             dfsMode = false;
             tspMode = false;
             showProgress = false;
+            multipleVisits = false;
 
             // styling
             progressButton.Dock = DockStyle.Fill;
             timeLabel.Hide();
             timeStampBox.Hide();
             timeStampBox.Enabled = false;
+            dfsButton.Dock = DockStyle.Right;
+            multipleVisitsButton.Hide();
         }
 
         private void Treasure_Hunt_Solver_Load(object sender, EventArgs e)
@@ -165,7 +170,7 @@ namespace GUI
                 btn.ForeColor = selectedButtonForeColor;
                 btn.IconColor = selectedButtonForeColor;
                 btn.BackColor = selectedButtonBackColor;
-                btn.Font = new Font(progressButton.Font, FontStyle.Bold);
+                btn.Font = new Font(btn.Font, FontStyle.Bold);
             }
 
             else
@@ -173,7 +178,7 @@ namespace GUI
                 btn.ForeColor = defaultButtonForeColor;
                 btn.IconColor = defaultButtonForeColor;
                 btn.BackColor = defaultButtonBackColor;
-                btn.Font = new Font(progressButton.Font, FontStyle.Regular);
+                btn.Font = new Font(btn.Font, FontStyle.Regular);
             }
         }
 
@@ -214,6 +219,13 @@ namespace GUI
             if (dfsMode && bfsMode)
             {
                 changeButtonVisual(bfsButton, ref bfsMode);
+            }
+
+            if (dfsMode)
+            {
+                dfsButton.Dock = DockStyle.Top;
+                multipleVisitsButton.Show();
+                multipleVisitsButton.Enabled = true;
             }
         }
         private void tspButton_Click(object sender, EventArgs e)
@@ -302,7 +314,8 @@ namespace GUI
                             await Task.Delay(time);
                             dfs.Move();
                             path = dfs.GetCurrentPath();
-                            foreach(Tuple<int, int> pathTuple in path){
+                            foreach (Tuple<int, int> pathTuple in path)
+                            {
                                 if (pathTuple != null)
                                 {
                                     if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
@@ -351,7 +364,8 @@ namespace GUI
                             await Task.Delay(time);
                             bfs.Move();
                             path = bfs.GetCurrentPath();
-                            foreach(Tuple<int, int> pathTuple in path){
+                            foreach (Tuple<int, int> pathTuple in path)
+                            {
                                 if (pathTuple != null)
                                 {
                                     if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
@@ -476,6 +490,11 @@ namespace GUI
         private void errorLog_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void multipleVisitsButton_Click(object sender, EventArgs e)
+        {
+            changeButtonVisual(multipleVisitsButton, ref multipleVisits);
         }
     }
 }

@@ -69,6 +69,8 @@ namespace GUI
             routeLabelButton = new FontAwesome.Sharp.IconButton();
             logPanel = new Panel();
             errorLog = new Label();
+            dfsPanel = new Panel();
+            multipleVisitsButton = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)mazeGridView).BeginInit();
             configPanel.SuspendLayout();
             tspModePanel.SuspendLayout();
@@ -84,6 +86,7 @@ namespace GUI
             executionTimePanel.SuspendLayout();
             routePanel.SuspendLayout();
             logPanel.SuspendLayout();
+            dfsPanel.SuspendLayout();
             SuspendLayout();
             // 
             // mazeGridView
@@ -229,7 +232,7 @@ namespace GUI
             // 
             // algorithmConfigPanel
             // 
-            algorithmConfigPanel.Controls.Add(dfsButton);
+            algorithmConfigPanel.Controls.Add(dfsPanel);
             algorithmConfigPanel.Controls.Add(bfsButton);
             algorithmConfigPanel.Location = new Point(0, 180);
             algorithmConfigPanel.Name = "algorithmConfigPanel";
@@ -238,7 +241,7 @@ namespace GUI
             // 
             // dfsButton
             // 
-            dfsButton.Dock = DockStyle.Right;
+            dfsButton.Dock = DockStyle.Top;
             dfsButton.FlatAppearance.BorderSize = 0;
             dfsButton.FlatStyle = FlatStyle.Flat;
             dfsButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -247,10 +250,10 @@ namespace GUI
             dfsButton.IconColor = Color.White;
             dfsButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             dfsButton.IconSize = 32;
-            dfsButton.Location = new Point(127, 0);
+            dfsButton.Location = new Point(0, 0);
             dfsButton.Margin = new Padding(3, 3, 0, 0);
             dfsButton.Name = "dfsButton";
-            dfsButton.Size = new Size(135, 70);
+            dfsButton.Size = new Size(139, 42);
             dfsButton.TabIndex = 4;
             dfsButton.Text = "DFS";
             dfsButton.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -271,7 +274,7 @@ namespace GUI
             bfsButton.Location = new Point(0, 0);
             bfsButton.Margin = new Padding(3, 3, 0, 0);
             bfsButton.Name = "bfsButton";
-            bfsButton.Size = new Size(135, 70);
+            bfsButton.Size = new Size(123, 70);
             bfsButton.TabIndex = 3;
             bfsButton.Text = "BFS";
             bfsButton.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -594,6 +597,36 @@ namespace GUI
             errorLog.TabIndex = 0;
             errorLog.Click += errorLog_Click;
             // 
+            // dfsPanel
+            // 
+            dfsPanel.Controls.Add(multipleVisitsButton);
+            dfsPanel.Controls.Add(dfsButton);
+            dfsPanel.Dock = DockStyle.Left;
+            dfsPanel.Location = new Point(123, 0);
+            dfsPanel.Name = "dfsPanel";
+            dfsPanel.Size = new Size(139, 70);
+            dfsPanel.TabIndex = 5;
+            // 
+            // multipleVisitsButton
+            // 
+            multipleVisitsButton.Dock = DockStyle.Top;
+            multipleVisitsButton.FlatAppearance.BorderSize = 0;
+            multipleVisitsButton.FlatStyle = FlatStyle.Flat;
+            multipleVisitsButton.Font = new Font("Century Gothic", 6F, FontStyle.Regular, GraphicsUnit.Point);
+            multipleVisitsButton.ForeColor = Color.White;
+            multipleVisitsButton.IconChar = FontAwesome.Sharp.IconChar.None;
+            multipleVisitsButton.IconColor = Color.White;
+            multipleVisitsButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            multipleVisitsButton.IconSize = 32;
+            multipleVisitsButton.Location = new Point(0, 42);
+            multipleVisitsButton.Margin = new Padding(3, 3, 0, 0);
+            multipleVisitsButton.Name = "multipleVisitsButton";
+            multipleVisitsButton.Size = new Size(139, 28);
+            multipleVisitsButton.TabIndex = 5;
+            multipleVisitsButton.Text = "Multiple Visits";
+            multipleVisitsButton.UseVisualStyleBackColor = true;
+            multipleVisitsButton.Click += multipleVisitsButton_Click;
+            // 
             // Treasure_Hunt_Solver
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -632,6 +665,7 @@ namespace GUI
             executionTimePanel.ResumeLayout(false);
             routePanel.ResumeLayout(false);
             logPanel.ResumeLayout(false);
+            dfsPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -673,6 +707,8 @@ namespace GUI
         private Label routeLabel;
         private Panel logPanel;
         private Label errorLog;
+        private Panel dfsPanel;
+        private FontAwesome.Sharp.IconButton multipleVisitsButton;
     }
 }
 

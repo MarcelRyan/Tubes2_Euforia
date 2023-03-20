@@ -59,17 +59,17 @@ class FileIO
         int startCount = 0;
         foreach (var line in map)
         {
-            if (line.Length != columns) throw new Exception("Masukan pada setiap baris harus memiliki jumlah karakter yang sama!");
+            if (line.Length != columns) throw new Exception("Each line in configuration file should have the same characters count!");
             foreach (var c in line)
             {
-                if (c.Length > 1) new Exception("Setiap karakter harus dipisah spasi!");
+                if (c.Length > 1) new Exception("Each character should be separated with space!");
                 if (c == "K") startCount++;
 
-                if (!validChars.Contains(c)) throw new Exception("Masukan map memiliki karakter yang tidak valid! Karakter yang diperbolehkan adalah K, T, R, dan X");
+                if (!validChars.Contains(c)) throw new Exception("File contains invalid character(s)! Allowed characters are K, T, R, and X.");
             }
         }
 
-        if (startCount != 1) throw new Exception("Titik awal berupa karakter K harus berjumlah 1 pada map!");
+        if (startCount != 1) throw new Exception("Character K as initial point should only be one in map!");
         return map;
     }
 

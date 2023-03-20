@@ -143,6 +143,7 @@ abstract class MazeState
     // mengembalikan urutan arah berdasarkan current path
     virtual public ArrayList GetCurrentRoute()
     {
+
         ArrayList currentPath = GetCurrentPath();
         ArrayList result = new ArrayList();
 
