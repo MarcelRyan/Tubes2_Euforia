@@ -5,7 +5,9 @@ using System.Linq;
 class DFSState: MazeState
 {
 
-    private Stack _stack; 
+    private Stack _stack;
+
+    private Stack _stack2;
 
     // konfigurasi default objek
     protected override void DefaultConfig()
@@ -13,6 +15,7 @@ class DFSState: MazeState
 
         base.DefaultConfig();
         _stack = new Stack();
+        _stack2 = new Stack();
         _stack.Push(new Tuple<Tuple<int, int>, Tuple<int, int>>(initialPosition, position));
     }
 
@@ -35,6 +38,8 @@ class DFSState: MazeState
         if (_stack.Count == 0) return;
 
         Tuple<int, int> backtrackPoint = ((Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Peek()).Item2;
+
+        _stack2.Push(backtrackPoint);
 
         while (position != backtrackPoint)
         {
@@ -84,6 +89,8 @@ class DFSState: MazeState
 
         Tuple<int, int> newPosition = ((Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Pop()).Item1;
 
+        _stack2.Push(newPosition);
+
         SetCheckMap(newPosition, new Tuple<bool, Tuple<int, int>>(true, position));
 
         position = newPosition;
@@ -131,5 +138,15 @@ class DFSState: MazeState
                     new Tuple<int, int>(position.Item1 + directions[i].Item1, position.Item2 + directions[i].Item2),
                         position));
         }
+    }
+
+    public Stack GetStack()
+    {
+        Stack temp = new Stack();
+        while(_stack2.Count != 0)
+        {
+            temp.Push(_stack2.Pop());
+        }
+        return temp;
     }
 }

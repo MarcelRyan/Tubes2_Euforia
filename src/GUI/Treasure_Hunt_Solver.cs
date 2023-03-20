@@ -36,6 +36,12 @@ namespace GUI
 
         private ArrayList path;
 
+        private Stack _stack;
+
+        private Queue _queue;
+
+        private int time;
+
         private Color selectedButtonForeColor = Color.DodgerBlue;
 
         private Color defaultButtonForeColor = Color.White;
@@ -231,7 +237,7 @@ namespace GUI
             }
         }
 
-        private void solveButton_Click(object sender, EventArgs e)
+        private async void solveButton_Click(object sender, EventArgs e)
         {
 
             string[][] map = FileIO.ReadMapFile(fileNameBox.Text.Replace(".txt", ""));
@@ -242,7 +248,23 @@ namespace GUI
 
                 while (!dfs.stop)
                 {
+                    await Task.Delay(time);
                     dfs.Move();
+                    _stack = dfs.GetStack();
+                    Tuple<int, int> pathTuple = new Tuple<int, int>(0, 0);
+                    if (_stack.Count > 0)
+                    {
+                        pathTuple = (Tuple<int, int>)_stack.Pop();
+                    }
+                    if (pathTuple != null)
+                    {
+                        if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                        {
+                            this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
+                            this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
+                            mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                        }
+                    }
                 }
 
                 path = dfs.GetCurrentPath();
@@ -259,7 +281,23 @@ namespace GUI
 
                 while (!bfs.stop)
                 {
+                    await Task.Delay(time);
                     bfs.Move();
+                    _queue = bfs.GetQueue();
+                    Tuple<int, int> pathTuple = new Tuple<int, int>(0, 0);
+                    if (_queue.Count > 0)
+                    {
+                        pathTuple = (Tuple<int, int>)_queue.Dequeue();
+                    }
+                    if (pathTuple != null)
+                    {
+                        if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                        {
+                            this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
+                            this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
+                            mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                        }
+                    }
                 }
 
                 path = bfs.GetCurrentPath();
@@ -280,6 +318,7 @@ namespace GUI
         private void timeText_Click(object sender, EventArgs e)
         {
             Helper.time = timeStampBox.Text;
+            time = Convert.ToInt32(Helper.time);
         }
 
         private void myNumericUpDown_KeyDown(object sender, KeyEventArgs e)
