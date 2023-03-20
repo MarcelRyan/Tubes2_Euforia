@@ -36,13 +36,13 @@ namespace GUI
 
         private ArrayList path;
 
-        private Color selectedButtonForeColor = Color.FromArgb(99, 55, 245);
+        private Color selectedButtonForeColor = Color.DodgerBlue;
 
-        private Color defaultButtonForeColor = Color.FromArgb(163, 55, 245);
+        private Color defaultButtonForeColor = Color.White;
 
         private Color selectedButtonBackColor = Color.FromArgb(37, 47, 92);
 
-        private Color defaultButtonBackColor = Color.FromArgb(24, 30, 54);
+        private Color defaultButtonBackColor = Color.FromArgb(37, 42, 64);
         public Treasure_Hunt_Solver()
         {
             InitializeComponent();
@@ -305,6 +305,16 @@ namespace GUI
         }
 
         private void executionGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void executionTimeValue_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fileConfigLabel_Click(object sender, EventArgs e)
         {
 
         }

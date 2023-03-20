@@ -16,14 +16,15 @@ namespace GUI
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+
+          if (disposing && (components != null))
             {
                 components.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+  #region Windows Form Designer generated code
 
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -146,9 +147,9 @@ namespace GUI
             tspButton.FlatAppearance.BorderSize = 0;
             tspButton.FlatStyle = FlatStyle.Flat;
             tspButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            tspButton.ForeColor = Color.FromArgb(163, 55, 245);
+            tspButton.ForeColor = Color.White;
             tspButton.IconChar = FontAwesome.Sharp.IconChar.PlaneArrival;
-            tspButton.IconColor = Color.FromArgb(163, 55, 245);
+            tspButton.IconColor = Color.White;
             tspButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             tspButton.IconSize = 32;
             tspButton.Location = new Point(0, 0);
@@ -206,9 +207,9 @@ namespace GUI
             progressButton.FlatAppearance.BorderSize = 0;
             progressButton.FlatStyle = FlatStyle.Flat;
             progressButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            progressButton.ForeColor = Color.FromArgb(163, 55, 245);
+            progressButton.ForeColor = Color.White;
             progressButton.IconChar = FontAwesome.Sharp.IconChar.TasksAlt;
-            progressButton.IconColor = Color.FromArgb(163, 55, 245);
+            progressButton.IconColor = Color.White;
             progressButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             progressButton.IconSize = 32;
             progressButton.Location = new Point(0, 0);
@@ -238,9 +239,9 @@ namespace GUI
             dfsButton.FlatAppearance.BorderSize = 0;
             dfsButton.FlatStyle = FlatStyle.Flat;
             dfsButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dfsButton.ForeColor = Color.FromArgb(163, 55, 245);
+            dfsButton.ForeColor = Color.White;
             dfsButton.IconChar = FontAwesome.Sharp.IconChar.RulerVertical;
-            dfsButton.IconColor = Color.FromArgb(163, 55, 245);
+            dfsButton.IconColor = Color.White;
             dfsButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             dfsButton.IconSize = 32;
             dfsButton.Location = new Point(127, 0);
@@ -259,9 +260,9 @@ namespace GUI
             bfsButton.FlatAppearance.BorderSize = 0;
             bfsButton.FlatStyle = FlatStyle.Flat;
             bfsButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            bfsButton.ForeColor = Color.FromArgb(163, 55, 245);
+            bfsButton.ForeColor = Color.White;
             bfsButton.IconChar = FontAwesome.Sharp.IconChar.RulerHorizontal;
-            bfsButton.IconColor = Color.FromArgb(163, 55, 245);
+            bfsButton.IconColor = Color.White;
             bfsButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             bfsButton.ImageAlign = ContentAlignment.MiddleLeft;
             bfsButton.Location = new Point(0, 0);
@@ -307,7 +308,7 @@ namespace GUI
             // 
             fileNameBox.Anchor = AnchorStyles.Left;
             fileNameBox.BackColor = Color.FromArgb(24, 30, 54);
-            fileNameBox.ForeColor = Color.FromArgb(163, 55, 245);
+            fileNameBox.ForeColor = Color.White;
             fileNameBox.Location = new Point(3, 30);
             fileNameBox.Name = "fileNameBox";
             fileNameBox.Size = new Size(199, 30);
@@ -319,12 +320,13 @@ namespace GUI
             fileConfigLabel.Dock = DockStyle.Top;
             fileConfigLabel.FlatStyle = FlatStyle.Flat;
             fileConfigLabel.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            fileConfigLabel.ForeColor = Color.FromArgb(163, 55, 245);
+            fileConfigLabel.ForeColor = Color.White;
             fileConfigLabel.Location = new Point(0, 0);
             fileConfigLabel.Name = "fileConfigLabel";
             fileConfigLabel.Size = new Size(259, 25);
             fileConfigLabel.TabIndex = 0;
             fileConfigLabel.Text = "File Configuration";
+            fileConfigLabel.Click += fileConfigLabel_Click;
             // 
             // visualizeButton
             // 
@@ -333,9 +335,9 @@ namespace GUI
             visualizeButton.FlatAppearance.BorderSize = 0;
             visualizeButton.FlatStyle = FlatStyle.Flat;
             visualizeButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            visualizeButton.ForeColor = Color.FromArgb(163, 55, 245);
+            visualizeButton.ForeColor = Color.White;
             visualizeButton.IconChar = FontAwesome.Sharp.IconChar.Television;
-            visualizeButton.IconColor = Color.FromArgb(163, 55, 245);
+            visualizeButton.IconColor = Color.White;
             visualizeButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             visualizeButton.IconSize = 32;
             visualizeButton.ImageAlign = ContentAlignment.MiddleLeft;
@@ -357,9 +359,9 @@ namespace GUI
             solveButton.FlatAppearance.BorderSize = 0;
             solveButton.FlatStyle = FlatStyle.Flat;
             solveButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            solveButton.ForeColor = Color.FromArgb(163, 55, 245);
+            solveButton.ForeColor = Color.White;
             solveButton.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
-            solveButton.IconColor = Color.FromArgb(163, 55, 245);
+            solveButton.IconColor = Color.White;
             solveButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             solveButton.IconSize = 32;
             solveButton.ImageAlign = ContentAlignment.MiddleLeft;
@@ -419,7 +421,7 @@ namespace GUI
             // 
             // stepsCountValue
             // 
-            stepsCountValue.BackColor = Color.FromArgb(163, 55, 245);
+            stepsCountValue.BackColor = Color.BlueViolet;
             stepsCountValue.Dock = DockStyle.Bottom;
             stepsCountValue.ForeColor = Color.White;
             stepsCountValue.Location = new Point(0, 37);
@@ -432,7 +434,7 @@ namespace GUI
             // stepsCountLabel
             // 
             stepsCountLabel.Dock = DockStyle.Top;
-            stepsCountLabel.ForeColor = Color.FromArgb(163, 55, 245);
+            stepsCountLabel.ForeColor = Color.White;
             stepsCountLabel.Location = new Point(0, 0);
             stepsCountLabel.Name = "stepsCountLabel";
             stepsCountLabel.Size = new Size(174, 38);
@@ -452,7 +454,7 @@ namespace GUI
             // 
             // nodesCountValue
             // 
-            nodesCountValue.BackColor = Color.FromArgb(163, 55, 245);
+            nodesCountValue.BackColor = Color.MediumSlateBlue;
             nodesCountValue.Dock = DockStyle.Bottom;
             nodesCountValue.ForeColor = Color.White;
             nodesCountValue.Location = new Point(0, 37);
@@ -465,7 +467,7 @@ namespace GUI
             // stepCountLabel
             // 
             stepCountLabel.Dock = DockStyle.Top;
-            stepCountLabel.ForeColor = Color.FromArgb(163, 55, 245);
+            stepCountLabel.ForeColor = Color.White;
             stepCountLabel.Location = new Point(0, 0);
             stepCountLabel.Name = "stepCountLabel";
             stepCountLabel.Size = new Size(174, 38);
@@ -485,7 +487,7 @@ namespace GUI
             // 
             // executionTimeValue
             // 
-            executionTimeValue.BackColor = Color.FromArgb(163, 55, 245);
+            executionTimeValue.BackColor = Color.DodgerBlue;
             executionTimeValue.Dock = DockStyle.Bottom;
             executionTimeValue.ForeColor = Color.White;
             executionTimeValue.Location = new Point(0, 37);
@@ -494,11 +496,12 @@ namespace GUI
             executionTimeValue.TabIndex = 1;
             executionTimeValue.Text = "[TIME]";
             executionTimeValue.TextAlign = ContentAlignment.MiddleCenter;
+            executionTimeValue.Click += executionTimeValue_Click;
             // 
             // executionTimeLabel
             // 
             executionTimeLabel.Dock = DockStyle.Top;
-            executionTimeLabel.ForeColor = Color.FromArgb(163, 55, 245);
+            executionTimeLabel.ForeColor = Color.White;
             executionTimeLabel.ImageAlign = ContentAlignment.MiddleRight;
             executionTimeLabel.Location = new Point(0, 0);
             executionTimeLabel.Name = "executionTimeLabel";
@@ -510,12 +513,12 @@ namespace GUI
             // executionButton
             // 
             executionButton.Dock = DockStyle.Top;
-            executionButton.FlatAppearance.BorderColor = Color.FromArgb(163, 55, 245);
+            executionButton.FlatAppearance.BorderColor = Color.SteelBlue;
             executionButton.FlatStyle = FlatStyle.Flat;
             executionButton.Font = new Font("Century Gothic", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            executionButton.ForeColor = Color.FromArgb(163, 55, 245);
+            executionButton.ForeColor = Color.White;
             executionButton.IconChar = FontAwesome.Sharp.IconChar.Microchip;
-            executionButton.IconColor = Color.FromArgb(163, 55, 245);
+            executionButton.IconColor = Color.White;
             executionButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             executionButton.IconSize = 50;
             executionButton.Location = new Point(0, 0);
@@ -524,7 +527,7 @@ namespace GUI
             executionButton.TabIndex = 0;
             executionButton.Text = "Execution";
             executionButton.TextImageRelation = TextImageRelation.ImageBeforeText;
-            executionButton.UseVisualStyleBackColor = true;
+            executionButton.UseVisualStyleBackColor = false;
             // 
             // routePanel
             // 
@@ -551,11 +554,12 @@ namespace GUI
             // routeLabelButton
             // 
             routeLabelButton.Dock = DockStyle.Left;
+            routeLabelButton.FlatAppearance.BorderColor = Color.SteelBlue;
             routeLabelButton.FlatStyle = FlatStyle.Flat;
             routeLabelButton.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            routeLabelButton.ForeColor = Color.FromArgb(163, 55, 245);
+            routeLabelButton.ForeColor = Color.White;
             routeLabelButton.IconChar = FontAwesome.Sharp.IconChar.Route;
-            routeLabelButton.IconColor = Color.FromArgb(163, 55, 245);
+            routeLabelButton.IconColor = Color.White;
             routeLabelButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             routeLabelButton.IconSize = 70;
             routeLabelButton.Location = new Point(0, 0);
@@ -564,7 +568,7 @@ namespace GUI
             routeLabelButton.TabIndex = 0;
             routeLabelButton.Text = "Route";
             routeLabelButton.TextImageRelation = TextImageRelation.TextAboveImage;
-            routeLabelButton.UseVisualStyleBackColor = true;
+            routeLabelButton.UseVisualStyleBackColor = false;
             // 
             // Treasure_Hunt_Solver
             // 
