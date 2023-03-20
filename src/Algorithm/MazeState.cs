@@ -99,7 +99,8 @@ abstract class MazeState
 
     virtual protected void updateStepCount()
     {
-        stepCount = GetCurrentPath().Count - 1;
+        if (allowMultipleVisits) stepCount = pathWithoutBacktrack.Count - 1;
+        else stepCount = GetCurrentPath().Count - 1;
     }
 
     // solusi ditemukan
@@ -212,9 +213,6 @@ abstract class MazeState
             nTimes++;
         }
     }
-
-    // backtrack hingga ada node yang memiliki tetangga yang belum dikunjungi
-    abstract protected void BackTrack();
 
     // Berpindah satu langkah dengan pendekatan tertentu
     abstract public void Move();
