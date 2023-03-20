@@ -82,7 +82,7 @@ namespace GUI
 
         private void Treasure_Hunt_Solver_Load(object sender, EventArgs e)
         {
-            timeStampBox.Enabled = false;     
+            timeStampBox.Enabled = false;
         }
 
 
@@ -112,6 +112,22 @@ namespace GUI
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 fileNameBox.Text = openFileDialog1.SafeFileName;
+
+                routeLabel.Text = "[ROUTE]";
+
+                executionTimeValue.Text = "[TIME]";
+
+                nodesCountValue.Text = "[NODES]";
+
+                stepsCountValue.Text = "[STEPS]";
+
+                routeLabel.Refresh();
+
+                executionTimeValue.Refresh();
+
+                nodesCountValue.Refresh();
+                
+                stepsCountValue.Refresh();
             }
         }
 
@@ -232,6 +248,22 @@ namespace GUI
             {
                 row.Height = tinggi;
             }
+
+            routeLabel.Text = "[ROUTE]";
+
+            executionTimeValue.Text = "[TIME]";
+
+            nodesCountValue.Text = "[NODES]";
+
+            stepsCountValue.Text = "[STEPS]";
+
+            routeLabel.Refresh();
+
+            executionTimeValue.Refresh();
+
+            nodesCountValue.Refresh();
+
+            stepsCountValue.Refresh();
         }
 
         private async void solveButton_Click(object sender, EventArgs e)
@@ -287,9 +319,21 @@ namespace GUI
                     mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
                 }
 
-                nodesCountValue.Text = dfs.nodeCount.ToString();
+                if (dfs.foundAll)
+                {
+                    nodesCountValue.Text = dfs.nodeCount.ToString();
 
-                stepsCountValue.Text = dfs.stepCount.ToString();
+                    stepsCountValue.Text = dfs.stepCount.ToString();
+                }
+
+                else
+                {
+                    nodesCountValue.Text = "No Solution";
+
+                    stepsCountValue.Text = "No Solution";
+
+                    routeLabel.Text = "No Solution";
+                }
             }
 
             else if (bfsMode)
@@ -336,9 +380,19 @@ namespace GUI
                     mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
                 }
 
-                nodesCountValue.Text = bfs.nodeCount.ToString();
+                if (bfs.foundAll)
+                {
+                    nodesCountValue.Text = bfs.nodeCount.ToString();
 
-                stepsCountValue.Text = bfs.stepCount.ToString();
+                    stepsCountValue.Text = bfs.stepCount.ToString();
+                }
+
+                else
+                {
+                    nodesCountValue.Text = "No Solution";
+
+                    stepsCountValue.Text = "No Solution";
+                }
             }
 
             execTime = watch.ElapsedMilliseconds;
@@ -393,7 +447,7 @@ namespace GUI
 
         private void executionTimeValue_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void fileConfigLabel_Click(object sender, EventArgs e)
@@ -401,5 +455,9 @@ namespace GUI
 
         }
 
+        private void routeLabelButton_Click(object sender, EventArgs e)
+        {
+            routeLabel.Refresh();
+        }
     }
 }

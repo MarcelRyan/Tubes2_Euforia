@@ -17,14 +17,14 @@ namespace GUI
         protected override void Dispose(bool disposing)
         {
 
-          if (disposing && (components != null))
+            if (disposing && (components != null))
             {
                 components.Dispose();
             }
             base.Dispose(disposing);
         }
 
-  #region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -129,7 +129,7 @@ namespace GUI
             configPanel.Dock = DockStyle.Left;
             configPanel.Location = new Point(0, 0);
             configPanel.Name = "configPanel";
-            configPanel.Size = new Size(262, 594);
+            configPanel.Size = new Size(262, 603);
             configPanel.TabIndex = 24;
             // 
             // tspModePanel
@@ -170,7 +170,7 @@ namespace GUI
             visualizeConfigPanel.Controls.Add(timeLabel);
             visualizeConfigPanel.Controls.Add(progressButton);
             visualizeConfigPanel.Dock = DockStyle.Bottom;
-            visualizeConfigPanel.Location = new Point(0, 324);
+            visualizeConfigPanel.Location = new Point(0, 333);
             visualizeConfigPanel.Margin = new Padding(0);
             visualizeConfigPanel.Name = "visualizeConfigPanel";
             visualizeConfigPanel.Size = new Size(262, 120);
@@ -184,7 +184,7 @@ namespace GUI
             timeStampBox.Location = new Point(67, 67);
             timeStampBox.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             timeStampBox.Name = "timeStampBox";
-            timeStampBox.Size = new Size(109, 30);
+            timeStampBox.Size = new Size(109, 26);
             timeStampBox.TabIndex = 8;
             timeStampBox.ValueChanged += timeText_Click;
             timeStampBox.KeyDown += myNumericUpDown_KeyDown;
@@ -311,7 +311,7 @@ namespace GUI
             fileNameBox.ForeColor = Color.White;
             fileNameBox.Location = new Point(3, 30);
             fileNameBox.Name = "fileNameBox";
-            fileNameBox.Size = new Size(199, 30);
+            fileNameBox.Size = new Size(199, 26);
             fileNameBox.TabIndex = 1;
             fileNameBox.TextChanged += fileNameChange;
             // 
@@ -341,7 +341,7 @@ namespace GUI
             visualizeButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             visualizeButton.IconSize = 32;
             visualizeButton.ImageAlign = ContentAlignment.MiddleLeft;
-            visualizeButton.Location = new Point(0, 444);
+            visualizeButton.Location = new Point(0, 453);
             visualizeButton.Name = "visualizeButton";
             visualizeButton.Padding = new Padding(60, 0, 0, 0);
             visualizeButton.Size = new Size(262, 75);
@@ -365,7 +365,7 @@ namespace GUI
             solveButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             solveButton.IconSize = 32;
             solveButton.ImageAlign = ContentAlignment.MiddleLeft;
-            solveButton.Location = new Point(0, 519);
+            solveButton.Location = new Point(0, 528);
             solveButton.Name = "solveButton";
             solveButton.Padding = new Padding(60, 0, 0, 0);
             solveButton.Size = new Size(262, 75);
@@ -569,12 +569,13 @@ namespace GUI
             routeLabelButton.Text = "Route";
             routeLabelButton.TextImageRelation = TextImageRelation.TextAboveImage;
             routeLabelButton.UseVisualStyleBackColor = false;
+            routeLabelButton.Click += routeLabelButton_Click;
             // 
             // Treasure_Hunt_Solver
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(46, 51, 73);
-            ClientSize = new Size(1178, 594);
+            ClientSize = new Size(1182, 603);
             Controls.Add(routePanel);
             Controls.Add(executionPanel);
             Controls.Add(mazeGridView);
