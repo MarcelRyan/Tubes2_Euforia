@@ -37,12 +37,12 @@ abstract class MazeState
         new Tuple<int, int>(-1, 0),
     };
 
-    static protected Dictionary<Tuple<int, int>, string> directionMap = new Dictionary<Tuple<int, int>, string>
+    static protected Dictionary<(int, int), string> directionMap = new Dictionary<(int, int), string>
     {
-        {directions[0], "L"},
-        {directions[1], "D"},
-        {directions[2], "R"},
-        {directions[3], "U"},
+        {(0, -1), "L"},
+        {(1, 0), "D"},
+        {(0, 1), "R"},
+        {(-1, 0), "U"},
     };
 
     // ctor
@@ -152,7 +152,7 @@ abstract class MazeState
             Tuple<int, int> current = (Tuple<int, int>)currentPath[i];
             Tuple<int, int> next = (Tuple<int, int>)currentPath[i+1];
 
-            result.Add(directionMap[new Tuple<int, int>(next.Item1 - current.Item1, next.Item2 - current.Item2)]);
+            result.Add(directionMap[(next.Item1 - current.Item1, next.Item2 - current.Item2)]);
         }
 
         return result;
@@ -171,13 +171,19 @@ abstract class MazeState
 
         while (tempPosition.Item1 != -1 && tempPosition.Item2 != -1)
         {
+        
             path.Add(tempPosition);
 
-            if (tempPosition == initialPosition)
+            if (tempPosition.Equals(initialPosition))
             {
+                
                 if (visitedInitialPosition) tempPosition = defaultCheckValue.Item2;
 
-                else visitedInitialPosition = true;
+                else
+                {
+                    visitedInitialPosition = true;
+                    tempPosition = GetCheckMap(tempPosition).Item2;
+                }
             }
 
             else

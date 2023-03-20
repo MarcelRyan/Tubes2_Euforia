@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.IO;
 using System.Linq;
 
@@ -26,9 +27,18 @@ class Testing
             dfsState.Move();
             Console.WriteLine(dfsState.position);
             Console.WriteLine(dfsState.foundTreasureCount);
-            //Console.WriteLine("stack top:" + (Tuple<Tuple<int, int>, Tuple<int, int>>)dfsState._stack.Peek());
-            string temp =  Console.ReadLine();
             
+            //string temp =  Console.ReadLine();
+            
+        }
+
+
+
+        ArrayList steps = dfsState.GetCurrentRoute();
+
+        foreach (var step in steps)
+        {
+            Console.Write(step);
         }
     }
 }
