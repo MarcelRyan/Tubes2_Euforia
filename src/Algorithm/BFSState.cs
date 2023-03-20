@@ -7,14 +7,11 @@ class BFSState: MazeState{
 
     private Queue _queue;
 
-    private Queue _queue2;
-
     // konfigurasi default objek
     protected override void DefaultConfig()
     {
         base.DefaultConfig();
         _queue = new Queue();
-        _queue2 = new Queue(); 
         _queue.Enqueue(new Tuple<Tuple<int, int>, Tuple<int, int>>(initialPosition, position));
     }
 
@@ -56,7 +53,6 @@ class BFSState: MazeState{
 
         Tuple<int, int> newPosition = ((Tuple<Tuple<int, int>, Tuple<int, int>>)_queue.Dequeue()).Item1;
 
-        _queue2.Enqueue(newPosition);
 
         SetCheckMap(top.Item1, new Tuple<bool, Tuple<int, int>>(true, top.Item2));
 
@@ -125,6 +121,4 @@ class BFSState: MazeState{
         }
 
     }
-
-    public Queue GetQueue() { return _queue2; }
 }
