@@ -134,6 +134,8 @@ namespace GUI
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+
+                // WARNING : SET HELPER.ISABSOLUTE HARUS SETELAH SET NILAI FILENAMEBOX.TEXT!!!
                 fileNameBox.Text = openFileDialog1.SafeFileName;
                 Helper.file = openFileDialog1.FileName;
                 Helper.isAbsolute = true;
