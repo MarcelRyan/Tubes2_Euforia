@@ -231,6 +231,17 @@ namespace GUI
                 multipleVisitsButton.Show();
                 multipleVisitsButton.Enabled = true;
             }
+
+            else
+            {
+                dfsButton.Dock = DockStyle.Right;
+
+                multipleVisitsButton.Hide();
+
+                // SET MULTIPLEVISITS MENJADI TRUE UNTUK KEMUDIAN DISET LAGI MENJADI FALSE DI DALAM FUNGSI CHANGEBUTTONVISUAL
+                multipleVisits = true;
+                changeButtonVisual(multipleVisitsButton, ref multipleVisits);
+            }
         }
         private void tspButton_Click(object sender, EventArgs e)
         {
