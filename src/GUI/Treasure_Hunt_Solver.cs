@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Collections;
+using System.Net;
+using System.Diagnostics.Eventing.Reader;
 
 namespace GUI
 {
@@ -34,6 +36,10 @@ namespace GUI
         private string filename;
 
         private ArrayList path;
+
+        private Stack _stack;
+
+        private Queue _queue;
 
         private Color selectedButtonForeColor = Color.FromArgb(99, 55, 245);
 
@@ -206,7 +212,7 @@ namespace GUI
             }
         }
 
-        private void solveButton_Click(object sender, EventArgs e)
+        private async void solveButton_Click(object sender, EventArgs e)
         {
             string[][] map = FileIO.ReadMapFile(fileNameBox.Text.Replace(".txt", ""));
 
@@ -216,13 +222,33 @@ namespace GUI
 
                 while (!dfs.stop)
                 {
+                    await Task.Delay(150);
                     dfs.Move();
+                    _stack = dfs.GetStack();
+                    Tuple<int, int> pathTuple = new Tuple<int, int>(0,0);
+                    if (_stack.Count > 0)
+                    {
+                        pathTuple = (Tuple<int, int>)_stack.Pop();
+                    }
+                    if (pathTuple != null)
+                    {
+                        if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                        {
+                            this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2,pathTuple.Item1];
+                            this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
+                            mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                        }
+                    }
                 }
+
+                //mazeGridView.DataSource = null;
+                //Helper.file = filename;
 
                 path = dfs.GetCurrentPath();
 
                 foreach (Tuple<int, int> tuple in path)
                 {
+                    await Task.Delay(150);
                     mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
                 }
             }
@@ -233,13 +259,30 @@ namespace GUI
 
                 while (!bfs.stop)
                 {
+                    await Task.Delay(150);
                     bfs.Move();
+                    _queue = bfs.GetQueue();
+                    Tuple<int, int> pathTuple = new Tuple<int, int>(0, 0);
+                    if (_queue.Count > 0)
+                    {
+                        pathTuple = (Tuple<int, int>)_queue.Dequeue();
+                    }
+                    if (pathTuple != null)
+                    {
+                        if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                        {
+                            this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
+                            this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
+                            mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                        }
+                    }
                 }
 
                 path = bfs.GetCurrentPath();
 
                 foreach (Tuple<int, int> tuple in path)
                 {
+                    await Task.Delay(150);
                     mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
                 }
             }
