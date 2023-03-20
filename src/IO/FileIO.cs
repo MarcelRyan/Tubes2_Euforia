@@ -32,11 +32,24 @@ class FileIO
         return Path.GetFullPath(prefix + path + FixFileExtension(fileName));
 
     }
-    static public string[][] ReadMapFile(string fileName, string path = "../test/",string extension = ".txt")
+    static public string[][] ReadMapFile(string fileName, bool isAbsolute)
+    {
+        if (!isAbsolute)
+        {
+            string path = "../test/";
+            string extension = ".txt";
+
+            return ReadMapFile(GetTestPath(fileName, path, extension));
+        }
+
+        return ReadMapFile(fileName);
+    }
+
+    static public string[][] ReadMapFile(string location)
     {
         string validChars = "KTRX";
 
-        string[] lines = File.ReadAllLines(GetTestPath(fileName, path, extension));
+        string[] lines = File.ReadAllLines(location);
 
         var map = lines.Select(line => line.ToUpper().Split(' ')).ToArray();
 
@@ -44,14 +57,14 @@ class FileIO
 
         int columns = map[0].Length;
         int startCount = 0;
-        foreach(var line in map)
+        foreach (var line in map)
         {
             if (line.Length != columns) throw new Exception("Masukan pada setiap baris harus memiliki jumlah karakter yang sama!");
-            foreach(var c in line)
+            foreach (var c in line)
             {
                 if (c.Length > 1) new Exception("Setiap karakter harus dipisah spasi!");
                 if (c == "K") startCount++;
-                
+
                 if (!validChars.Contains(c)) throw new Exception("Masukan map memiliki karakter yang tidak valid! Karakter yang diperbolehkan adalah K, T, R, dan X");
             }
         }
@@ -59,5 +72,6 @@ class FileIO
         if (startCount != 1) throw new Exception("Titik awal berupa karakter K harus berjumlah 1 pada map!");
         return map;
     }
+
 }    
 

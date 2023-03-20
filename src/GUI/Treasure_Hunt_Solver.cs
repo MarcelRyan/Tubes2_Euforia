@@ -86,6 +86,28 @@ namespace GUI
             timeStampBox.Enabled = false;
         }
 
+        private void refresh_Labels(
+            string route = "[ROUTE]",
+            string time = "[TIME]",
+            string nodes = "[NODES]",
+            string steps = "[STEPS]")
+        {
+            routeLabel.Text = route;
+
+            executionTimeValue.Text = time;
+
+            nodesCountValue.Text = nodes;
+
+            stepsCountValue.Text = steps;
+
+            routeLabel.Refresh();
+
+            executionTimeValue.Refresh();
+
+            nodesCountValue.Refresh();
+
+            stepsCountValue.Refresh();
+        }
 
         private void browseFile_Click(object sender, EventArgs e)
         {
@@ -113,22 +135,9 @@ namespace GUI
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 fileNameBox.Text = openFileDialog1.SafeFileName;
-
-                routeLabel.Text = "[ROUTE]";
-
-                executionTimeValue.Text = "[TIME]";
-
-                nodesCountValue.Text = "[NODES]";
-
-                stepsCountValue.Text = "[STEPS]";
-
-                routeLabel.Refresh();
-
-                executionTimeValue.Refresh();
-
-                nodesCountValue.Refresh();
-
-                stepsCountValue.Refresh();
+                Helper.file = openFileDialog1.FileName;
+                Helper.isAbsolute = true;
+                refresh_Labels();
             }
         }
 
@@ -143,7 +152,6 @@ namespace GUI
                         e.CellStyle.BackColor = Color.Black;
                         e.Value = "";
                     }
-
                 }
             }
         }
@@ -172,6 +180,7 @@ namespace GUI
         // handle filename text box changes
         private void fileNameChange(object sender, EventArgs e)
         {
+            Helper.isAbsolute = false;
             Helper.file = fileNameBox.Text;
         }
 
@@ -238,7 +247,7 @@ namespace GUI
             try
             {
 
-                mazeGridView.DataSource = Helper.TableDataFromTextFile(fileNameBox.Text);
+                mazeGridView.DataSource = Helper.TableDataFromTextFile();
 
                 mazeGridView.CellFormatting += mazeGrid_CellFormatting;
 
@@ -253,21 +262,7 @@ namespace GUI
                     row.Height = tinggi;
                 }
 
-                routeLabel.Text = "[ROUTE]";
-
-                executionTimeValue.Text = "[TIME]";
-
-                nodesCountValue.Text = "[NODES]";
-
-                stepsCountValue.Text = "[STEPS]";
-
-                routeLabel.Refresh();
-
-                executionTimeValue.Refresh();
-
-                nodesCountValue.Refresh();
-
-                stepsCountValue.Refresh();
+                refresh_Labels();
 
                 logPanel.Hide();
             }
@@ -290,7 +285,7 @@ namespace GUI
             try
             {
 
-                string[][] map = FileIO.ReadMapFile(fileNameBox.Text);
+                string[][] map = FileIO.ReadMapFile(Helper.file, Helper.isAbsolute);
 
                 var watch = new Stopwatch();
 
@@ -437,10 +432,6 @@ namespace GUI
             }
         }
 
-        private void selectButton_Hover(object sender, EventArgs e)
-        {
-
-        }
 
         // handle time text changes
         private void timeText_Click(object sender, EventArgs e)
@@ -471,24 +462,9 @@ namespace GUI
 
         }
 
-        private void executionGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void executionTimeValue_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void fileConfigLabel_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void routeLabelButton_Click(object sender, EventArgs e)
-        {
-            routeLabel.Refresh();
         }
 
         private void errorLog_Click(object sender, EventArgs e)

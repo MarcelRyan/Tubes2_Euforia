@@ -11,10 +11,11 @@ namespace GUI
     class Helper
     {
         public static string file;
-        public static DataTable TableDataFromTextFile(string location)
+        public static bool isAbsolute;
+        public static DataTable TableDataFromTextFile()
         {
             DataTable result;
-            string[][] map = FileIO.ReadMapFile(location);
+            string[][] map = FileIO.ReadMapFile(file, isAbsolute);
             result = FromDataTable(map);
             return result;
         }

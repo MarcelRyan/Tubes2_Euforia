@@ -499,7 +499,6 @@ namespace GUI
             executionTimeValue.TabIndex = 1;
             executionTimeValue.Text = "[TIME]";
             executionTimeValue.TextAlign = ContentAlignment.MiddleCenter;
-            executionTimeValue.Click += executionTimeValue_Click;
             // 
             // executionTimeLabel
             // 
@@ -572,7 +571,6 @@ namespace GUI
             routeLabelButton.Text = "Route";
             routeLabelButton.TextImageRelation = TextImageRelation.TextAboveImage;
             routeLabelButton.UseVisualStyleBackColor = false;
-            routeLabelButton.Click += routeLabelButton_Click;
             // 
             // logPanel
             // 
