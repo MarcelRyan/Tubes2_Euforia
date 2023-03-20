@@ -36,6 +36,8 @@ namespace GUI
 
         private bool showProgress; // true jika pilih progress
 
+        private bool isVisualized;
+
         private ArrayList path;
 
         private int time;
@@ -72,6 +74,7 @@ namespace GUI
             tspMode = false;
             showProgress = false;
             multipleVisits = false;
+            isVisualized = false;
 
             // styling
             progressButton.Dock = DockStyle.Fill;
@@ -185,6 +188,7 @@ namespace GUI
         // handle filename text box changes
         private void fileNameChange(object sender, EventArgs e)
         {
+            isVisualized = false;
             Helper.isAbsolute = false;
             Helper.file = fileNameBox.Text;
         }
@@ -258,6 +262,7 @@ namespace GUI
         {
             try
             {
+                logPanel.Hide();
 
                 mazeGridView.DataSource = Helper.TableDataFromTextFile();
 
@@ -276,7 +281,7 @@ namespace GUI
 
                 refresh_Labels();
 
-                logPanel.Hide();
+                isVisualized = true;
             }
             catch (Exception ex)
             {
@@ -310,7 +315,7 @@ namespace GUI
         }
 
         // show only solution after progress is finished
-        private async void resetGridDisplay()
+        private async Task resetGridDisplay()
         {
             await Task.Delay(200);
 
@@ -353,65 +358,80 @@ namespace GUI
 
         private async void solveButton_Click(object sender, EventArgs e)
         {
-            try
+            solveButton.Enabled = false;
+
+            if (!isVisualized) visualizeButton_Click(sender, e);
+
+            if (isVisualized)
             {
 
-                string[][] map = FileIO.ReadMapFile(Helper.file, Helper.isAbsolute);
-
-                var watch = new Stopwatch();
-                MazeState mazeState;
-
-                if (!dfsMode && !bfsMode) throw new Exception("Pick one algorithm to go (BFS/DFS)!");
-
-                // jika dfs
-                if (dfsMode) mazeState = new DFSState(map, tspMode, showProgress, multipleVisits);
-                // jika bfs
-                else mazeState = new BFSState(map, tspMode, showProgress, true);
-
-                watch.Start();
-
-                if (showProgress)
+                try
                 {
-                    while (!mazeState.stop)
+                    logPanel.Hide();
+
+                    path = new ArrayList();
+
+                    await resetGridDisplay();
+
+                    string[][] map = FileIO.ReadMapFile(Helper.file, Helper.isAbsolute);
+
+                    var watch = new Stopwatch();
+                    MazeState mazeState;
+
+                    if (!dfsMode && !bfsMode) throw new Exception("Pick one algorithm to go (BFS/DFS)!");
+
+                    // jika dfs
+                    if (dfsMode) mazeState = new DFSState(map, tspMode, showProgress, multipleVisits);
+                    // jika bfs
+                    else mazeState = new BFSState(map, tspMode, showProgress, true);
+
+                    watch.Start();
+
+                    if (showProgress)
                     {
-                        await Task.Delay(time);
-                        mazeState.Move();
-                        path = mazeState.GetCurrentPath();
+                        while (!mazeState.stop)
+                        {
+                            await Task.Delay(time);
+                            mazeState.Move();
+                            path = mazeState.GetCurrentPath();
 
-                        updateGridDisplay();
+                            updateGridDisplay();
+                        }
                     }
+
+                    else
+                    {
+                        mazeState.AutoComplete();
+                    }
+
+                    watch.Stop();
+
+                    path = mazeState.GetCurrentPath();
+
+                    string execTime = watch.ElapsedMilliseconds.ToString() + " ms";
+
+                    if (!mazeState.foundAll || (tspMode && !mazeState.position.Equals(mazeState.initialPosition)))
+                    {
+                        Exception noSolutionException = new Exception("Solution is not found!");
+                        noSolutionException.Data.Add("time", execTime);
+                        throw new Exception("Solution is not found!");
+                    }
+
+                    resetGridDisplay();
+                    updateExecutionInfo(mazeState, execTime);
+
                 }
 
-                else
+                catch (Exception ex)
                 {
-                    mazeState.AutoComplete();
+                    showError(ex.Message);
+
+                    refresh_Labels((string)ex.Data["time"], "No Solution", "No Solution", "No Solution");
+
                 }
-
-                watch.Stop();
-
-                path = mazeState.GetCurrentPath();
-
-                string execTime = watch.ElapsedMilliseconds.ToString() + " ms";
-
-                if (!mazeState.foundAll || (tspMode && !mazeState.position.Equals(mazeState.initialPosition)))
-                {
-                    Exception noSolutionException = new Exception("Solution is not found!");
-                    noSolutionException.Data.Add("time", execTime);
-                    throw new Exception("Solution is not found!");
-                }
-
-                resetGridDisplay();
-                updateExecutionInfo(mazeState, execTime);
-
             }
 
-            catch (Exception ex)
-            {
-                showError(ex.Message);
-
-                refresh_Labels((string)ex.Data["time"], "No Solution", "No Solution", "No Solution");
-
-            }
+            solveButton.Enabled = true;
 
         }
 
