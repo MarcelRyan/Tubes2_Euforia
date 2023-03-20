@@ -292,6 +292,65 @@ namespace GUI
 
         }
 
+        // update grid display based on progress
+        private void updateGridDisplay()
+        {
+            foreach (Tuple<int, int> pathTuple in path)
+            {
+                if (pathTuple != null)
+                {
+                    if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                    {
+                        this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
+                        this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
+                        mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                    }
+                }
+            }
+        }
+
+        // show only solution after progress is finished
+        private async void resetGridDisplay()
+        {
+            await Task.Delay(200);
+
+            for (int i = 0; i < mazeGridView.Rows.Count; i++)
+            {
+                for (int j = 0; j < mazeGridView.Columns.Count; j++)
+                {
+                    if ((mazeGridView.Rows[i].Cells[j].Value == "" || mazeGridView.Rows[i].Cells[j].Value == "Start" || mazeGridView.Rows[i].Cells[j].Value == "Treasure") && mazeGridView.Rows[i].Cells[j].Style.BackColor == Color.YellowGreen)
+                    {
+                        mazeGridView.Rows[i].Cells[j].Style.BackColor = Color.White;
+                    }
+                }
+            }
+
+            foreach (Tuple<int, int> tuple in path)
+            {
+                mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
+            }
+        }
+
+        private void updateExecutionInfo(MazeState mazeState, string execTime)
+        {
+            ArrayList route = mazeState.GetCurrentRoute();
+            string routeString = "";
+
+            for (int i = 0; i < route.Count; i++)
+            {
+                routeString += (string)route[i];
+                if (i < route.Count - 1) routeString += "-";
+            }
+
+            refresh_Labels(
+                routeString,
+                execTime,
+                mazeState.nodeCount.ToString(),
+                mazeState.stepCount.ToString());
+
+            logPanel.Hide();
+        }
+
         private async void solveButton_Click(object sender, EventArgs e)
         {
             try
@@ -300,139 +359,49 @@ namespace GUI
                 string[][] map = FileIO.ReadMapFile(Helper.file, Helper.isAbsolute);
 
                 var watch = new Stopwatch();
+                MazeState mazeState;
+
+                if (!dfsMode && !bfsMode) throw new Exception("Pick one algorithm to go (BFS/DFS)!");
+
+                // jika dfs
+                if (dfsMode) mazeState = new DFSState(map, tspMode, showProgress, multipleVisits);
+                // jika bfs
+                else mazeState = new BFSState(map, tspMode, showProgress, true);
 
                 watch.Start();
 
-                if (dfsMode)
+                if (showProgress)
                 {
-                    DFSState dfs = new DFSState(map, tspMode);
-
-                    if (showProgress)
+                    while (!mazeState.stop)
                     {
-                        while (!dfs.stop)
-                        {
-                            await Task.Delay(time);
-                            dfs.Move();
-                            path = dfs.GetCurrentPath();
-                            foreach (Tuple<int, int> pathTuple in path)
-                            {
-                                if (pathTuple != null)
-                                {
-                                    if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
-                                    {
-                                        this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
-                                        this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
-                                        mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        while (!dfs.stop)
-                        {
-                            dfs.Move();
-                        }
-                    }
+                        await Task.Delay(time);
+                        mazeState.Move();
+                        path = mazeState.GetCurrentPath();
 
-                    path = dfs.GetCurrentPath();
-
-                    watch.Stop();
-
-                    if (dfs.foundAll)
-                    {
-                        nodesCountValue.Text = dfs.nodeCount.ToString();
-
-                        stepsCountValue.Text = dfs.stepCount.ToString();
-                    }
-
-                    else
-                    {
-                        throw new Exception("Solution is not found!");
+                        updateGridDisplay();
                     }
                 }
 
-                else if (bfsMode)
+                else
                 {
-                    BFSState bfs = new BFSState(map, tspMode);
-
-                    if (showProgress)
-                    {
-                        while (!bfs.stop)
-                        {
-                            await Task.Delay(time);
-                            bfs.Move();
-                            path = bfs.GetCurrentPath();
-                            foreach (Tuple<int, int> pathTuple in path)
-                            {
-                                if (pathTuple != null)
-                                {
-                                    if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
-                                    {
-                                        this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
-                                        this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
-                                        mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        while (!bfs.stop)
-                        {
-                            bfs.Move();
-                        }
-                    }
-
-                    path = bfs.GetCurrentPath();
-
-                    watch.Stop();
-
-
-                    if (bfs.foundAll)
-                    {
-                        nodesCountValue.Text = bfs.nodeCount.ToString();
-
-                        stepsCountValue.Text = bfs.stepCount.ToString();
-                    }
-
-                    else
-                    {
-                        throw new Exception("Path solution is not found!");
-                    }
+                    mazeState.AutoComplete();
                 }
 
-                await Task.Delay(200);
+                watch.Stop();
 
-                for (int i = 0; i < mazeGridView.Rows.Count; i++)
+                path = mazeState.GetCurrentPath();
+
+                string execTime = watch.ElapsedMilliseconds.ToString() + " ms";
+
+                if (!mazeState.foundAll || (tspMode && !mazeState.position.Equals(mazeState.initialPosition)))
                 {
-                    for (int j = 0; j < mazeGridView.Columns.Count; j++)
-                    {
-                        if ((mazeGridView.Rows[i].Cells[j].Value == "" || mazeGridView.Rows[i].Cells[j].Value == "Start" || mazeGridView.Rows[i].Cells[j].Value == "Treasure") && mazeGridView.Rows[i].Cells[j].Style.BackColor == Color.YellowGreen)
-                        {
-                            mazeGridView.Rows[i].Cells[j].Style.BackColor = Color.White;
-                        }
-                    }
+                    Exception noSolutionException = new Exception("Solution is not found!");
+                    noSolutionException.Data.Add("time", execTime);
+                    throw new Exception("Solution is not found!");
                 }
 
-                foreach (Tuple<int, int> tuple in path)
-                {
-                    mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
-                }
-
-                execTime = watch.ElapsedMilliseconds;
-
-                executionTimeValue.Text = execTime.ToString() + " ms";
-
-                executionTimeValue.Refresh();
-
-                nodesCountValue.Refresh();
-
-                stepsCountValue.Refresh();
-
-                logPanel.Hide();
+                resetGridDisplay();
+                updateExecutionInfo(mazeState, execTime);
 
             }
 
@@ -440,13 +409,7 @@ namespace GUI
             {
                 showError(ex.Message);
 
-                executionTimeValue.Text = "No Solution";
-
-                nodesCountValue.Text = "No Solution";
-
-                stepsCountValue.Text = "No Solution";
-
-                routeLabel.Text = "No Solution";
+                refresh_Labels((string)ex.Data["time"], "No Solution", "No Solution", "No Solution");
 
             }
 

@@ -24,7 +24,7 @@ class BFSState: MazeState{
 
     // ctor
 
-    public BFSState(string[][] map, bool tspMode, bool sequentialMode = false) : base(map, tspMode, sequentialMode)
+    public BFSState(string[][] map, bool tspMode, bool sequentialMode = false, bool allowMultipleVisits = false) : base(map, tspMode, sequentialMode, allowMultipleVisits)
     {
     }
 

@@ -20,7 +20,7 @@ abstract class MazeState
 
     protected bool sequentialMode;
 
-    protected Tuple<int, int> initialPosition;
+    public Tuple<int, int> initialPosition { get; protected set; }
 
     protected Tuple<bool, Tuple<int, int>>[,] _checkMap;
 
