@@ -246,24 +246,34 @@ namespace GUI
             {
                 DFSState dfs = new DFSState(map, tspMode);
 
-                while (!dfs.stop)
+                if (showProgress)
                 {
-                    await Task.Delay(time);
-                    dfs.Move();
-                    _stack = dfs.GetStack();
-                    Tuple<int, int> pathTuple = new Tuple<int, int>(0, 0);
-                    if (_stack.Count > 0)
+                    while (!dfs.stop)
                     {
-                        pathTuple = (Tuple<int, int>)_stack.Pop();
-                    }
-                    if (pathTuple != null)
-                    {
-                        if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                        await Task.Delay(time);
+                        dfs.Move();
+                        _stack = dfs.GetStack();
+                        Tuple<int, int> pathTuple = new Tuple<int, int>(0, 0);
+                        if (_stack.Count > 0)
                         {
-                            this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
-                            this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
-                            mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                            pathTuple = (Tuple<int, int>)_stack.Pop();
                         }
+                        if (pathTuple != null)
+                        {
+                            if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                            {
+                                this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
+                                this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
+                                mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    while (!dfs.stop)
+                    {
+                        dfs.Move();
                     }
                 }
 
@@ -279,24 +289,34 @@ namespace GUI
             {
                 BFSState bfs = new BFSState(map, tspMode);
 
-                while (!bfs.stop)
+                if (showProgress)
                 {
-                    await Task.Delay(time);
-                    bfs.Move();
-                    _queue = bfs.GetQueue();
-                    Tuple<int, int> pathTuple = new Tuple<int, int>(0, 0);
-                    if (_queue.Count > 0)
+                    while (!bfs.stop)
                     {
-                        pathTuple = (Tuple<int, int>)_queue.Dequeue();
-                    }
-                    if (pathTuple != null)
-                    {
-                        if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                        await Task.Delay(time);
+                        bfs.Move();
+                        _queue = bfs.GetQueue();
+                        Tuple<int, int> pathTuple = new Tuple<int, int>(0, 0);
+                        if (_queue.Count > 0)
                         {
-                            this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
-                            this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
-                            mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                            pathTuple = (Tuple<int, int>)_queue.Dequeue();
                         }
+                        if (pathTuple != null)
+                        {
+                            if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
+                            {
+                                this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
+                                this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
+                                mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    while (!bfs.stop)
+                    {
+                        bfs.Move();
                     }
                 }
 
