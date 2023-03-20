@@ -34,7 +34,7 @@ class Testing
 
 
 
-        ArrayList steps = dfsState.GetCurrentRoute();
+        ArrayList steps = dfsState.GetCurrentRoute(0);
 
         foreach (var step in steps)
         {

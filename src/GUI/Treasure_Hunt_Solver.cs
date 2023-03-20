@@ -376,7 +376,14 @@ namespace GUI
 
         private void updateExecutionInfo(MazeState mazeState, string execTime)
         {
-            ArrayList route = mazeState.GetCurrentRoute();
+            ArrayList route;
+            if(dfsMode)
+            {
+                route = mazeState.GetCurrentRoute(0);
+            }
+            else {
+                route = mazeState.GetCurrentRoute(1);
+            }
             string routeString = "";
 
             for (int i = 0; i < route.Count; i++)

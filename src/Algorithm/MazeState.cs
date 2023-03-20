@@ -146,10 +146,16 @@ abstract class MazeState
     }
 
     // mengembalikan urutan arah berdasarkan current path
-    virtual public ArrayList GetCurrentRoute()
+    virtual public ArrayList GetCurrentRoute(int tipe)
     {
-
-        ArrayList currentPath = GetCurrentPath();
+        ArrayList currentPath;
+        if(tipe == 0)
+        {
+            currentPath = GetCurrentPath();
+        }
+        else {
+            currentPath = getPathBFS();
+        }
         ArrayList result = new ArrayList();
 
         for (int i = 0; i <  currentPath.Count - 1; i++)
@@ -157,6 +163,7 @@ abstract class MazeState
             Tuple<int, int> current = (Tuple<int, int>)currentPath[i];
             Tuple<int, int> next = (Tuple<int, int>)currentPath[i+1];
 
+            if(next.Item1 - current.Item1 != 0 || next.Item2 - current.Item2 != 0 )
             result.Add(directionMap[(next.Item1 - current.Item1, next.Item2 - current.Item2)]);
         }
 

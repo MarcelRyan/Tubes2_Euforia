@@ -191,17 +191,10 @@ class BFSState: MazeState{
             {
                 tempPosition = GetCheckMap(tempPosition).Item2;
             }
-            Console.WriteLine("masuk sini");
-            Console.WriteLine(fromPosition);
-            Console.WriteLine(tempPosition);
         }
         if(tempPosition.Item1!=-1 && tempPosition.Item2!=-1){
             path.Add(tempPosition);
         }
-        Console.WriteLine("masuk sini");
-        Console.WriteLine(fromPosition);
-        Console.WriteLine(tempPosition);
-
         path.Reverse();
 
         return path;
