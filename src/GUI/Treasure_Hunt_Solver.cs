@@ -445,6 +445,7 @@ namespace GUI
         // handle time text changes
         private void timeText_Click(object sender, EventArgs e)
         {
+            time = Convert.ToInt32(timeStampBox.Text);
 
         }
 
