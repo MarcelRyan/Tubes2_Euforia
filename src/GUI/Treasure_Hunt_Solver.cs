@@ -414,7 +414,12 @@ namespace GUI
                         {
                             await Task.Delay(time);
                             mazeState.Move();
-                            path = mazeState.GetCurrentPath();
+                            if(dfsMode){
+                                path = mazeState.GetCurrentPath();
+                            }
+                            else {
+                                path = mazeState.getPathBFS();
+                            }
 
                             updateGridDisplay();
                         }
@@ -427,7 +432,12 @@ namespace GUI
 
                     watch.Stop();
 
-                    path = mazeState.GetCurrentPath();
+                    if(dfsMode){
+                        path = mazeState.GetCurrentPath();
+                    }
+                    else {
+                        path = mazeState.getPathBFS();
+                    }
 
                     string execTime = watch.ElapsedMilliseconds.ToString() + " ms";
 

@@ -22,6 +22,8 @@ abstract class MazeState
 
     public Tuple<int, int> initialPosition { get; protected set; }
 
+    public ArrayList pathBFS { get; protected set; }
+
     protected Tuple<bool, Tuple<int, int>>[,] _checkMap;
 
     protected ArrayList pathWithoutBacktrack = new ArrayList();
@@ -69,6 +71,7 @@ abstract class MazeState
         row = map.Length;
         col = map[0].Length;
         _checkMap = new Tuple<bool, Tuple<int, int>>[row, col];
+        pathBFS = new ArrayList();
 
         for (int i = 0; i < row; i++)
         {
@@ -211,6 +214,10 @@ abstract class MazeState
             }
             nTimes++;
         }
+    }
+
+    public ArrayList getPathBFS(){
+        return pathBFS;
     }
 
     // backtrack hingga ada node yang memiliki tetangga yang belum dikunjungi
