@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Collections;
 using System.Windows.Controls;
+using System.Diagnostics;
+using System.Net;
 
 namespace GUI
 {
@@ -39,6 +41,8 @@ namespace GUI
         private Queue _queue;
 
         private int time;
+
+        private long execTime;
 
         private Color selectedButtonForeColor = Color.DodgerBlue;
 
@@ -78,8 +82,7 @@ namespace GUI
 
         private void Treasure_Hunt_Solver_Load(object sender, EventArgs e)
         {
-            timeStampBox.Enabled = false;
-
+            timeStampBox.Enabled = false;     
         }
 
 
@@ -236,6 +239,10 @@ namespace GUI
 
             string[][] map = FileIO.ReadMapFile(fileNameBox.Text.Replace(".txt", ""));
 
+            var watch = new Stopwatch();
+
+            watch.Start();
+
             if (dfsMode)
             {
                 DFSState dfs = new DFSState(map, tspMode);
@@ -273,10 +280,16 @@ namespace GUI
 
                 path = dfs.GetCurrentPath();
 
+                watch.Stop();
+
                 foreach (Tuple<int, int> tuple in path)
                 {
                     mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
                 }
+
+                nodesCountValue.Text = dfs.nodeCount.ToString();
+
+                stepsCountValue.Text = dfs.stepCount.ToString();
             }
 
             else if (bfsMode)
@@ -316,11 +329,27 @@ namespace GUI
 
                 path = bfs.GetCurrentPath();
 
+                watch.Stop();
+
                 foreach (Tuple<int, int> tuple in path)
                 {
                     mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
                 }
+
+                nodesCountValue.Text = bfs.nodeCount.ToString();
+
+                stepsCountValue.Text = bfs.stepCount.ToString();
             }
+
+            execTime = watch.ElapsedMilliseconds;
+
+            executionTimeValue.Text = execTime.ToString() + " ms";
+
+            executionTimeValue.Refresh();
+
+            nodesCountValue.Refresh();
+
+            stepsCountValue.Refresh();
         }
 
         private void selectButton_Hover(object sender, EventArgs e)
@@ -364,12 +393,13 @@ namespace GUI
 
         private void executionTimeValue_Click(object sender, EventArgs e)
         {
-
+           
         }
 
         private void fileConfigLabel_Click(object sender, EventArgs e)
         {
 
         }
+
     }
 }
