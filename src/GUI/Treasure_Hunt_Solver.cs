@@ -414,8 +414,7 @@ namespace GUI
         // handle time text changes
         private void timeText_Click(object sender, EventArgs e)
         {
-            Helper.time = timeStampBox.Text;
-            time = Convert.ToInt32(Helper.time);
+            time = Convert.ToInt32(timeStampBox.Text);
         }
 
         private void myNumericUpDown_KeyDown(object sender, KeyEventArgs e)
