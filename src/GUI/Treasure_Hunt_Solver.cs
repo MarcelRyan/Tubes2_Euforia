@@ -28,11 +28,9 @@ namespace GUI
 
         private bool dfsMode; // true jika pilih dfs
 
-        private bool tspMode;
+        private bool tspMode; // true jika pilih tsp
 
-        private bool showProgress;
-
-        private string filename;
+        private bool showProgress; // true jika pilih progress
 
         private ArrayList path;
 
@@ -111,10 +109,6 @@ namespace GUI
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 fileNameBox.Text = openFileDialog1.SafeFileName;
-
-                filename = openFileDialog1.FileName;
-
-                Helper.file = filename;
             }
         }
 
@@ -221,7 +215,7 @@ namespace GUI
 
         private void visualizeButton_Click(object sender, EventArgs e)
         {
-            mazeGridView.DataSource = Helper.TableDataFromTextFile(filename);
+            mazeGridView.DataSource = Helper.TableDataFromTextFile(fileNameBox.Text);
 
             mazeGridView.CellFormatting += mazeGrid_CellFormatting;
 

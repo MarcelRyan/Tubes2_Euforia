@@ -12,60 +12,61 @@ namespace GUI
     {
         public static string file;
         public static string time;
-        public static DataTable TableDataFromTextFile(string location, char delimiter = ' ')
+        public static DataTable TableDataFromTextFile(string location)
         {
             DataTable result;
-            location = file;
-            string[] LineArray = File.ReadAllLines(location);
-            result = FromDataTable(LineArray, delimiter);
+            string[][] map = FileIO.ReadMapFile(location);
+            result = FromDataTable(map);
             return result;
         }
 
-        private static DataTable FromDataTable(string[] LineArray, char delimiter)
+        private static DataTable FromDataTable(string[][] map)
         {
             DataTable dt = new DataTable();
 
-            AddColumnToTable(LineArray, delimiter, ref dt);
-            AddRowToTable(LineArray, delimiter, ref dt);
+            AddColumnToTable(map, ref dt);
+            AddRowToTable(map, ref dt);
             return dt;
         }
 
-        private static void AddRowToTable(string[] valueCollection, char delimiter, ref DataTable dt)
+        private static void AddRowToTable(string[][] map, ref DataTable dt)
         {
-            for (int i = 0; i < valueCollection.Length; i++)
+            for (int i = 0; i < map.Length; i++)
             {
-                string[] values = valueCollection[i].Split(delimiter);
-                DataRow dr = dt.NewRow();
-                for (int j = 0; j < values.Length; j++)
+                DataRow row = dt.NewRow();
+
+                for (int j = 0; j < map[i].Length; j++)
                 {
-                    if (values[j] == "K")
+                    if (map[i][j] == "K")
                     {
-                        dr[j] = "Start";
+                        row[j] = "Start";
                     }
-                    else if (values[j] == "R")
+                    else if (map[i][j] == "T")
                     {
-                        dr[j] = "  ";
+                        row[j] = "Treasure";
                     }
-                    else if (values[j] == "X")
+                    else if (map[i][j] == "R")
                     {
-                        dr[j] = 0;
+                        row[j] = "";
                     }
-                    else if (values[j] == "T")
+                    else if (map[i][j] == "X")
                     {
-                        dr[j] = "Treasure";
+                        row[j] = 0;
                     }
                 }
-                dt.Rows.Add(dr);
+                dt.Rows.Add(row);
             }
         }
 
-        private static void AddColumnToTable(string[] columnCollection, char delimiter, ref DataTable dt)
+        private static void AddColumnToTable(string[][] map, ref DataTable dt)
         {
-            string[] columns = columnCollection[0].Split(delimiter);
-            foreach (string columnName in columns)
+            for (int i = 0; i < 1; i++)
             {
-                DataColumn dc = new DataColumn("", typeof(string));
-                dt.Columns.Add(dc);
+                for (int j = 0; j < map[i].Length; j++)
+                {
+                    DataColumn column = new DataColumn("", typeof(string));
+                    dt.Columns.Add(column);
+                }
             }
         }
     }
