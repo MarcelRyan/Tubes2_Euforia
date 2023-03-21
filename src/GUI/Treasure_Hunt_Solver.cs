@@ -32,7 +32,8 @@ namespace GUI
 
         private bool tspMode; // true jika pilih tsp
 
-        private bool multipleVisits; // true jika dfs diperbolehkan melakukan visit kotak lebih dari 2 kali
+        private bool dfsMultipleVisits; // true jika dfs diperbolehkan melakukan visit kotak lebih dari 2 kali
+        private bool bfsMultipleVisits; // true jika bfs diperbolehkan melakukan visit kotak lebih dari 2 kali
 
         private bool showProgress; // true jika pilih progress
 
@@ -73,7 +74,8 @@ namespace GUI
             dfsMode = false;
             tspMode = false;
             showProgress = false;
-            multipleVisits = false;
+            dfsMultipleVisits = false;
+            bfsMultipleVisits = false;
             isVisualized = false;
 
             // styling
@@ -81,8 +83,9 @@ namespace GUI
             timeLabel.Hide();
             timeStampBox.Hide();
             timeStampBox.Enabled = false;
+            bfsButton.Dock = DockStyle.Left;
             dfsButton.Dock = DockStyle.Right;
-            multipleVisitsButton.Hide();
+            dfsMultipleVisitsButton.Hide();
         }
 
         private void Treasure_Hunt_Solver_Load(object sender, EventArgs e)
@@ -207,6 +210,28 @@ namespace GUI
             this.ActiveControl = null;
         }
 
+        private void unclickBfsButton(object sender, EventArgs e)
+        {
+            bfsButton.Dock = DockStyle.Left;
+
+            bfsMultipleVisitsButton.Hide();
+
+            // SET MULTIPLEVISITS MENJADI TRUE UNTUK KEMUDIAN DISET LAGI MENJADI FALSE DI DALAM FUNGSI CHANGEBUTTONVISUAL
+            bfsMultipleVisits = true;
+            changeButtonVisual(bfsMultipleVisitsButton, ref bfsMultipleVisits);
+        }
+
+        private void unclickDfsButton(object sender, EventArgs e)
+        {
+            dfsButton.Dock = DockStyle.Right;
+
+            dfsMultipleVisitsButton.Hide();
+
+            // SET MULTIPLEVISITS MENJADI TRUE UNTUK KEMUDIAN DISET LAGI MENJADI FALSE DI DALAM FUNGSI CHANGEBUTTONVISUAL
+            dfsMultipleVisits = true;
+            changeButtonVisual(dfsMultipleVisitsButton, ref dfsMultipleVisits);
+        }
+
         private void bfsButton_Click(object sender, EventArgs e)
         {
             changeButtonVisual(bfsButton, ref bfsMode);
@@ -219,19 +244,17 @@ namespace GUI
             if (bfsMode)
             {
                 unclickDfsButton(sender, e);
+                bfsButton.Dock = DockStyle.Top;
+                bfsMultipleVisitsButton.Show();
+                bfsMultipleVisitsButton.Enabled = true;
+            }
+
+            else
+            {
+                unclickBfsButton(sender, e);
             }
         }
 
-        private void unclickDfsButton(object sender, EventArgs e)
-        {
-            dfsButton.Dock = DockStyle.Right;
-
-            multipleVisitsButton.Hide();
-
-            // SET MULTIPLEVISITS MENJADI TRUE UNTUK KEMUDIAN DISET LAGI MENJADI FALSE DI DALAM FUNGSI CHANGEBUTTONVISUAL
-            multipleVisits = true;
-            changeButtonVisual(multipleVisitsButton, ref multipleVisits);
-        }
         private void dfsButton_Click(object sender, EventArgs e)
         {
             changeButtonVisual(dfsButton, ref dfsMode);
@@ -243,9 +266,10 @@ namespace GUI
 
             if (dfsMode)
             {
+                unclickBfsButton(sender, e);
                 dfsButton.Dock = DockStyle.Top;
-                multipleVisitsButton.Show();
-                multipleVisitsButton.Enabled = true;
+                dfsMultipleVisitsButton.Show();
+                dfsMultipleVisitsButton.Enabled = true;
             }
 
             else
@@ -377,11 +401,12 @@ namespace GUI
         private void updateExecutionInfo(MazeState mazeState, string execTime)
         {
             ArrayList route;
-            if(dfsMode)
+            if (dfsMode)
             {
                 route = mazeState.GetCurrentRoute(0);
             }
-            else {
+            else
+            {
                 route = mazeState.GetCurrentRoute(1);
             }
             string routeString = "";
@@ -427,9 +452,9 @@ namespace GUI
                     if (!dfsMode && !bfsMode) throw new Exception("Pick one algorithm to go (BFS/DFS)!");
 
                     // jika dfs
-                    if (dfsMode) mazeState = new DFSState(map, tspMode, showProgress, multipleVisits);
+                    if (dfsMode) mazeState = new DFSState(map, tspMode, showProgress, dfsMultipleVisits);
                     // jika bfs
-                    else mazeState = new BFSState(map, tspMode, showProgress, true);
+                    else mazeState = new BFSState(map, tspMode, showProgress, bfsMultipleVisits);
 
                     watch.Start();
 
@@ -439,11 +464,13 @@ namespace GUI
                         {
                             await Task.Delay(time);
                             mazeState.Move();
-                            if(dfsMode){
+                            if (dfsMode)
+                            {
                                 path = mazeState.GetCurrentPath();
                                 updateGridDisplay(path);
                             }
-                            else {
+                            else
+                            {
                                 tempQueueProgressBFS = mazeState.getQueueProgressBFS();
                                 updateGridDisplay(tempQueueProgressBFS);
                             }
@@ -457,10 +484,12 @@ namespace GUI
 
                     watch.Stop();
 
-                    if(dfsMode){
+                    if (dfsMode)
+                    {
                         path = mazeState.GetCurrentPath();
                     }
-                    else {
+                    else
+                    {
                         path = mazeState.getPathBFS();
                     }
 
@@ -531,9 +560,14 @@ namespace GUI
 
         }
 
-        private void multipleVisitsButton_Click(object sender, EventArgs e)
+        private void dfsMultipleVisitsButton_Click(object sender, EventArgs e)
         {
-            changeButtonVisual(multipleVisitsButton, ref multipleVisits);
+            changeButtonVisual(dfsMultipleVisitsButton, ref dfsMultipleVisits);
+        }
+
+        private void bfsMultipleVisitsButton_Click(object sender, EventArgs e)
+        {
+            changeButtonVisual(bfsMultipleVisitsButton, ref bfsMultipleVisits);
         }
     }
 }
