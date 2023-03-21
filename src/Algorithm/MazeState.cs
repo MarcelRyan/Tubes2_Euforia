@@ -105,31 +105,6 @@ abstract class MazeState
         stepCount = GetCurrentPath().Count - 1;
     }
 
-    // KALAU BISA NODECOUNT UDAH DIHANDLE DIDALAM FUNGSI MOVE DI BFSSTATE
-    // UDAH DIHANDLE PAKAI TOTALMEMO
-   /* virtual public void updateNodeCountBFS()
-    {
-        ArrayList tempVisitedPathBFS = new ArrayList();
-        foreach(Tuple<int, int> pathTuple in multipleVisitPath){
-
-            int flag = 0;
-
-            foreach(Tuple<int, int> visited in tempVisitedPathBFS){
-                if(pathTuple.Item1 == visited.Item1 && pathTuple.Item2 == visited.Item2){
-                    flag++;
-                }
-            }
-
-            if(flag==0)
-            {
-                nodeCount++;
-            }
-            else{}
-            tempVisitedPathBFS.Add(pathTuple);
-
-        }
-    }*/
-
     // solusi ditemukan
     virtual protected void Terminate()
     {

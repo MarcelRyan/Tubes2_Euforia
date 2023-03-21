@@ -97,6 +97,8 @@ class BFSState: MazeState{
 
     private ArrayList TPosition;
 
+    private int nReset;
+
     // konfigurasi default objek
     protected override void DefaultConfig()
     {
@@ -291,11 +293,25 @@ class BFSState: MazeState{
         }
 
         if(foundAll && GetMapElmt(position)=="K"){
+            nReset++;
             fromPosition = nowPosition;
             ArrayList tempPathBFS = new ArrayList();
             tempPathBFS = GetCurrentPath(fromPosition);
-            foreach(Tuple<int, int> pathElement in tempPathBFS){
-                multipleVisitPath.Add(pathElement);
+            int idx = 0;
+            foreach(Tuple<int, int> pathElement in tempPathBFS)
+            {
+                if(nReset>1)
+                    {
+                        if(idx>0)
+                        {
+                            multipleVisitPath.Add(pathElement);
+                        }
+                    }
+                    else 
+                    {
+                        multipleVisitPath.Add(pathElement);
+                    }
+                    idx++;
             }
         }
 
@@ -318,12 +334,24 @@ class BFSState: MazeState{
 
             //Menggabungkan Path
 
-            // PERLU DIHANDLE BIAR TIDAK ADA DUPLIKAT
             ArrayList tempPathBFS = new ArrayList();
             tempPathBFS = GetCurrentPath(fromPosition);
             if(foundTreasureCount>0){
+                nReset++;
+                int idx = 0;
                 foreach(Tuple<int, int> pathElement in tempPathBFS){
-                    multipleVisitPath.Add(pathElement);
+                    if(nReset>1)
+                    {
+                        if(idx>0)
+                        {
+                            multipleVisitPath.Add(pathElement);
+                        }
+                    }
+                    else 
+                    {
+                        multipleVisitPath.Add(pathElement);
+                    }
+                    idx++;
                 }
             }
 
