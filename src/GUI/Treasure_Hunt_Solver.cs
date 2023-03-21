@@ -438,9 +438,9 @@ namespace GUI
 
                         bool wasYellowGreen = (this.mazeGridView.Rows[mazeState.position.Item1].Cells[mazeState.position.Item2].Style.BackColor == Color.YellowGreen);
                         bool wasCrimson = this.mazeGridView.Rows[mazeState.position.Item1].Cells[mazeState.position.Item2].Style.BackColor == Color.Crimson;
-                        this.mazeGridView.Rows[mazeState.position.Item1].Cells[mazeState.position.Item2].Style.BackColor = Color.Cyan;
 
                         if (dfsMode){
+                            this.mazeGridView.Rows[mazeState.position.Item1].Cells[mazeState.position.Item2].Style.BackColor = Color.Cyan;
                             await Task.Delay(time);
                             updateGridDisplay(mazeState.position.Item1, mazeState.position.Item2, wasYellowGreen, wasCrimson);
                         }
@@ -449,6 +449,7 @@ namespace GUI
 
                             if (bfsMultipleVisits)
                             {
+                                this.mazeGridView.Rows[mazeState.position.Item1].Cells[mazeState.position.Item2].Style.BackColor = Color.Cyan;
                                 await Task.Delay(time);
                                 if (mazeState.treasureFound)
                                 {
