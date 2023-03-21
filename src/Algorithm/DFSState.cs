@@ -156,6 +156,12 @@ class DFSState: MazeState
             {
                 _stack.Pop();
 
+                if (_stack.Count == 0)
+                {
+                    StackEmptyAction();
+                    return;
+
+                }
                 top = (Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Peek();
 
                 continue;

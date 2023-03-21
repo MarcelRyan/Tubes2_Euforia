@@ -33,6 +33,8 @@ class Testing
 
     static void Main3(string[] args)
     {
+        int i = 0;
+;
         string[][] map = FileIO.ReadMapFile("sampel-1", false);
 
         DFSState state = new DFSState(map, false, true, false);
