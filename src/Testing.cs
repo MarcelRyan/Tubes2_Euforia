@@ -6,11 +6,11 @@ using System.Linq;
 class Testing
 {
 
-    static void Main3(string[] args)
+    static void Main2(string[] args)
     {
         string[][] map = FileIO.ReadMapFile("test", false);
 
-        BFSState state = new BFSState(map, false, true, false);
+        BFSState state = new BFSState(map, false, true, true);
 
         foreach (var line in map)
         {
@@ -22,12 +22,14 @@ class Testing
             Console.WriteLine();
         }
 
+        ArrayList steps;
+
         while (!state.stop)
         {
             state.ShortestPathMove();
             Console.WriteLine(state.position);
             Console.WriteLine(state.foundTreasureCount);
-            ArrayList steps = state.GetCurrentRoute();
+           steps = state.GetCurrentRoute();
 
             foreach (var step in steps)
             {
@@ -36,8 +38,13 @@ class Testing
 
             string temp =  Console.ReadLine();
 
-        ArrayList steps = dfsState.GetCurrentRoute(0);
+        }
 
+         steps = state.GetCurrentRoute();
+
+        foreach (var step in steps)
+        {
+            Console.Write(step);
         }
     }
 }

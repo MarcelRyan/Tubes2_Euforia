@@ -106,7 +106,6 @@ class BFSState: MazeState{
 
         _shortestPathQueue = new Queue();
 
-        _queueProgress = new Queue();
         TPosition = new ArrayList();
 
         _queue.Enqueue(new Tuple<Tuple<int, int>, Tuple<int, int>>(initialPosition, position));
@@ -148,7 +147,6 @@ class BFSState: MazeState{
     public void ShortestPathMove()
     {
         if (stop) return;
-
         
         var temp = (Tuple<Tuple<int, int>, 
             Tuple<int, int>,
@@ -242,6 +240,12 @@ class BFSState: MazeState{
     {
         if (stop) return;
 
+        if (!allowMultipleVisits)
+        {
+            ShortestPathMove();
+            return;
+        }
+
         while (_queue.Count > 0 && !IsValid(((Tuple<Tuple<int, int>, Tuple<int, int>>)_queue.Peek()).Item1))
         {
             _queue.Dequeue();
@@ -257,7 +261,7 @@ class BFSState: MazeState{
 
         Tuple<int, int> newPosition = ((Tuple<Tuple<int, int>, Tuple<int, int>>)_queue.Dequeue()).Item1;
 
-        _queueProgress.Enqueue(newPosition);
+        multipleVisitPath.Add(newPosition);
 
         treasureFound = false;
 
@@ -280,6 +284,7 @@ class BFSState: MazeState{
 
             //Mengubah asal dan tujuan untuk path
             TPosition.Add(position);
+
             if(foundTreasureCount==1){
                 fromPosition = defaultCheckValue.Item2;
                 nowPosition = position;
@@ -396,5 +401,43 @@ class BFSState: MazeState{
         path.Reverse();
 
         return path;
+    }
+
+    public override ArrayList GetCurrentRoute()
+    {
+        ArrayList currentPath;
+
+        currentPath = getPathBFS();
+        
+        ArrayList result = new ArrayList();
+
+        for (int i = 0; i < currentPath.Count - 1; i++)
+        {
+
+            Tuple<int, int> current = (Tuple<int, int>)currentPath[i];
+            Tuple<int, int> next = (Tuple<int, int>)currentPath[i + 1];
+
+            if (next.Item1 - current.Item1 != 0 || next.Item2 - current.Item2 != 0)
+                result.Add(directionMap[(next.Item1 - current.Item1, next.Item2 - current.Item2)]);
+        }
+
+        return result;
+    }
+
+    public void GetCurrentPath2(Tuple<Tuple<int, int>, Tuple<int, int>> top)
+    {
+        Tuple<int, int> tempPosition = top.Item1;
+        int nTimes = 0;
+
+        while (tempPosition.Item1 != -1 && tempPosition.Item2 != -1)
+        {
+            Tuple<int, int> temp = tempPosition;
+            tempPosition = GetCheckMap(tempPosition).Item2;
+            if (nTimes > 0)
+            {
+                SetCheckMap(temp, new Tuple<bool, Tuple<int, int>>(false, tempPosition));
+            }
+            nTimes++;
+        }
     }
 }

@@ -25,11 +25,9 @@ abstract class MazeState
 
     public ArrayList pathBFS { get; protected set; }
 
-    public Queue _queueProgress {get; protected set;}
-
     protected Tuple<bool, Tuple<int, int>>[,] _checkMap;
 
-    protected ArrayList pathWithoutBacktrack = new ArrayList();
+    protected ArrayList multipleVisitPath = new ArrayList();
 
     static protected Tuple<bool, Tuple<int, int>> defaultCheckValue = new Tuple<bool, Tuple<int, int>>(false, new Tuple<int, int>(-1, -1));
 
@@ -105,7 +103,7 @@ abstract class MazeState
 
     virtual protected void updateStepCount()
     {
-        if (allowMultipleVisits) stepCount = pathWithoutBacktrack.Count - 1;
+        if (allowMultipleVisits) stepCount = multipleVisitPath.Count - 1;
         else stepCount = GetCurrentPath().Count - 1;
     }
 
@@ -148,35 +146,29 @@ abstract class MazeState
     }
 
     // mengembalikan urutan arah berdasarkan current path
-    virtual public ArrayList GetCurrentRoute(int tipe)
+    virtual public ArrayList GetCurrentRoute()
     {
-        ArrayList currentPath;
-        if(tipe == 0)
-        {
-            currentPath = GetCurrentPath();
-        }
-        else {
-            currentPath = getPathBFS();
-        }
+
+        ArrayList currentPath = GetCurrentPath();
         ArrayList result = new ArrayList();
 
-        for (int i = 0; i <  currentPath.Count - 1; i++)
+        for (int i = 0; i < currentPath.Count - 1; i++)
         {
-
             Tuple<int, int> current = (Tuple<int, int>)currentPath[i];
-            Tuple<int, int> next = (Tuple<int, int>)currentPath[i+1];
+            Tuple<int, int> next = (Tuple<int, int>)currentPath[i + 1];
 
-            if(next.Item1 - current.Item1 != 0 || next.Item2 - current.Item2 != 0 )
             result.Add(directionMap[(next.Item1 - current.Item1, next.Item2 - current.Item2)]);
         }
 
         return result;
     }
 
+    
+
     // mengembalikan path dari Krusty Crab ke posisi saat ini
     virtual public ArrayList GetCurrentPath()
     {
-        if (allowMultipleVisits) return pathWithoutBacktrack;
+        if (allowMultipleVisits) return multipleVisitPath;
 
         ArrayList path = new ArrayList();
 
@@ -213,29 +205,9 @@ abstract class MazeState
         return path;
     }
 
-    public void GetCurrentPath2(Tuple<Tuple<int, int>, Tuple<int, int>> top)
-    {
-        Tuple<int, int> tempPosition = top.Item1;
-        int nTimes = 0;
-        
-        while (tempPosition.Item1 != -1 && tempPosition.Item2 != -1)
-        {
-            Tuple<int, int> temp = tempPosition;
-            tempPosition = GetCheckMap(tempPosition).Item2;
-            if(nTimes > 0){
-                SetCheckMap(temp, new Tuple<bool, Tuple<int, int>>(false, tempPosition));
-            }
-            nTimes++;
-        }
-    }
-
 
     public ArrayList getPathBFS(){
         return pathBFS;
-    }
-
-    public Queue getQueueProgressBFS(){
-        return _queueProgress;
     }
 
     // Berpindah satu langkah dengan pendekatan tertentu

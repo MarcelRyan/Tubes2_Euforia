@@ -41,7 +41,7 @@ class DFSState: MazeState
         {
             position = GetCheckMap(position).Item2;
 
-            pathWithoutBacktrack.Add(position);
+            multipleVisitPath.Add(position);
         }
 
         else
@@ -90,7 +90,7 @@ class DFSState: MazeState
             if (allowMultipleVisits && tspMode && foundAll && GetMapElmt(position) != "K")
             {
                 position = GetCheckMap(position).Item2;
-                pathWithoutBacktrack.Add(position);
+                multipleVisitPath.Add(position);
             }
 
             // tidak ditemukan solusi
@@ -120,7 +120,7 @@ class DFSState: MazeState
         position = newPosition;
 
         // path for normal dfs (without backtrack)
-        if (allowMultipleVisits) pathWithoutBacktrack.Add(newPosition);
+        if (allowMultipleVisits) multipleVisitPath.Add(newPosition);
 
         nodeCount++;
 
