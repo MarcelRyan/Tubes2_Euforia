@@ -428,6 +428,11 @@ namespace GUI
                             }
                             else {
                                 tempQueueProgressBFS = mazeState.getQueueProgressBFS();
+                                if (mazeState.treasureFound)
+                                {
+                                    await resetGridDisplay();
+                                    await Task.Delay(time);
+                                }
                                 updateGridDisplay(mazeState.position.Item1, mazeState.position.Item2, wasYellowGreen, wasCrimson);
                             }
                         }

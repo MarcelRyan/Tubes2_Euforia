@@ -63,6 +63,7 @@ class BFSState: MazeState{
 
         _queueProgress.Enqueue(newPosition);
 
+        treasureFound = false;
 
         SetCheckMap(top.Item1, new Tuple<bool, Tuple<int, int>>(true, top.Item2));
 
@@ -79,6 +80,7 @@ class BFSState: MazeState{
         if (GetMapElmt(position) == "T")
         {
             foundTreasureCount++;
+            treasureFound = true;
 
             //Mengubah asal dan tujuan untuk path
             TPosition.Add(position);
