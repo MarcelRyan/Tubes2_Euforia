@@ -318,6 +318,9 @@ namespace GUI
                 row.Height = tinggi;
             }
 
+            mazeGridView.CurrentCell.Style.BackColor = Color.Cyan;
+            mazeGridView.CurrentCell.Selected = false;
+
             refresh_Labels();
         }
         private void visualizeButton_Click(object sender, EventArgs e)
@@ -352,6 +355,7 @@ namespace GUI
                 this.mazeGridView.Rows[i].Cells[j].Style.BackColor = Color.Crimson;
             }
         }
+
 
         // show only solution after progress is finished
         private async Task resetGridDisplay()
@@ -435,22 +439,35 @@ namespace GUI
                         bool wasYellowGreen = (this.mazeGridView.Rows[mazeState.position.Item1].Cells[mazeState.position.Item2].Style.BackColor == Color.YellowGreen);
                         bool wasCrimson = this.mazeGridView.Rows[mazeState.position.Item1].Cells[mazeState.position.Item2].Style.BackColor == Color.Crimson;
                         this.mazeGridView.Rows[mazeState.position.Item1].Cells[mazeState.position.Item2].Style.BackColor = Color.Cyan;
-                        await Task.Delay(time);
 
                         if (dfsMode){
-
-                            path = mazeState.GetCurrentPath();
+                            await Task.Delay(time);
                             updateGridDisplay(mazeState.position.Item1, mazeState.position.Item2, wasYellowGreen, wasCrimson);
                         }
                         else
                         {
 
-                            if (mazeState.treasureFound)
+                            if (bfsMultipleVisits)
                             {
-                                await resetGridDisplay();
                                 await Task.Delay(time);
+                                if (mazeState.treasureFound)
+                                {
+                                    await resetGridDisplay();
+                                    await Task.Delay(time);
+                                }
+                                updateGridDisplay(mazeState.position.Item1, mazeState.position.Item2, wasYellowGreen, wasCrimson);
                             }
-                            updateGridDisplay(mazeState.position.Item1, mazeState.position.Item2, wasYellowGreen, wasCrimson);
+                            else
+                            {
+                                ArrayList path = mazeState.GetCurrentPath();
+                                await resetGridDisplay();
+                                foreach (Tuple<int, int> tuple in path)
+                                {
+                                    this.mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.Cyan;
+                                    await Task.Delay(time);
+                                    this.mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
+                                }
+                            }
                         }
                     }
                 }
