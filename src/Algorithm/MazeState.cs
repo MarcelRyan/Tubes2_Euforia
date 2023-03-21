@@ -150,6 +150,7 @@ abstract class MazeState
 
         for (int i = 0; i <  currentPath.Count - 1; i++)
         {
+
             Tuple<int, int> current = (Tuple<int, int>)currentPath[i];
             Tuple<int, int> next = (Tuple<int, int>)currentPath[i+1];
 
@@ -191,6 +192,7 @@ abstract class MazeState
             {
                 tempPosition = GetCheckMap(tempPosition).Item2;
             }
+
         }
 
         path.Reverse();
