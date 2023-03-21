@@ -36,6 +36,8 @@ class Testing
 
             string temp =  Console.ReadLine();
 
+        ArrayList steps = dfsState.GetCurrentRoute(0);
+
         }
     }
 }

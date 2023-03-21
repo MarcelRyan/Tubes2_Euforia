@@ -43,7 +43,11 @@ namespace GUI
             timeLabel = new Label();
             progressButton = new FontAwesome.Sharp.IconButton();
             algorithmConfigPanel = new Panel();
+            dfsPanel = new Panel();
+            dfsMultipleVisitsButton = new FontAwesome.Sharp.IconButton();
             dfsButton = new FontAwesome.Sharp.IconButton();
+            bfsPanel = new Panel();
+            bfsMultipleVisitsButton = new FontAwesome.Sharp.IconButton();
             bfsButton = new FontAwesome.Sharp.IconButton();
             FileConfigPanel = new Panel();
             browseFileButton = new FontAwesome.Sharp.IconButton();
@@ -69,14 +73,14 @@ namespace GUI
             routeLabelButton = new FontAwesome.Sharp.IconButton();
             logPanel = new Panel();
             errorLog = new Label();
-            dfsPanel = new Panel();
-            multipleVisitsButton = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)mazeGridView).BeginInit();
             configPanel.SuspendLayout();
             tspModePanel.SuspendLayout();
             visualizeConfigPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)timeStampBox).BeginInit();
             algorithmConfigPanel.SuspendLayout();
+            dfsPanel.SuspendLayout();
+            bfsPanel.SuspendLayout();
             FileConfigPanel.SuspendLayout();
             logoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
@@ -86,7 +90,6 @@ namespace GUI
             executionTimePanel.SuspendLayout();
             routePanel.SuspendLayout();
             logPanel.SuspendLayout();
-            dfsPanel.SuspendLayout();
             SuspendLayout();
             // 
             // mazeGridView
@@ -233,11 +236,41 @@ namespace GUI
             // algorithmConfigPanel
             // 
             algorithmConfigPanel.Controls.Add(dfsPanel);
-            algorithmConfigPanel.Controls.Add(bfsButton);
+            algorithmConfigPanel.Controls.Add(bfsPanel);
             algorithmConfigPanel.Location = new Point(0, 180);
             algorithmConfigPanel.Name = "algorithmConfigPanel";
             algorithmConfigPanel.Size = new Size(262, 70);
             algorithmConfigPanel.TabIndex = 23;
+            // 
+            // dfsPanel
+            // 
+            dfsPanel.Controls.Add(dfsMultipleVisitsButton);
+            dfsPanel.Controls.Add(dfsButton);
+            dfsPanel.Dock = DockStyle.Left;
+            dfsPanel.Location = new Point(133, 0);
+            dfsPanel.Name = "dfsPanel";
+            dfsPanel.Size = new Size(129, 70);
+            dfsPanel.TabIndex = 5;
+            // 
+            // dfsMultipleVisitsButton
+            // 
+            dfsMultipleVisitsButton.Dock = DockStyle.Top;
+            dfsMultipleVisitsButton.FlatAppearance.BorderSize = 0;
+            dfsMultipleVisitsButton.FlatStyle = FlatStyle.Flat;
+            dfsMultipleVisitsButton.Font = new Font("Century Gothic", 6F, FontStyle.Regular, GraphicsUnit.Point);
+            dfsMultipleVisitsButton.ForeColor = Color.White;
+            dfsMultipleVisitsButton.IconChar = FontAwesome.Sharp.IconChar.None;
+            dfsMultipleVisitsButton.IconColor = Color.White;
+            dfsMultipleVisitsButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            dfsMultipleVisitsButton.IconSize = 32;
+            dfsMultipleVisitsButton.Location = new Point(0, 42);
+            dfsMultipleVisitsButton.Margin = new Padding(3, 3, 0, 0);
+            dfsMultipleVisitsButton.Name = "dfsMultipleVisitsButton";
+            dfsMultipleVisitsButton.Size = new Size(129, 28);
+            dfsMultipleVisitsButton.TabIndex = 5;
+            dfsMultipleVisitsButton.Text = "Multiple Visits";
+            dfsMultipleVisitsButton.UseVisualStyleBackColor = true;
+            dfsMultipleVisitsButton.Click += dfsMultipleVisitsButton_Click;
             // 
             // dfsButton
             // 
@@ -253,29 +286,59 @@ namespace GUI
             dfsButton.Location = new Point(0, 0);
             dfsButton.Margin = new Padding(3, 3, 0, 0);
             dfsButton.Name = "dfsButton";
-            dfsButton.Size = new Size(139, 42);
+            dfsButton.Size = new Size(129, 42);
             dfsButton.TabIndex = 4;
             dfsButton.Text = "DFS";
             dfsButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             dfsButton.UseVisualStyleBackColor = true;
             dfsButton.Click += dfsButton_Click;
             // 
+            // bfsPanel
+            // 
+            bfsPanel.Controls.Add(bfsMultipleVisitsButton);
+            bfsPanel.Controls.Add(bfsButton);
+            bfsPanel.Dock = DockStyle.Left;
+            bfsPanel.Location = new Point(0, 0);
+            bfsPanel.Name = "bfsPanel";
+            bfsPanel.Size = new Size(133, 70);
+            bfsPanel.TabIndex = 6;
+            // 
+            // bfsMultipleVisitsButton
+            // 
+            bfsMultipleVisitsButton.Dock = DockStyle.Top;
+            bfsMultipleVisitsButton.FlatAppearance.BorderSize = 0;
+            bfsMultipleVisitsButton.FlatStyle = FlatStyle.Flat;
+            bfsMultipleVisitsButton.Font = new Font("Century Gothic", 6F, FontStyle.Regular, GraphicsUnit.Point);
+            bfsMultipleVisitsButton.ForeColor = Color.White;
+            bfsMultipleVisitsButton.IconChar = FontAwesome.Sharp.IconChar.None;
+            bfsMultipleVisitsButton.IconColor = Color.White;
+            bfsMultipleVisitsButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            bfsMultipleVisitsButton.IconSize = 32;
+            bfsMultipleVisitsButton.Location = new Point(0, 42);
+            bfsMultipleVisitsButton.Margin = new Padding(3, 3, 0, 0);
+            bfsMultipleVisitsButton.Name = "bfsMultipleVisitsButton";
+            bfsMultipleVisitsButton.Size = new Size(133, 28);
+            bfsMultipleVisitsButton.TabIndex = 5;
+            bfsMultipleVisitsButton.Text = "Multiple Visits";
+            bfsMultipleVisitsButton.UseVisualStyleBackColor = true;
+            bfsMultipleVisitsButton.Click += bfsMultipleVisitsButton_Click;
+            // 
             // bfsButton
             // 
-            bfsButton.Dock = DockStyle.Left;
+            bfsButton.Dock = DockStyle.Top;
             bfsButton.FlatAppearance.BorderSize = 0;
             bfsButton.FlatStyle = FlatStyle.Flat;
             bfsButton.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
             bfsButton.ForeColor = Color.White;
-            bfsButton.IconChar = FontAwesome.Sharp.IconChar.RulerHorizontal;
+            bfsButton.IconChar = FontAwesome.Sharp.IconChar.RulerVertical;
             bfsButton.IconColor = Color.White;
             bfsButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            bfsButton.ImageAlign = ContentAlignment.MiddleLeft;
+            bfsButton.IconSize = 32;
             bfsButton.Location = new Point(0, 0);
             bfsButton.Margin = new Padding(3, 3, 0, 0);
             bfsButton.Name = "bfsButton";
-            bfsButton.Size = new Size(123, 70);
-            bfsButton.TabIndex = 3;
+            bfsButton.Size = new Size(133, 42);
+            bfsButton.TabIndex = 4;
             bfsButton.Text = "BFS";
             bfsButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             bfsButton.UseVisualStyleBackColor = true;
@@ -597,36 +660,6 @@ namespace GUI
             errorLog.TabIndex = 0;
             errorLog.Click += errorLog_Click;
             // 
-            // dfsPanel
-            // 
-            dfsPanel.Controls.Add(multipleVisitsButton);
-            dfsPanel.Controls.Add(dfsButton);
-            dfsPanel.Dock = DockStyle.Left;
-            dfsPanel.Location = new Point(123, 0);
-            dfsPanel.Name = "dfsPanel";
-            dfsPanel.Size = new Size(139, 70);
-            dfsPanel.TabIndex = 5;
-            // 
-            // multipleVisitsButton
-            // 
-            multipleVisitsButton.Dock = DockStyle.Top;
-            multipleVisitsButton.FlatAppearance.BorderSize = 0;
-            multipleVisitsButton.FlatStyle = FlatStyle.Flat;
-            multipleVisitsButton.Font = new Font("Century Gothic", 6F, FontStyle.Regular, GraphicsUnit.Point);
-            multipleVisitsButton.ForeColor = Color.White;
-            multipleVisitsButton.IconChar = FontAwesome.Sharp.IconChar.None;
-            multipleVisitsButton.IconColor = Color.White;
-            multipleVisitsButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            multipleVisitsButton.IconSize = 32;
-            multipleVisitsButton.Location = new Point(0, 42);
-            multipleVisitsButton.Margin = new Padding(3, 3, 0, 0);
-            multipleVisitsButton.Name = "multipleVisitsButton";
-            multipleVisitsButton.Size = new Size(139, 28);
-            multipleVisitsButton.TabIndex = 5;
-            multipleVisitsButton.Text = "Multiple Visits";
-            multipleVisitsButton.UseVisualStyleBackColor = true;
-            multipleVisitsButton.Click += multipleVisitsButton_Click;
-            // 
             // Treasure_Hunt_Solver
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -655,6 +688,8 @@ namespace GUI
             visualizeConfigPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)timeStampBox).EndInit();
             algorithmConfigPanel.ResumeLayout(false);
+            dfsPanel.ResumeLayout(false);
+            bfsPanel.ResumeLayout(false);
             FileConfigPanel.ResumeLayout(false);
             FileConfigPanel.PerformLayout();
             logoPanel.ResumeLayout(false);
@@ -665,7 +700,6 @@ namespace GUI
             executionTimePanel.ResumeLayout(false);
             routePanel.ResumeLayout(false);
             logPanel.ResumeLayout(false);
-            dfsPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -687,7 +721,6 @@ namespace GUI
         private Panel algorithmConfigPanel;
         private Panel tspModePanel;
         private FontAwesome.Sharp.IconButton tspButton;
-        private FontAwesome.Sharp.IconButton bfsButton;
         private FontAwesome.Sharp.IconButton dfsButton;
         private PictureBox logoPictureBox;
         private NumericUpDown timeStampBox;
@@ -708,7 +741,10 @@ namespace GUI
         private Panel logPanel;
         private Label errorLog;
         private Panel dfsPanel;
-        private FontAwesome.Sharp.IconButton multipleVisitsButton;
+        private FontAwesome.Sharp.IconButton dfsMultipleVisitsButton;
+        private Panel bfsPanel;
+        private FontAwesome.Sharp.IconButton bfsButton;
+        private FontAwesome.Sharp.IconButton bfsMultipleVisitsButton;
     }
 }
 

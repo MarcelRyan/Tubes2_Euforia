@@ -32,7 +32,8 @@ namespace GUI
 
         private bool tspMode; // true jika pilih tsp
 
-        private bool multipleVisits; // true jika dfs diperbolehkan melakukan visit kotak lebih dari 2 kali
+        private bool dfsMultipleVisits; // true jika dfs diperbolehkan melakukan visit kotak lebih dari 2 kali
+        private bool bfsMultipleVisits; // true jika bfs diperbolehkan melakukan visit kotak lebih dari 2 kali
 
         private bool showProgress; // true jika pilih progress
 
@@ -73,7 +74,8 @@ namespace GUI
             dfsMode = false;
             tspMode = false;
             showProgress = false;
-            multipleVisits = false;
+            dfsMultipleVisits = false;
+            bfsMultipleVisits = false;
             isVisualized = false;
 
             // styling
@@ -81,8 +83,9 @@ namespace GUI
             timeLabel.Hide();
             timeStampBox.Hide();
             timeStampBox.Enabled = false;
+            bfsButton.Dock = DockStyle.Left;
             dfsButton.Dock = DockStyle.Right;
-            multipleVisitsButton.Hide();
+            dfsMultipleVisitsButton.Hide();
         }
 
         private void Treasure_Hunt_Solver_Load(object sender, EventArgs e)
@@ -207,6 +210,28 @@ namespace GUI
             this.ActiveControl = null;
         }
 
+        private void unclickBfsButton(object sender, EventArgs e)
+        {
+            bfsButton.Dock = DockStyle.Left;
+
+            bfsMultipleVisitsButton.Hide();
+
+            // SET MULTIPLEVISITS MENJADI TRUE UNTUK KEMUDIAN DISET LAGI MENJADI FALSE DI DALAM FUNGSI CHANGEBUTTONVISUAL
+            bfsMultipleVisits = true;
+            changeButtonVisual(bfsMultipleVisitsButton, ref bfsMultipleVisits);
+        }
+
+        private void unclickDfsButton(object sender, EventArgs e)
+        {
+            dfsButton.Dock = DockStyle.Right;
+
+            dfsMultipleVisitsButton.Hide();
+
+            // SET MULTIPLEVISITS MENJADI TRUE UNTUK KEMUDIAN DISET LAGI MENJADI FALSE DI DALAM FUNGSI CHANGEBUTTONVISUAL
+            dfsMultipleVisits = true;
+            changeButtonVisual(dfsMultipleVisitsButton, ref dfsMultipleVisits);
+        }
+
         private void bfsButton_Click(object sender, EventArgs e)
         {
             changeButtonVisual(bfsButton, ref bfsMode);
@@ -219,19 +244,17 @@ namespace GUI
             if (bfsMode)
             {
                 unclickDfsButton(sender, e);
+                bfsButton.Dock = DockStyle.Top;
+                bfsMultipleVisitsButton.Show();
+                bfsMultipleVisitsButton.Enabled = true;
+            }
+
+            else
+            {
+                unclickBfsButton(sender, e);
             }
         }
 
-        private void unclickDfsButton(object sender, EventArgs e)
-        {
-            dfsButton.Dock = DockStyle.Right;
-
-            multipleVisitsButton.Hide();
-
-            // SET MULTIPLEVISITS MENJADI TRUE UNTUK KEMUDIAN DISET LAGI MENJADI FALSE DI DALAM FUNGSI CHANGEBUTTONVISUAL
-            multipleVisits = true;
-            changeButtonVisual(multipleVisitsButton, ref multipleVisits);
-        }
         private void dfsButton_Click(object sender, EventArgs e)
         {
             changeButtonVisual(dfsButton, ref dfsMode);
@@ -243,9 +266,10 @@ namespace GUI
 
             if (dfsMode)
             {
+                unclickBfsButton(sender, e);
                 dfsButton.Dock = DockStyle.Top;
-                multipleVisitsButton.Show();
-                multipleVisitsButton.Enabled = true;
+                dfsMultipleVisitsButton.Show();
+                dfsMultipleVisitsButton.Enabled = true;
             }
 
             else
@@ -319,19 +343,15 @@ namespace GUI
         }
 
         // update grid display based on progress
-        private void updateGridDisplay()
+        private void updateGridDisplay(int i, int j, bool wasYellowGreen, bool wasCrimson)
         {
-            foreach (Tuple<int, int> pathTuple in path)
+            if (!wasYellowGreen && !wasCrimson)
             {
-                if (pathTuple != null)
-                {
-                    if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
-                    {
-                        this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
-                        this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
-                        mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
-                    }
-                }
+                this.mazeGridView.Rows[i].Cells[j].Style.BackColor = Color.YellowGreen;
+            }
+            else
+            {
+                this.mazeGridView.Rows[i].Cells[j].Style.BackColor = Color.Crimson;
             }
         }
 
@@ -344,7 +364,7 @@ namespace GUI
             {
                 for (int j = 0; j < mazeGridView.Columns.Count; j++)
                 {
-                    if ((mazeGridView.Rows[i].Cells[j].Value == "" || mazeGridView.Rows[i].Cells[j].Value == "Start" || mazeGridView.Rows[i].Cells[j].Value == "Treasure") && mazeGridView.Rows[i].Cells[j].Style.BackColor == Color.YellowGreen)
+                    if ((mazeGridView.Rows[i].Cells[j].Value == "" || mazeGridView.Rows[i].Cells[j].Value == "Start" || mazeGridView.Rows[i].Cells[j].Value == "Treasure") && (mazeGridView.Rows[i].Cells[j].Style.BackColor == Color.YellowGreen || mazeGridView.Rows[i].Cells[j].Style.BackColor == Color.Red)) ;
                     {
                         mazeGridView.Rows[i].Cells[j].Style.BackColor = Color.White;
                     }
@@ -359,7 +379,15 @@ namespace GUI
 
         private void updateExecutionInfo(MazeState mazeState, string execTime)
         {
-            ArrayList route = mazeState.GetCurrentRoute();
+            ArrayList route;
+            if (dfsMode)
+            {
+                route = mazeState.GetCurrentRoute(0);
+            }
+            else
+            {
+                route = mazeState.GetCurrentRoute(1);
+            }
             string routeString = "";
 
             for (int i = 0; i < route.Count; i++)
@@ -398,25 +426,43 @@ namespace GUI
 
                     var watch = new Stopwatch();
                     MazeState mazeState;
+                    Queue tempQueueProgressBFS;
 
                     if (!dfsMode && !bfsMode) throw new Exception("Pick one algorithm to go (BFS/DFS)!");
 
                     // jika dfs
-                    if (dfsMode) mazeState = new DFSState(map, tspMode, showProgress, multipleVisits);
+                    if (dfsMode) mazeState = new DFSState(map, tspMode, showProgress, dfsMultipleVisits);
                     // jika bfs
-                    else mazeState = new BFSState(map, tspMode, showProgress, true);
+                    else mazeState = new BFSState(map, tspMode, showProgress, bfsMultipleVisits);
 
                     watch.Start();
+                    this.mazeGridView.CurrentCell.Selected = false;
 
                     if (showProgress)
                     {
                         while (!mazeState.stop)
                         {
-                            await Task.Delay(time);
                             mazeState.Move();
-                            path = mazeState.GetCurrentPath();
 
-                            updateGridDisplay();
+                            bool wasYellowGreen = (this.mazeGridView.Rows[mazeState.position.Item1].Cells[mazeState.position.Item2].Style.BackColor == Color.YellowGreen);
+                            bool wasCrimson = this.mazeGridView.Rows[mazeState.position.Item1].Cells[mazeState.position.Item2].Style.BackColor == Color.Crimson;
+                            this.mazeGridView.Rows[mazeState.position.Item1].Cells[mazeState.position.Item2].Style.BackColor = Color.Cyan;
+                            await Task.Delay(time);
+                            if (dfsMode){
+
+                                path = mazeState.GetCurrentPath();
+                                updateGridDisplay(mazeState.position.Item1, mazeState.position.Item2, wasYellowGreen, wasCrimson);
+                            }
+                            else
+                            {
+                                tempQueueProgressBFS = mazeState.getQueueProgressBFS();
+                                if (mazeState.treasureFound)
+                                {
+                                    await resetGridDisplay();
+                                    await Task.Delay(time);
+                                }
+                                updateGridDisplay(mazeState.position.Item1, mazeState.position.Item2, wasYellowGreen, wasCrimson);
+                            }
                         }
                     }
 
@@ -427,7 +473,14 @@ namespace GUI
 
                     watch.Stop();
 
-                    path = mazeState.GetCurrentPath();
+                    if (dfsMode)
+                    {
+                        path = mazeState.GetCurrentPath();
+                    }
+                    else
+                    {
+                        path = mazeState.getPathBFS();
+                    }
 
                     string execTime = watch.ElapsedMilliseconds.ToString() + " ms";
 
@@ -496,9 +549,14 @@ namespace GUI
 
         }
 
-        private void multipleVisitsButton_Click(object sender, EventArgs e)
+        private void dfsMultipleVisitsButton_Click(object sender, EventArgs e)
         {
-            changeButtonVisual(multipleVisitsButton, ref multipleVisits);
+            changeButtonVisual(dfsMultipleVisitsButton, ref dfsMultipleVisits);
+        }
+
+        private void bfsMultipleVisitsButton_Click(object sender, EventArgs e)
+        {
+            changeButtonVisual(bfsMultipleVisitsButton, ref bfsMultipleVisits);
         }
     }
 }
