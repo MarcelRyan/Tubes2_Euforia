@@ -327,9 +327,15 @@ namespace GUI
                 {
                     if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
                     {
-                        this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
-                        this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
-                        mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                        if (this.mazeGridView.CurrentCell.Style.BackColor != Color.YellowGreen)
+                        {
+                            this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
+                            mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
+                        }
+                        else
+                        {
+                            this.mazeGridView.CurrentCell.Style.BackColor = Color.Red;
+                        }
                     }
                 }
             }
@@ -345,7 +351,6 @@ namespace GUI
                     if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
                     {
                         this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
-                        this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
                         mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
                     }
                 }
@@ -432,14 +437,17 @@ namespace GUI
                     else mazeState = new BFSState(map, tspMode, showProgress, true);
 
                     watch.Start();
+                    this.mazeGridView.CurrentCell.Selected = false;
 
                     if (showProgress)
                     {
                         while (!mazeState.stop)
                         {
-                            await Task.Delay(time);
                             mazeState.Move();
-                            if(dfsMode){
+                            this.mazeGridView.CurrentCell.Selected = false;
+                            this.mazeGridView.CurrentCell.Style.BackColor = Color.Cyan;
+                            await Task.Delay(time);
+                            if (dfsMode){
                                 path = mazeState.GetCurrentPath();
                                 updateGridDisplay(path);
                             }
