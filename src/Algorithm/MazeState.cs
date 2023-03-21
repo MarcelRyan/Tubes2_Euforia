@@ -105,7 +105,8 @@ abstract class MazeState
 
     virtual protected void updateStepCount()
     {
-        stepCount = GetCurrentPath().Count - 1;
+        if (allowMultipleVisits) stepCount = pathWithoutBacktrack.Count - 1;
+        else stepCount = GetCurrentPath().Count - 1;
     }
 
     // solusi ditemukan
@@ -161,6 +162,7 @@ abstract class MazeState
 
         for (int i = 0; i <  currentPath.Count - 1; i++)
         {
+
             Tuple<int, int> current = (Tuple<int, int>)currentPath[i];
             Tuple<int, int> next = (Tuple<int, int>)currentPath[i+1];
 
@@ -203,6 +205,7 @@ abstract class MazeState
             {
                 tempPosition = GetCheckMap(tempPosition).Item2;
             }
+
         }
 
         path.Reverse();
@@ -226,6 +229,7 @@ abstract class MazeState
         }
     }
 
+
     public ArrayList getPathBFS(){
         return pathBFS;
     }
@@ -233,9 +237,6 @@ abstract class MazeState
     public Queue getQueueProgressBFS(){
         return _queueProgress;
     }
-
-    // backtrack hingga ada node yang memiliki tetangga yang belum dikunjungi
-    abstract protected void BackTrack();
 
     // Berpindah satu langkah dengan pendekatan tertentu
     abstract public void Move();
