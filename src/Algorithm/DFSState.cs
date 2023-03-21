@@ -16,11 +16,6 @@ class DFSState: MazeState
         _stack.Push(new Tuple<Tuple<int, int>, Tuple<int, int>>(initialPosition, position));
     }
 
-    protected override void updateStepCount()
-    {
-        if (allowMultipleVisits) stepCount = pathWithoutBacktrack.Count - 1;
-        else stepCount = GetCurrentPath().Count - 1;
-    }
 
     // solusi ditemukan
     protected override void Terminate()
@@ -37,7 +32,7 @@ class DFSState: MazeState
 
 
     // backtrack hingga ada node yang memiliki tetangga yang belum dikunjungi
-    protected override void BackTrack()
+    private void BackTrack()
     {
         if (_stack.Count == 0) return;
 
