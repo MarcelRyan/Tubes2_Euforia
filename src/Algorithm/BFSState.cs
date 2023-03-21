@@ -236,11 +236,6 @@ class BFSState: MazeState{
         }
     }
 
-    protected override void updateStepCount()
-    {
-        stepCount = getQueueProgressBFS().Count - 1;
-        
-    }
     public override void Move()
     {
         if (stop) return;
