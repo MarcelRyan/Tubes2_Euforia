@@ -20,6 +20,7 @@ abstract class MazeState
 
     protected bool sequentialMode;
 
+    public bool treasureFound;
     public Tuple<int, int> initialPosition { get; protected set; }
 
     public ArrayList pathBFS { get; protected set; }

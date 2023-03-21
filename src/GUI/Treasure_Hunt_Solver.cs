@@ -342,37 +342,16 @@ namespace GUI
 
         }
 
-        // update grid display based on progress for ArrayList
-        private void updateGridDisplay(ArrayList path)
+        // update grid display based on progress
+        private void updateGridDisplay(int i, int j, bool wasYellowGreen, bool wasCrimson)
         {
-            foreach (Tuple<int, int> pathTuple in path)
+            if (!wasYellowGreen && !wasCrimson)
             {
-                if (pathTuple != null)
-                {
-                    if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
-                    {
-                        this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
-                        this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
-                        mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
-                    }
-                }
+                this.mazeGridView.Rows[i].Cells[j].Style.BackColor = Color.YellowGreen;
             }
-        }
-
-        // update grid display based on progress for Queue
-        private void updateGridDisplay(Queue path)
-        {
-            foreach (Tuple<int, int> pathTuple in path)
+            else
             {
-                if (pathTuple != null)
-                {
-                    if (pathTuple.Item1 >= 0 && pathTuple.Item1 < mazeGridView.RowCount && pathTuple.Item2 >= 0 && pathTuple.Item2 < mazeGridView.ColumnCount)
-                    {
-                        this.mazeGridView.CurrentCell = this.mazeGridView[pathTuple.Item2, pathTuple.Item1];
-                        this.mazeGridView.CurrentCell.Style.BackColor = Color.Blue;
-                        mazeGridView.Rows[pathTuple.Item1].Cells[pathTuple.Item2].Style.BackColor = Color.YellowGreen;
-                    }
-                }
+                this.mazeGridView.Rows[i].Cells[j].Style.BackColor = Color.Crimson;
             }
         }
 
@@ -385,7 +364,7 @@ namespace GUI
             {
                 for (int j = 0; j < mazeGridView.Columns.Count; j++)
                 {
-                    if ((mazeGridView.Rows[i].Cells[j].Value == "" || mazeGridView.Rows[i].Cells[j].Value == "Start" || mazeGridView.Rows[i].Cells[j].Value == "Treasure") && mazeGridView.Rows[i].Cells[j].Style.BackColor == Color.YellowGreen)
+                    if ((mazeGridView.Rows[i].Cells[j].Value == "" || mazeGridView.Rows[i].Cells[j].Value == "Start" || mazeGridView.Rows[i].Cells[j].Value == "Treasure") && (mazeGridView.Rows[i].Cells[j].Style.BackColor == Color.YellowGreen || mazeGridView.Rows[i].Cells[j].Style.BackColor == Color.Red)) ;
                     {
                         mazeGridView.Rows[i].Cells[j].Style.BackColor = Color.White;
                     }
@@ -457,22 +436,32 @@ namespace GUI
                     else mazeState = new BFSState(map, tspMode, showProgress, bfsMultipleVisits);
 
                     watch.Start();
+                    this.mazeGridView.CurrentCell.Selected = false;
 
                     if (showProgress)
                     {
                         while (!mazeState.stop)
                         {
-                            await Task.Delay(time);
                             mazeState.Move();
-                            if (dfsMode)
-                            {
+
+                            bool wasYellowGreen = (this.mazeGridView.Rows[mazeState.position.Item1].Cells[mazeState.position.Item2].Style.BackColor == Color.YellowGreen);
+                            bool wasCrimson = this.mazeGridView.Rows[mazeState.position.Item1].Cells[mazeState.position.Item2].Style.BackColor == Color.Crimson;
+                            this.mazeGridView.Rows[mazeState.position.Item1].Cells[mazeState.position.Item2].Style.BackColor = Color.Cyan;
+                            await Task.Delay(time);
+                            if (dfsMode){
+
                                 path = mazeState.GetCurrentPath();
-                                updateGridDisplay(path);
+                                updateGridDisplay(mazeState.position.Item1, mazeState.position.Item2, wasYellowGreen, wasCrimson);
                             }
                             else
                             {
                                 tempQueueProgressBFS = mazeState.getQueueProgressBFS();
-                                updateGridDisplay(tempQueueProgressBFS);
+                                if (mazeState.treasureFound)
+                                {
+                                    await resetGridDisplay();
+                                    await Task.Delay(time);
+                                }
+                                updateGridDisplay(mazeState.position.Item1, mazeState.position.Item2, wasYellowGreen, wasCrimson);
                             }
                         }
                     }

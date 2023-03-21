@@ -63,6 +63,7 @@ class BFSState: MazeState{
 
         _queueProgress.Enqueue(newPosition);
 
+        treasureFound = false;
 
         SetCheckMap(top.Item1, new Tuple<bool, Tuple<int, int>>(true, top.Item2));
 
@@ -79,6 +80,7 @@ class BFSState: MazeState{
         if (GetMapElmt(position) == "T")
         {
             foundTreasureCount++;
+            treasureFound = true;
 
             //Mengubah asal dan tujuan untuk path
             TPosition.Add(position);
@@ -103,7 +105,7 @@ class BFSState: MazeState{
             //Mereset semua cell kecuali initial menjadi default
             for ( int i = 0; i < row ; i++){
                 for (int j = 0; j < col ; j++){
-                    if ((i != 0 || j != 0)){
+                    if ((i != position.Item1 || j != position.Item2)&&(i != 0 || j != 0)){
                         Tuple<int, int> temp = new Tuple<int, int>(i,j);
                         SetCheckMap(temp, defaultCheckValue);
                     }
