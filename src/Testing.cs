@@ -30,4 +30,30 @@ class Testing
             //var temp = Console.ReadLine();
         }
     }
+
+    static void Main3(string[] args)
+    {
+        string[][] map = FileIO.ReadMapFile("sampel-1", false);
+
+        DFSState state = new DFSState(map, false, true, false);
+
+        ArrayList steps;
+
+        while (!state.stop)
+        {
+            state.Move();
+            Console.Write(state.position);
+            steps = state.GetCurrentPath();
+
+            Console.Write(" - Path: ");
+            foreach (var step in steps)
+            {
+                Console.Write(step);
+            }
+
+            Console.WriteLine();
+
+            //var temp = Console.ReadLine();
+        }
+    }
 }

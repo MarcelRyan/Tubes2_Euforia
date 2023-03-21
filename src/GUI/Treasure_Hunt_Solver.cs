@@ -458,6 +458,7 @@ namespace GUI
                                 }
                                 updateGridDisplay(mazeState.position.Item1, mazeState.position.Item2, wasYellowGreen, wasCrimson);
                             }
+
                             else
                             {
                                 ArrayList path = mazeState.GetCurrentPath();
@@ -465,9 +466,11 @@ namespace GUI
                                 foreach (Tuple<int, int> tuple in path)
                                 {
                                     this.mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.Cyan;
-                                    await Task.Delay(time);
+                                    await Task.Delay(10);
                                     this.mazeGridView.Rows[tuple.Item1].Cells[tuple.Item2].Style.BackColor = Color.YellowGreen;
                                 }
+
+                                await Task.Delay(time);
                             }
                         }
                     }
@@ -500,7 +503,10 @@ namespace GUI
             catch (Exception ex)
             {
                 showError(ex.Message);
-                refresh_Labels("[ROUTE]", (string)ex.Data["time"], ex.Data["node"].ToString(), "No Solution");
+
+                string timeData = ex.Data["time"] is null ? "[TIME]" : ex.Data["time"].ToString();
+                string nodeData = ex.Data["node"] is null ? "[NODES]" : ex.Data["node"].ToString();
+                refresh_Labels("[ROUTE]", timeData, nodeData, "No Solution");
 
             }
             

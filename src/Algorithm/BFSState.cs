@@ -9,14 +9,13 @@ class BFSState: MazeState{
 
     private Queue _queue;
     private Queue _shortestPathQueue;
-    private bool[,] totalMemo;
+
     class StateInfo
     {
         public int stepCount;
         public int foundTreasureCount;
         public Tuple<bool, Tuple<int, int>>[,] memo;
         public Tuple<int, int> prevPosition;
-
         public int row { get; private set; }
         public int col { get; private set; }
 
@@ -113,8 +112,6 @@ class BFSState: MazeState{
             initialPosition,
             defaultCheckValue.Item2,
             new StateInfo(row, col)));
-
-        totalMemo = new bool[row, col];
     }
 
     // solusi ditemukan
@@ -177,6 +174,7 @@ class BFSState: MazeState{
         temp.Item3.prevPosition = newPosition;
         position = newPosition;
 
+        // hitung jumlah grid yang dikunjungi
         if (!totalMemo[newPosition.Item1, newPosition.Item2])
         {
             nodeCount++;

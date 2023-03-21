@@ -21,6 +21,7 @@ abstract class MazeState
     protected bool sequentialMode;
 
     public bool treasureFound;
+    protected bool[,] totalMemo;
     public Tuple<int, int> initialPosition { get; protected set; }
 
     protected Tuple<bool, Tuple<int, int>>[,] _checkMap;
@@ -69,6 +70,7 @@ abstract class MazeState
         foundAll = false;
         row = map.Length;
         col = map[0].Length;
+        totalMemo = new bool[row, col];
         _checkMap = new Tuple<bool, Tuple<int, int>>[row, col];
 
         for (int i = 0; i < row; i++)
@@ -100,8 +102,7 @@ abstract class MazeState
 
     virtual protected void updateStepCount()
     {
-        if (allowMultipleVisits) stepCount = multipleVisitPath.Count - 1;
-        else stepCount = GetCurrentPath().Count - 1;
+        stepCount = GetCurrentPath().Count - 1;
     }
 
     // KALAU BISA NODECOUNT UDAH DIHANDLE DIDALAM FUNGSI MOVE DI BFSSTATE

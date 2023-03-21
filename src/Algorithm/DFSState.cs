@@ -30,11 +30,21 @@ class DFSState: MazeState
     {
     }
 
+    private bool IsVisitable(Tuple<int, int> target)
+    {
+        if (target.Item1 < 0 || target.Item2 < 0 || target.Item1 >= row || target.Item2 >= col
+            || GetMapElmt(target) == "X"
+           )
+        {
+            return false;
+        }
+
+        return true;
+    }
 
     // backtrack hingga ada node yang memiliki tetangga yang belum dikunjungi
     private void BackTrack()
     {
-        if (_stack.Count == 0) return;
 
         if (allowMultipleVisits)
 
@@ -46,9 +56,11 @@ class DFSState: MazeState
 
         else
         {
+            if (_stack.Count == 0) return;
+
             Tuple<int, int> backtrackPoint = ((Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Peek()).Item2;
 
-            while (position != backtrackPoint)
+            while (!position.Equals(backtrackPoint))
             {
                 if (GetMapElmt(position) == "T")
                 {
@@ -71,58 +83,99 @@ class DFSState: MazeState
         }
     }
 
+    private void StackEmptyAction()
+    {
+        // jika boleh visit kotak lebih dari sekali
+        if (allowMultipleVisits && tspMode && foundAll)
+        {
+            //  jika belum kembali ke titik awal
+            if (GetMapElmt(position) != "K")
+            {
+                position = GetCheckMap(position).Item2;
+                multipleVisitPath.Add(position);
+            }
+
+            else
+            {
+                Terminate();
+            }
+        }
+
+        // tidak ditemukan solusi
+        else
+        {
+            stop = true;
+
+        }
+    }
     // Berpindah satu langkah dengan pendekatan DFS
     public override void Move()
     {
         // sudah ditemukan solusi atau dapat dipastikan solusi tidak ada
         if (stop) return;
 
-        // buang posisi tidak valid di stack
-        while (_stack.Count > 0 && !IsValid(((Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Peek()).Item1))
-        {
-            _stack.Pop();
-        }
-
         // jika stack kosong
         if (_stack.Count == 0)
         {
-            // jika belum kembali dititik awal dan boleh visit kotak lebih dari sekali
-            if (allowMultipleVisits && tspMode && foundAll && GetMapElmt(position) != "K")
-            {
-                position = GetCheckMap(position).Item2;
-                multipleVisitPath.Add(position);
-            }
-
-            // tidak ditemukan solusi
-            else
-            {
-                stop = true;
-                
-            }
-
+            StackEmptyAction();
             return;
 
         }
 
-        Tuple<Tuple<int, int>, Tuple<int, int>> top = (Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Peek();
-       
-        // jika tujuan bukan tetangga posisi saat ini
-        if (top.Item2 != position)
-        {
-            BackTrack();
+        Tuple<Tuple<int, int>, Tuple<int, int>> top;
 
-            if (allowMultipleVisits) return;
-        }
+        do
+        {
+            // buang posisi yang tidak dapat dikunjungi (diluar map atau dinding)
+            while (_stack.Count > 0 && !IsVisitable(((Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Peek()).Item1))
+            {
+                _stack.Pop();
+            }
+
+            if (_stack.Count == 0)
+            {
+                StackEmptyAction();
+                return;
+            }
+
+            top = (Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Peek();
+
+            // jika tujuan bukan tetangga posisi saat ini
+            if (!top.Item2.Equals(position))
+            {
+                BackTrack();
+
+                if (allowMultipleVisits)
+                {
+                    if (sequentialMode) updateStepCount();
+                    return;
+                }
+            }
+
+            else if (!IsValid(top.Item1))
+            {
+                _stack.Pop();
+
+                top = (Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Peek();
+
+                continue;
+            }
+        } while (!top.Item2.Equals(position) || !IsValid(top.Item1));
 
         Tuple<int, int> newPosition = ((Tuple<Tuple<int, int>, Tuple<int, int>>)_stack.Pop()).Item1;
 
         SetCheckMap(newPosition, new Tuple<bool, Tuple<int, int>>(true, position));
         position = newPosition;
 
+        //hitung jumlah grid yang dikunjungi
+        if (!totalMemo[newPosition.Item1, newPosition.Item2])
+        {
+            nodeCount++;
+            totalMemo[newPosition.Item1, newPosition.Item2] = true;
+        }
+
         // path for normal dfs (without backtrack)
         if (allowMultipleVisits) multipleVisitPath.Add(newPosition);
-
-        nodeCount++;
 
         // sequential mode akan memastikan setiap atribute diperbarui tiap langkah
         if (sequentialMode)
