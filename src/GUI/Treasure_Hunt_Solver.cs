@@ -461,6 +461,14 @@ namespace GUI
         private async void solveButton_Click(object sender, EventArgs e)
         {
             solveButton.Enabled = false;
+            visualizeButton.Enabled = false;
+            progressButton.Enabled = false;
+            dfsButton.Enabled = false;
+            bfsButton.Enabled = false;
+            bfsMultipleVisitsButton.Enabled = false;
+            dfsMultipleVisitsButton.Enabled = false;
+            tspButton.Enabled = false;
+
 
             try
             {
@@ -529,10 +537,15 @@ namespace GUI
                 refresh_Labels("[ROUTE]", timeData, nodeData, "No Solution");
 
             }
-            
 
+            visualizeButton.Enabled = true;
             solveButton.Enabled = true;
-
+            progressButton.Enabled = true;
+            dfsButton.Enabled = true;
+            bfsButton.Enabled = true;
+            bfsMultipleVisitsButton.Enabled = true;
+            dfsMultipleVisitsButton.Enabled = true;
+            tspButton.Enabled = true;
         }
 
 
