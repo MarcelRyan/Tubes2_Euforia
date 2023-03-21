@@ -236,6 +236,16 @@ class BFSState: MazeState{
         }
     }
 
+    private bool isVisitedTreasure(Tuple<int, int> target)
+    {
+        foreach(Tuple<int, int> p in TPosition)
+        {
+            if (p.Equals(target)) return true;
+        }
+
+        return false;
+    }
+
     public override void Move()
     {
         if (stop) return;
@@ -261,8 +271,6 @@ class BFSState: MazeState{
 
         Tuple<int, int> newPosition = ((Tuple<Tuple<int, int>, Tuple<int, int>>)_queue.Dequeue()).Item1;
 
-        multipleVisitPath.Add(newPosition);
-
         treasureFound = false;
 
         SetCheckMap(top.Item1, new Tuple<bool, Tuple<int, int>>(true, top.Item2));
@@ -280,11 +288,11 @@ class BFSState: MazeState{
             ArrayList tempPathBFS = new ArrayList();
             tempPathBFS = GetCurrentPath(fromPosition);
             foreach(Tuple<int, int> pathElement in tempPathBFS){
-                pathBFS.Add(pathElement);
+                multipleVisitPath.Add(pathElement);
             }
         }
 
-        if (GetMapElmt(position) == "T")
+        if (GetMapElmt(position) == "T" && !isVisitedTreasure(position))
         {
             foundTreasureCount++;
             treasureFound = true;
@@ -302,11 +310,13 @@ class BFSState: MazeState{
             }
 
             //Menggabungkan Path
+
+            // PERLU DIHANDLE BIAR TIDAK ADA DUPLIKAT
             ArrayList tempPathBFS = new ArrayList();
             tempPathBFS = GetCurrentPath(fromPosition);
             if(foundTreasureCount>0){
                 foreach(Tuple<int, int> pathElement in tempPathBFS){
-                    pathBFS.Add(pathElement);
+                    multipleVisitPath.Add(pathElement);
                 }
             }
 
@@ -338,11 +348,11 @@ class BFSState: MazeState{
                 // terminate jika bukan tspMode
                 else
                 {
-                    stepCount = GetCurrentPath().Count;
                     Terminate();
                     return;
                 }
             }
+
             if(foundTreasureCount > treasureCount){
                 foundTreasureCount--;
             }
@@ -389,6 +399,7 @@ class BFSState: MazeState{
                 tempPosition = GetCheckMap(tempPosition).Item2;
             }
         }
+
         if(tempPosition.Item1!=-1 && tempPosition.Item2!=-1){
             path.Add(tempPosition);
         }
@@ -397,12 +408,10 @@ class BFSState: MazeState{
         return path;
     }
 
+    // HAPUS INI SETELAH HANDLE MULTIPLEVISITPATH(ASLINYA BFSPATH) TIDAK ADA YANG DUPLIKAT
     public override ArrayList GetCurrentRoute()
     {
-        ArrayList currentPath;
-
-        currentPath = getPathBFS();
-        
+        ArrayList currentPath = GetCurrentPath();    
         ArrayList result = new ArrayList();
 
         for (int i = 0; i < currentPath.Count - 1; i++)

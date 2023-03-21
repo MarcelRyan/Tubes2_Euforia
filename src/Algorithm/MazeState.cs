@@ -23,8 +23,6 @@ abstract class MazeState
     public bool treasureFound;
     public Tuple<int, int> initialPosition { get; protected set; }
 
-    public ArrayList pathBFS { get; protected set; }
-
     protected Tuple<bool, Tuple<int, int>>[,] _checkMap;
 
     protected ArrayList multipleVisitPath = new ArrayList();
@@ -72,7 +70,6 @@ abstract class MazeState
         row = map.Length;
         col = map[0].Length;
         _checkMap = new Tuple<bool, Tuple<int, int>>[row, col];
-        pathBFS = new ArrayList();
 
         for (int i = 0; i < row; i++)
         {
@@ -107,10 +104,11 @@ abstract class MazeState
         else stepCount = GetCurrentPath().Count - 1;
     }
 
+    // KALAU BISA NODECOUNT UDAH DIHANDLE DIDALAM FUNGSI MOVE DI BFSSTATE
     virtual public void updateNodeCountBFS()
     {
         ArrayList tempVisitedPathBFS = new ArrayList();
-        foreach(Tuple<int, int> pathTuple in pathBFS){
+        foreach(Tuple<int, int> pathTuple in multipleVisitPath){
 
             int flag = 0;
 
@@ -181,8 +179,6 @@ abstract class MazeState
             Tuple<int, int> next = (Tuple<int, int>)currentPath[i + 1];
 
             result.Add(directionMap[(next.Item1 - current.Item1, next.Item2 - current.Item2)]);
-
-
         }
 
         return result;
@@ -228,11 +224,6 @@ abstract class MazeState
         path.Reverse();
 
         return path;
-    }
-
-
-    public ArrayList getPathBFS(){
-        return pathBFS;
     }
 
     // Berpindah satu langkah dengan pendekatan tertentu

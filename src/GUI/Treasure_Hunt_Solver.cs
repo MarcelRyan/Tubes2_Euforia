@@ -462,14 +462,7 @@ namespace GUI
 
                 watch.Stop();
 
-                if (dfsMode)
-                {
-                    path = mazeState.GetCurrentPath();
-                }
-                else
-                {
-                    path = mazeState.getPathBFS();
-                }
+                path = mazeState.GetCurrentPath();
 
                 string execTime = watch.ElapsedMilliseconds.ToString() + " ms";
 
