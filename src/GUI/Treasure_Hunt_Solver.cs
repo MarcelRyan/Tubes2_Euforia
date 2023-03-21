@@ -480,6 +480,11 @@ namespace GUI
                     throw new Exception("Solution is not found!");
                 }
 
+                if(bfsMode)
+                {
+                    mazeState.updateNodeCountBFS();
+                }
+
                 resetGridDisplay();
                 updateExecutionInfo(mazeState, execTime);
 
