@@ -360,7 +360,7 @@ namespace GUI
         // show only solution after progress is finished
         private async Task resetGridDisplay()
         {
-            await Task.Delay(200);
+            //await Task.Delay(1);
 
             for (int i = 0; i < mazeGridView.Rows.Count; i++)
             {
@@ -488,7 +488,8 @@ namespace GUI
                 {
                     Exception noSolutionException = new Exception("Solution is not found!");
                     noSolutionException.Data.Add("time", execTime);
-                    throw new Exception("Solution is not found!");
+                    noSolutionException.Data.Add("node", mazeState.nodeCount);
+                    throw noSolutionException;
                 }
 
                 resetGridDisplay();
@@ -499,8 +500,7 @@ namespace GUI
             catch (Exception ex)
             {
                 showError(ex.Message);
-
-                refresh_Labels((string)ex.Data["time"], "No Solution", "No Solution", "No Solution");
+                refresh_Labels("[ROUTE]", (string)ex.Data["time"], ex.Data["node"].ToString(), "No Solution");
 
             }
             

@@ -579,3 +579,5 @@ bin/Debug/net7.0-windows/Tubes2_Euforia.dll
 *.exe
 *.pdb
 *.cache
+*.dll
+*.pdb
