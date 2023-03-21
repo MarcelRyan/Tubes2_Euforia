@@ -238,6 +238,11 @@ class BFSState: MazeState{
         }
     }
 
+    protected override void updateStepCount()
+    {
+        stepCount = getQueueProgressBFS().Count - 1;
+        
+    }
     public override void Move()
     {
         if (stop) return;
@@ -265,12 +270,19 @@ class BFSState: MazeState{
 
         position = newPosition;
 
-        nodeCount++;
-
         // sequential mode akan memastikan setiap atribute diperbarui tiap langkah
         if (sequentialMode)
         {
-            stepCount = GetCurrentPath().Count;
+            updateStepCount();
+        }
+
+        if(foundAll && GetMapElmt(position)=="K"){
+            fromPosition = nowPosition;
+            ArrayList tempPathBFS = new ArrayList();
+            tempPathBFS = GetCurrentPath(fromPosition);
+            foreach(Tuple<int, int> pathElement in tempPathBFS){
+                pathBFS.Add(pathElement);
+            }
         }
 
         if (GetMapElmt(position) == "T")
@@ -342,26 +354,13 @@ class BFSState: MazeState{
             return;
         }
 
-        
-        // if (foundAll){
-        //     // Tuple<int, int> position2 = GetCheckMap(position).Item2;
-        //     Tuple<int, int> position = GetCheckMap(top.Item1).Item2;
-        //     Tuple<int, int> position2 = GetCheckMap(position).Item2;
-        //     _queue.Enqueue(
-        //         new Tuple<Tuple<int, int>, Tuple<int, int>>(position,
-        //                 position2));
-        // }
-        // else {
         for (int i = 3; i >= 0; i--)
         {
             _queue.Enqueue(
                 new Tuple<Tuple<int, int>, Tuple<int, int>>(
                     new Tuple<int, int>(position.Item1 + directions[i].Item1, position.Item2 + directions[i].Item2),
                         position));
-            // }
         }
-        // }
-
     }
 
     public ArrayList GetCurrentPath(Tuple<int, int> fromPosition)

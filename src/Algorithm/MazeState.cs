@@ -109,6 +109,29 @@ abstract class MazeState
         else stepCount = GetCurrentPath().Count - 1;
     }
 
+    virtual public void updateNodeCountBFS()
+    {
+        ArrayList tempVisitedPathBFS = new ArrayList();
+        foreach(Tuple<int, int> pathTuple in pathBFS){
+
+            int flag = 0;
+
+            foreach(Tuple<int, int> visited in tempVisitedPathBFS){
+                if(pathTuple.Item1 == visited.Item1 && pathTuple.Item2 == visited.Item2){
+                    flag++;
+                }
+            }
+
+            if(flag==0)
+            {
+                nodeCount++;
+            }
+            else{}
+            tempVisitedPathBFS.Add(pathTuple);
+
+        }
+    }
+
     // solusi ditemukan
     virtual protected void Terminate()
     {
@@ -167,7 +190,9 @@ abstract class MazeState
             Tuple<int, int> next = (Tuple<int, int>)currentPath[i+1];
 
             if(next.Item1 - current.Item1 != 0 || next.Item2 - current.Item2 != 0 )
-            result.Add(directionMap[(next.Item1 - current.Item1, next.Item2 - current.Item2)]);
+            {
+                result.Add(directionMap[(next.Item1 - current.Item1, next.Item2 - current.Item2)]);
+            }
         }
 
         return result;
