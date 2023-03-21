@@ -1,9 +1,8 @@
-// using System;
-// using System.Collections;
-// using System.IO;
-// using System.Linq;
-
+using System;
 using System.Collections;
+using System.IO;
+using System.Linq;
+
 
 class Testing
 {
@@ -12,7 +11,7 @@ class Testing
     {
         string[][] map = FileIO.ReadMapFile("test", false);
 
-        BFSState state = new BFSState(map, false, true, true);
+        BFSState state = new BFSState(map, true, true, false);
 
         ArrayList steps;
 
@@ -20,8 +19,15 @@ class Testing
         {
             state.ShortestPathMove();
             Console.WriteLine(state.position);
-            Console.WriteLine(state.foundTreasureCount);
-           steps = state.GetCurrentRoute();
+            steps = state.GetCurrentPath();
+
+            Console.Write("Path: ");
+            foreach(var step in steps)
+            {
+                Console.Write(step);
+            }
+
+            //var temp = Console.ReadLine();
         }
     }
 }

@@ -152,7 +152,7 @@ class BFSState: MazeState{
             Tuple<int, int>,
             StateInfo>) _shortestPathQueue.Dequeue();
 
-        while (_shortestPathQueue.Count > 0 && !IsValid(temp.Item1, temp.Item3.memo))
+        while (_shortestPathQueue.Count >= 0 && !IsValid(temp.Item1, temp.Item3.memo))
         {
             if (_shortestPathQueue.Count > 0)
                 temp = (Tuple<Tuple<int, int>,
@@ -168,12 +168,14 @@ class BFSState: MazeState{
             }
         }
 
+        
+
         Tuple<int, int> newPosition = temp.Item1;
+
         temp.Item3.memo[newPosition.Item1, newPosition.Item2] = new Tuple<bool, Tuple<int, int>>(true, temp.Item3.prevPosition);
 
         temp.Item3.prevPosition = newPosition;
         position = newPosition;
-
 
         if (!totalMemo[newPosition.Item1, newPosition.Item2])
         {
@@ -181,6 +183,7 @@ class BFSState: MazeState{
             totalMemo[newPosition.Item1, newPosition.Item2] = true;
         }
         
+
 
         _checkMap = temp.Item3.memo;
 
@@ -192,7 +195,7 @@ class BFSState: MazeState{
         }
 
         foundTreasureCount = temp.Item3.foundTreasureCount;
-
+        
         // jika menemukan treasure
         if (GetMapElmt(position) == "T")
         {
@@ -277,6 +280,12 @@ class BFSState: MazeState{
 
         position = newPosition;
 
+        if (!totalMemo[newPosition.Item1, newPosition.Item2])
+        {
+            nodeCount++;
+            totalMemo[newPosition.Item1, newPosition.Item2] = true;
+        }
+
         // sequential mode akan memastikan setiap atribute diperbarui tiap langkah
         if (sequentialMode)
         {
@@ -331,8 +340,9 @@ class BFSState: MazeState{
             }
             _queue.Clear();
 
-            //Mengubah treasure yang sudah dilewati supaya tidak masuk bagian ini lagi
-            map[position.Item1][position.Item2] = "R";
+            // SUDAH DIHANDLE PAKAI ISVISITEDTREASURE
+            ////Mengubah treasure yang sudah dilewati supaya tidak masuk bagian ini lagi
+            //map[position.Item1][position.Item2] = "R";
 
             // semua treasure ditemukan
             if (foundTreasureCount == treasureCount)

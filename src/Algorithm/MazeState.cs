@@ -105,7 +105,8 @@ abstract class MazeState
     }
 
     // KALAU BISA NODECOUNT UDAH DIHANDLE DIDALAM FUNGSI MOVE DI BFSSTATE
-    virtual public void updateNodeCountBFS()
+    // UDAH DIHANDLE PAKAI TOTALMEMO
+   /* virtual public void updateNodeCountBFS()
     {
         ArrayList tempVisitedPathBFS = new ArrayList();
         foreach(Tuple<int, int> pathTuple in multipleVisitPath){
@@ -126,7 +127,7 @@ abstract class MazeState
             tempVisitedPathBFS.Add(pathTuple);
 
         }
-    }
+    }*/
 
     // solusi ditemukan
     virtual protected void Terminate()
