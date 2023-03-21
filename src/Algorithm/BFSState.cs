@@ -167,8 +167,6 @@ class BFSState: MazeState{
             }
         }
 
-        
-
         Tuple<int, int> newPosition = temp.Item1;
 
         temp.Item3.memo[newPosition.Item1, newPosition.Item2] = new Tuple<bool, Tuple<int, int>>(true, temp.Item3.prevPosition);
@@ -249,6 +247,20 @@ class BFSState: MazeState{
         return false;
     }
 
+    private void addPath(ArrayList nextPath)
+    {
+        nReset++;
+        int idx = 0;
+        foreach (Tuple<int, int> pathElement in nextPath)
+        {
+            if ((nReset > 1 && idx > 0) || (nReset <= 1))
+            {
+                multipleVisitPath.Add(pathElement);
+            }
+
+            idx++;
+        }
+    }
     public override void Move()
     {
         if (stop) return;
@@ -293,26 +305,11 @@ class BFSState: MazeState{
         }
 
         if(foundAll && GetMapElmt(position)=="K"){
-            nReset++;
+           
             fromPosition = nowPosition;
-            ArrayList tempPathBFS = new ArrayList();
-            tempPathBFS = GetCurrentPath(fromPosition);
-            int idx = 0;
-            foreach(Tuple<int, int> pathElement in tempPathBFS)
-            {
-                if(nReset>1)
-                    {
-                        if(idx>0)
-                        {
-                            multipleVisitPath.Add(pathElement);
-                        }
-                    }
-                    else 
-                    {
-                        multipleVisitPath.Add(pathElement);
-                    }
-                    idx++;
-            }
+            ArrayList tempPathBFS = GetCurrentPath(fromPosition);
+
+            addPath(tempPathBFS);
         }
 
         if (GetMapElmt(position) == "T" && !isVisitedTreasure(position))
@@ -334,25 +331,9 @@ class BFSState: MazeState{
 
             //Menggabungkan Path
 
-            ArrayList tempPathBFS = new ArrayList();
-            tempPathBFS = GetCurrentPath(fromPosition);
+            ArrayList tempPathBFS = GetCurrentPath(fromPosition);
             if(foundTreasureCount>0){
-                nReset++;
-                int idx = 0;
-                foreach(Tuple<int, int> pathElement in tempPathBFS){
-                    if(nReset>1)
-                    {
-                        if(idx>0)
-                        {
-                            multipleVisitPath.Add(pathElement);
-                        }
-                    }
-                    else 
-                    {
-                        multipleVisitPath.Add(pathElement);
-                    }
-                    idx++;
-                }
+                addPath(tempPathBFS);
             }
 
             //Mereset semua cell kecuali initial menjadi default
@@ -365,10 +346,6 @@ class BFSState: MazeState{
                 }
             }
             _queue.Clear();
-
-            // SUDAH DIHANDLE PAKAI ISVISITEDTREASURE
-            ////Mengubah treasure yang sudah dilewati supaya tidak masuk bagian ini lagi
-            //map[position.Item1][position.Item2] = "R";
 
             // semua treasure ditemukan
             if (foundTreasureCount == treasureCount)
