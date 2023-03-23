@@ -380,7 +380,7 @@ namespace GUI
         private void updateExecutionInfo(MazeState mazeState, string execTime)
         {
             ArrayList route;
-  
+
             route = mazeState.GetCurrentRoute();
 
             string routeString = "";
@@ -426,7 +426,7 @@ namespace GUI
 
                     await Task.Delay(time);
                 }
-                
+
             }
             else
             {

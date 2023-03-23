@@ -675,7 +675,6 @@ namespace GUI
             Margin = new Padding(4, 5, 4, 5);
             MaximizeBox = false;
             MaximumSize = new Size(1200, 650);
-            MinimizeBox = false;
             MinimumSize = new Size(1200, 650);
             Name = "Treasure_Hunt_Solver";
             RightToLeft = RightToLeft.No;
