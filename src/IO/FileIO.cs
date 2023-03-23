@@ -25,8 +25,8 @@ class FileIO
 
 #if DEBUG
         prefix = "../../";
-#else
-        prefix = "";
+#elif RELEASE
+        prefix = "../../";
 #endif
 
         return Path.GetFullPath(prefix + path + FixFileExtension(fileName));
@@ -53,7 +53,7 @@ class FileIO
 
         var map = lines.Select(line => line.ToUpper().Split(' ')).ToArray();
 
-        if (map.Length == 0) throw new Exception("Map kosong!");
+        if (map.Length == 0) throw new Exception("Map is empty!");
 
         int columns = map[0].Length;
         int startCount = 0;

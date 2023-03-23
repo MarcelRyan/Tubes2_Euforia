@@ -110,9 +110,8 @@ class BFSState: MazeState{
         TPosition = new ArrayList();
 
         _queue.Enqueue(new Tuple<Tuple<int, int>, Tuple<int, int>>(initialPosition, position));
-        _shortestPathQueue.Enqueue(new Tuple<Tuple<int, int>, Tuple<int, int>, StateInfo>(
+        _shortestPathQueue.Enqueue(new Tuple<Tuple<int, int>, StateInfo>(
             initialPosition,
-            defaultCheckValue.Item2,
             new StateInfo(row, col)));
     }
 
@@ -148,14 +147,12 @@ class BFSState: MazeState{
         if (stop) return;
         
         var temp = (Tuple<Tuple<int, int>, 
-            Tuple<int, int>,
             StateInfo>) _shortestPathQueue.Dequeue();
 
-        while (_shortestPathQueue.Count >= 0 && !IsValid(temp.Item1, temp.Item3.memo))
+        while (!IsValid(temp.Item1, temp.Item2.memo))
         {
             if (_shortestPathQueue.Count > 0)
                 temp = (Tuple<Tuple<int, int>,
-                    Tuple<int, int>,
                     StateInfo>) _shortestPathQueue.Dequeue();
 
             // jika queue kosong
@@ -169,9 +166,9 @@ class BFSState: MazeState{
 
         Tuple<int, int> newPosition = temp.Item1;
 
-        temp.Item3.memo[newPosition.Item1, newPosition.Item2] = new Tuple<bool, Tuple<int, int>>(true, temp.Item3.prevPosition);
+        temp.Item2.memo[newPosition.Item1, newPosition.Item2] = new Tuple<bool, Tuple<int, int>>(true, temp.Item2.prevPosition);
 
-        temp.Item3.prevPosition = newPosition;
+        temp.Item2.prevPosition = newPosition;
         position = newPosition;
 
         // hitung jumlah grid yang dikunjungi
@@ -181,32 +178,30 @@ class BFSState: MazeState{
             totalMemo[newPosition.Item1, newPosition.Item2] = true;
         }
         
+        _checkMap = temp.Item2.memo;
 
-
-        _checkMap = temp.Item3.memo;
-
-        temp.Item3.stepCount++;
+        temp.Item2.stepCount++;
         // sequential mode akan memastikan setiap atribute diperbarui tiap langkah
         if (sequentialMode)
         {
             updateStepCount();
         }
 
-        foundTreasureCount = temp.Item3.foundTreasureCount;
+        foundTreasureCount = temp.Item2.foundTreasureCount;
         
         // jika menemukan treasure
         if (GetMapElmt(position) == "T")
         {
-            temp.Item3.foundTreasureCount++;
+            temp.Item2.foundTreasureCount++;
             foundTreasureCount++;
 
             // semua treasure ditemukan
-            if (temp.Item3.foundTreasureCount == treasureCount)
+            if (temp.Item2.foundTreasureCount == treasureCount)
             {
                 foundAll = true;
 
                 // tspMode tidak terminate karena harus kembali ke titik awal
-                if (tspMode) temp.Item3.memo[initialPosition.Item1, initialPosition.Item2] = defaultCheckValue;
+                if (tspMode) temp.Item2.memo[initialPosition.Item1, initialPosition.Item2] = defaultCheckValue;
 
                 // terminate jika bukan tspMode
                 else
@@ -229,10 +224,9 @@ class BFSState: MazeState{
         for (int i = 3; i >= 0; i--)
         {
             _shortestPathQueue.Enqueue(
-                new Tuple<Tuple<int, int>, Tuple<int, int>, StateInfo>(
+                new Tuple<Tuple<int, int>, StateInfo>(
                     new Tuple<int, int>(position.Item1 + directions[i].Item1, position.Item2 + directions[i].Item2),
-                    position,
-                    new StateInfo(temp.Item3)
+                    new StateInfo(temp.Item2)
                     ));
         }
     }
@@ -365,10 +359,6 @@ class BFSState: MazeState{
                     return;
                 }
             }
-
-            if(foundTreasureCount > treasureCount){
-                foundTreasureCount--;
-            }
         }
 
         else if (tspMode && GetMapElmt(position) == "K" && foundAll)
@@ -419,25 +409,6 @@ class BFSState: MazeState{
         path.Reverse();
 
         return path;
-    }
-
-    // HAPUS INI SETELAH HANDLE MULTIPLEVISITPATH(ASLINYA BFSPATH) TIDAK ADA YANG DUPLIKAT
-    public override ArrayList GetCurrentRoute()
-    {
-        ArrayList currentPath = GetCurrentPath();    
-        ArrayList result = new ArrayList();
-
-        for (int i = 0; i < currentPath.Count - 1; i++)
-        {
-
-            Tuple<int, int> current = (Tuple<int, int>)currentPath[i];
-            Tuple<int, int> next = (Tuple<int, int>)currentPath[i + 1];
-
-            if (next.Item1 - current.Item1 != 0 || next.Item2 - current.Item2 != 0)
-                result.Add(directionMap[(next.Item1 - current.Item1, next.Item2 - current.Item2)]);
-        }
-
-        return result;
     }
 
     public void GetCurrentPath2(Tuple<Tuple<int, int>, Tuple<int, int>> top)
