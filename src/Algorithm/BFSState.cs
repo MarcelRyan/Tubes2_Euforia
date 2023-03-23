@@ -347,10 +347,9 @@ class BFSState: MazeState{
                 foundAll = true;
 
                 // tspMode tidak terminate karena harus kembali ke titik awal
-                if (tspMode) {
-                    GetCurrentPath2(top);
+                if (tspMode) 
+                {
                     SetCheckMap(initialPosition, defaultCheckValue);
-                    _queue.Clear();
                 }
                 // terminate jika bukan tspMode
                 else
@@ -411,20 +410,4 @@ class BFSState: MazeState{
         return path;
     }
 
-    public void GetCurrentPath2(Tuple<Tuple<int, int>, Tuple<int, int>> top)
-    {
-        Tuple<int, int> tempPosition = top.Item1;
-        int nTimes = 0;
-
-        while (tempPosition.Item1 != -1 && tempPosition.Item2 != -1)
-        {
-            Tuple<int, int> temp = tempPosition;
-            tempPosition = GetCheckMap(tempPosition).Item2;
-            if (nTimes > 0)
-            {
-                SetCheckMap(temp, new Tuple<bool, Tuple<int, int>>(false, tempPosition));
-            }
-            nTimes++;
-        }
-    }
 }
