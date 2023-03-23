@@ -59,10 +59,11 @@ class FileIO
         int startCount = 0;
         foreach (var line in map)
         {
+            if (line[line.Length-1] == "" || line[line.Length - 1] == " ") throw new Exception("Space(s) at the end of lines is not allowed!");
             if (line.Length != columns) throw new Exception("Each line in configuration file should have the same characters count!");
             foreach (var c in line)
             {
-                if (c.Length > 1) new Exception("Each character should be separated with space!");
+                if (c.Length != 1) throw new Exception("Each character should be separated with 1 space!");
                 if (c == "K") startCount++;
 
                 if (!validChars.Contains(c)) throw new Exception("File contains invalid character(s)! Allowed characters are K, T, R, and X.");
