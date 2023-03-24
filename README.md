@@ -110,7 +110,7 @@ Program ini merupakan program yang menggunakan algoritma pencarian BFS dan DFS u
 
 ## Requirements
 * Microsoft Windows Operating System
-* .NET 7.0 installation [Install .NET 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
+* .NET 7.0 installation https://dotnet.microsoft.com/en-us/download/dotnet/7.0
 ## Cara Menjalankan Program
 1. Clone folder with `git clone https://github.com/MarcelRyan/Tubes2_Euforia`
 2. Go to the folder `cd Tubes2_Euforia`
