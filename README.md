@@ -152,5 +152,5 @@ Apabila sistem sudah menemukan solusi, sistem akan menampilkan informasi eksekus
 * Nama: Johanes Lee
 * NIM: 13521148
 * Prodi/Jurusan: STEI/Teknik Informatika
-* Profile Github : Envilen26
+* Profile Github : Enliven26
 * Kelas : K02
