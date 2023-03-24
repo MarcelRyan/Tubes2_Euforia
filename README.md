@@ -8,7 +8,10 @@ Tugas Besar 2 IF2211 Strategi Algoritma Pengaplikasian Algoritma BFS dan DFS dal
 * [Dibuat Oleh](#dibuat-oleh)
 
 ## Deskripsi Singkat Program
-Program ini merupakan program yang menggunakan algoritma pencarian BFS dan DFS untuk mendapatkan rute dalam memperoleh seluruh treasure atau harta karun yang ada pada suatu maze.
+Program ini merupakan program yang menggunakan algoritma pencarian BFS dan DFS untuk mendapatkan rute dalam memperoleh seluruh treasure atau harta karun yang ada pada suatu maze. Untuk visualisasi proses pencarian seluruh treasure program telah dibuat GUI sederhana menggunakan bantuan WinForms dari Visual Studio.
+
+## Struktur Program
+
 
 ## Requirements
 
