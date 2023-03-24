@@ -137,7 +137,7 @@ Tombol show progress digunakan untuk menunjukkan proses pencarian berdasarkan al
 Apabila sistem sudah menemukan solusi, sistem akan menampilkan informasi eksekusi dan pencarian pada kanan dan bawah tampilan. Pada kanan tampilan ditunjukkan waktu eksekusi pencarian (termasuk waktu yang dibutuhkan untuk menampilkan progress jika dipilih), jumlah node/grid yang diperiksa selama pencarian (grid yang ditelusuri lebih dari sekali akan tetap dihitung sebagai 1 node/grid), serta jumlah langkah yang diperlukan dalam solusi akhir. Bagian bawah layar menampilkan rute solusi akhir berupa arah perjalanan rute tersebut menggunakan simbol U, R, D, dan L untuk up, right, down, left.
 
 ## Dibuat Oleh
-* Nama : Marcel Ryan Anthony
+* Nama : Marcel Ryan Antony
 * NIM : 13521127
 * Prodi/Jurusan : STEI/Teknik Informatika
 * Profile Github : MarcelRyan
@@ -149,7 +149,7 @@ Apabila sistem sudah menemukan solusi, sistem akan menampilkan informasi eksekus
 * Profile Github : Raylouiss
 * Kelas : K01
 ##
-* Nama: Johannes Lee
+* Nama: Johanes Lee
 * NIM: 13521148
 * Prodi/Jurusan: STEI/Teknik Informatika
 * Profile Github : Envilen26
